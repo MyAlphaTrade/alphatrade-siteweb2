@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JQR0P1GWEX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-JQR0P1GWEX');
+</script>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="apple-touch-icon" href="assets/logo.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon Espace — AlphaTrade</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="nav" id="mainNav">
+  <a href="index.html" class="nav-logo">
+    <img src="assets/logo.png" alt="AlphaTrade" onerror="this.style.display='none'">
+    AlphaTrade
+  </a>
+  <div class="nav-links"></div>
+  <div class="nav-cta"></div>
+</nav>
+
+<div class="dashboard-page">
+  <div class="dashboard-hero">
+    <h1 id="welcomeName">Mon espace client</h1>
+    <p id="welcomeSub" style="color:var(--muted);margin-top:6px;font-size:15px">Gérez votre abonnement et téléchargez AlphaTrade.</p>
+  </div>
+
+  <div class="dashboard-body">
+    <!-- GAUCHE -->
+    <div>
+      <!-- Bannière statut -->
+      <div id="planBanner" style="display:none;padding:18px 22px;border-radius:12px;margin-bottom:20px"></div>
+
+      <!-- Abonnement -->
+      <div class="dash-card">
+        <h3>Mon abonnement</h3>
+        <div class="dash-stat"><span class="dash-stat-label">Forfait</span><span class="dash-stat-value" id="statPlan">—</span></div>
+        <div class="dash-stat"><span class="dash-stat-label">Statut</span><span class="dash-stat-value" id="statStatus">—</span></div>
+        <div class="dash-stat"><span class="dash-stat-label">Expiration</span><span class="dash-stat-value" id="statExpires">—</span></div>
+        <div class="dash-stat"><span class="dash-stat-label">Lot maximum autorisé</span><span class="dash-stat-value" id="statLot">—</span></div>
+        <div class="dash-stat"><span class="dash-stat-label">Stratégie Rebond</span><span class="dash-stat-value" id="statRebond">—</span></div>
+        <div class="dash-stat"><span class="dash-stat-label">Positions simultanées max</span><span class="dash-stat-value" id="statPos">—</span></div>
+        <div style="margin-top:22px">
+          <a href="tarifs.html" class="btn btn-primary btn-full" id="btnUpgrade">Choisir / Renouveler un forfait →</a>
+        </div>
+      </div>
+
+      <!-- Téléchargement -->
+      <div id="downloadSection" style="display:none;margin-top:0">
+        <div class="download-card">
+          <div style="font-size:52px;margin-bottom:16px">
+            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </div>
+          <h2>Télécharger AlphaTrade</h2>
+          <p>Votre forfait est actif. Téléchargez et installez l'application Windows pour commencer à trader automatiquement.</p>
+          <a href="telechargement.html" class="btn btn-primary btn-lg">Télécharger AlphaTrade v0.2.0</a>
+          <div class="system-req">Windows 10 / 11 · 64-bit · MetaTrader 5 requis</div>
+        </div>
+      </div>
+
+      <div id="downloadLocked" style="display:none;margin-top:0">
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:36px;text-align:center">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:16px"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <h3 style="margin-bottom:8px">Téléchargement verrouillé</h3>
+          <p style="color:var(--muted);font-size:14px;margin-bottom:22px">Activez un forfait pour débloquer le téléchargement d'AlphaTrade.</p>
+          <button class="btn btn-primary" onclick="goToPayment()">Activer le forfait →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- DROITE -->
+    <div>
+      <!-- Profil -->
+      <div class="dash-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+          <h3 style="margin:0">Mon profil</h3>
+          <button id="btnEditProfile" onclick="toggleEdit()" style="font-size:12px;font-weight:600;background:rgba(0,200,150,.12);border:1px solid rgba(0,200,150,.3);color:var(--green);border-radius:8px;padding:5px 12px;cursor:pointer">Modifier</button>
+        </div>
+
+        <!-- Mode lecture -->
+        <div id="profileView">
+          <div class="dash-stat"><span class="dash-stat-label">Nom complet</span><span class="dash-stat-value" id="infoName">—</span></div>
+          <div class="dash-stat"><span class="dash-stat-label">Email</span><span class="dash-stat-value" id="infoEmail" style="font-size:13px">—</span></div>
+          <div class="dash-stat"><span class="dash-stat-label">Téléphone</span><span class="dash-stat-value" id="infoPhone">—</span></div>
+          <div class="dash-stat"><span class="dash-stat-label">Pays</span><span class="dash-stat-value" id="infoCountry">—</span></div>
+          <div class="dash-stat"><span class="dash-stat-label">Mot de passe</span><span class="dash-stat-value" style="color:var(--muted)">••••••••</span></div>
+        </div>
+
+        <!-- Mode édition -->
+        <div id="profileEdit" style="display:none">
+          <div id="profileNotif" style="display:none;padding:10px 14px;border-radius:8px;font-size:13px;color:#fff;margin-bottom:14px"></div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div>
+              <label style="font-size:11px;font-weight:600;color:var(--muted);display:block;margin-bottom:4px">NOM COMPLET</label>
+              <input id="editName" class="form-input" type="text" placeholder="Votre nom complet" style="width:100%;box-sizing:border-box">
+            </div>
+            <div>
+              <label style="font-size:11px;font-weight:600;color:var(--muted);display:block;margin-bottom:4px">EMAIL</label>
+              <input id="editEmail" class="form-input" type="email" placeholder="votre@email.com" style="width:100%;box-sizing:border-box">
+            </div>
+            <div>
+              <label style="font-size:11px;font-weight:600;color:var(--muted);display:block;margin-bottom:4px">TÉLÉPHONE</label>
+              <input id="editPhone" class="form-input" type="tel" placeholder="+1 514 123 4567" style="width:100%;box-sizing:border-box">
+            </div>
+            <div>
+              <label style="font-size:11px;font-weight:600;color:var(--muted);display:block;margin-bottom:4px">PAYS</label>
+              <input id="editCountry" class="form-input" type="text" placeholder="Canada" style="width:100%;box-sizing:border-box">
+            </div>
+            <div style="border-top:1px solid var(--border);padding-top:14px;margin-top:2px">
+              <label style="font-size:11px;font-weight:600;color:var(--muted);display:block;margin-bottom:10px">CHANGER LE MOT DE PASSE</label>
+              <input id="editPwdNew" class="form-input" type="password" placeholder="Nouveau mot de passe" style="width:100%;box-sizing:border-box;margin-bottom:8px">
+              <input id="editPwdConfirm" class="form-input" type="password" placeholder="Confirmer le mot de passe" style="width:100%;box-sizing:border-box">
+            </div>
+            <div style="display:flex;gap:10px;margin-top:4px">
+              <button onclick="saveProfile()" style="flex:1;padding:10px;background:var(--green);color:#07100b;font-weight:700;border:none;border-radius:8px;cursor:pointer;font-size:13px">Enregistrer</button>
+              <button onclick="toggleEdit()" style="padding:10px 16px;background:var(--bg);border:1px solid var(--border);color:var(--muted);border-radius:8px;cursor:pointer;font-size:13px">Annuler</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Guide -->
+      <div class="dash-card">
+        <h3>Guide de démarrage</h3>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;gap:12px;align-items:flex-start;padding:12px;background:var(--bg);border-radius:8px">
+            <div style="width:26px;height:26px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#07100b;flex-shrink:0">1</div>
+            <div><div style="font-size:13px;font-weight:600;margin-bottom:2px">Activer un forfait</div><div style="font-size:12px;color:var(--muted)">Choisissez votre plan dans la section Tarifs</div></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;padding:12px;background:var(--bg);border-radius:8px">
+            <div style="width:26px;height:26px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#07100b;flex-shrink:0">2</div>
+            <div><div style="font-size:13px;font-weight:600;margin-bottom:2px">Télécharger AlphaTrade</div><div style="font-size:12px;color:var(--muted)">Installez l'application Windows (.exe)</div></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;padding:12px;background:var(--bg);border-radius:8px">
+            <div style="width:26px;height:26px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#07100b;flex-shrink:0">3</div>
+            <div><div style="font-size:13px;font-weight:600;margin-bottom:2px">Connecter MetaTrader 5</div><div style="font-size:12px;color:var(--muted)">Entrez vos identifiants broker dans l'app</div></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;padding:12px;background:var(--bg);border-radius:8px">
+            <div style="width:26px;height:26px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#07100b;flex-shrink:0">✓</div>
+            <div><div style="font-size:13px;font-weight:600;margin-bottom:2px">Lancer le monitoring</div><div style="font-size:12px;color:var(--muted)">Cliquez "Démarrer" — le bot trade pour vous !</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="notif"></div>
+<script src="js/api.js"></script>
+<script src="js/nav.js"></script>
+<script>
+if (!requireAuth('connexion.html')) { /* stop */ }
+
+function goToPayment() {
+  const pending = localStorage.getItem('at_pending_plan');
+  const billing = localStorage.getItem('at_pending_billing') || 'monthly';
+  if (pending) {
+    window.location.href = 'paiement.html?plan=' + pending + '&billing=' + billing;
+  } else {
+    window.location.href = 'tarifs.html';
+  }
+}
+
+window.addEventListener('DOMContentLoaded', async () => {
+  const user = getUser();
+  if (!user) return;
+  document.getElementById('welcomeName').textContent = 'Bonjour, ' + (user.full_name || user.email) + ' 👋';
+  fillProfile(user);
+
+  // Vérifier si on revient d'un paiement Stripe
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('payment') === 'success' && params.get('session_id')) {
+    try {
+      const result = await apiGet('/stripe/verify-session?session_id=' + params.get('session_id'), getToken());
+      if (result.plan) {
+        localStorage.setItem('at_plan', JSON.stringify(result.plan));
+        localStorage.removeItem('at_pending_plan');
+        localStorage.removeItem('at_pending_billing');
+        notify('🎉 Paiement confirmé ! Votre forfait ' + result.plan.name + ' est maintenant actif.', 'green');
+        renderPlan(result.plan);
+        history.replaceState({}, '', 'espace-client.html');
+        return;
+      }
+    } catch(e) {
+      notify('Vérification du paiement en cours... Actualisez dans quelques instants.', 'yellow');
+    }
+  }
+
+  try {
+    const fresh = await apiGet('/auth/verify', getToken());
+    localStorage.setItem('at_plan', JSON.stringify(fresh.plan));
+    renderPlan(fresh.plan);
+  } catch { renderNoPlan(); }
+});
+
+const PLAN_LABELS = { starter: 'Starter', pro: 'Pro', elite: 'Elite' };
+
+function renderPlan(p) {
+  const key = p.plan_key || 'starter';
+  document.getElementById('statPlan').textContent = PLAN_LABELS[key] || key;
+  document.getElementById('statLot').textContent  = p.lot_max ? p.lot_max.toFixed(2) : '—';
+  document.getElementById('statRebond').innerHTML = p.rebond_enabled
+    ? '<span class="badge badge-green">Activée</span>'
+    : '<span class="badge badge-red">Non disponible</span>';
+  document.getElementById('statPos').textContent = p.max_positions || '—';
+
+  if (p.active && p.expires_at) {
+    const exp = new Date(p.expires_at);
+    document.getElementById('statStatus').innerHTML  = '<span class="badge badge-green">Actif</span>';
+    document.getElementById('statExpires').textContent = exp.toLocaleDateString('fr-FR');
+    document.getElementById('downloadSection').style.display = 'block';
+    document.getElementById('downloadLocked').style.display  = 'none';
+    const b = document.getElementById('planBanner');
+    b.style.display = 'block';
+    b.style.background = 'rgba(0,200,150,0.06)';
+    b.style.border = '1px solid rgba(0,200,150,0.2)';
+    b.innerHTML = '<div style="font-weight:700;color:var(--green);font-size:15px">✓ Forfait ' + (PLAN_LABELS[key]||key) + ' actif</div><div style="color:var(--muted);font-size:13px;margin-top:4px">Valable jusqu\'au ' + exp.toLocaleDateString('fr-FR') + '</div>';
+  } else {
+    document.getElementById('statStatus').innerHTML  = '<span class="badge badge-gold">Expiré</span>';
+    document.getElementById('statExpires').textContent = p.expires_at ? new Date(p.expires_at).toLocaleDateString('fr-FR') : '—';
+    document.getElementById('downloadSection').style.display = 'none';
+    document.getElementById('downloadLocked').style.display  = 'block';
+    const b = document.getElementById('planBanner');
+    b.style.display = 'block';
+    b.style.background = 'rgba(212,175,55,0.06)';
+    b.style.border = '1px solid rgba(212,175,55,0.2)';
+    b.innerHTML = '<div style="font-weight:700;color:var(--gold)">⚠ Forfait expiré ou inactif</div><div style="color:var(--muted);font-size:13px;margin-top:4px">Renouvelez pour accéder au téléchargement.</div>';
+  }
+}
+
+function fillProfile(user) {
+  document.getElementById('infoName').textContent    = user.full_name  || '—';
+  document.getElementById('infoEmail').textContent   = user.email      || '—';
+  document.getElementById('infoPhone').textContent   = user.phone      || '—';
+  document.getElementById('infoCountry').textContent = user.country    || '—';
+  document.getElementById('editName').value    = user.full_name  || '';
+  document.getElementById('editEmail').value   = user.email      || '';
+  document.getElementById('editPhone').value   = user.phone      || '';
+  document.getElementById('editCountry').value = user.country    || '';
+}
+
+function toggleEdit() {
+  const view = document.getElementById('profileView');
+  const edit = document.getElementById('profileEdit');
+  const btn  = document.getElementById('btnEditProfile');
+  const editing = edit.style.display === 'none';
+  view.style.display = editing ? 'none' : 'block';
+  edit.style.display = editing ? 'block' : 'none';
+  btn.textContent = editing ? 'Annuler' : 'Modifier';
+  document.getElementById('profileNotif').style.display = 'none';
+  document.getElementById('editPwdNew').value = '';
+  document.getElementById('editPwdConfirm').value = '';
+}
+
+async function saveProfile() {
+  const notif = document.getElementById('profileNotif');
+  const newPwd     = document.getElementById('editPwdNew').value;
+  const confirmPwd = document.getElementById('editPwdConfirm').value;
+  if (newPwd && newPwd !== confirmPwd) {
+    notif.textContent = 'Les mots de passe ne correspondent pas.';
+    notif.style.background = '#dc2626';
+    notif.style.display = 'block';
+    return;
+  }
+  const body = {
+    full_name : document.getElementById('editName').value.trim(),
+    email     : document.getElementById('editEmail').value.trim(),
+    phone     : document.getElementById('editPhone').value.trim(),
+    country   : document.getElementById('editCountry').value.trim(),
+  };
+  if (newPwd) body.new_password = newPwd;
+  try {
+    const r = await fetch('https://web-production-9312ae.up.railway.app/client/update-profile', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + getToken() },
+      body: JSON.stringify(body),
+    });
+    const data = await r.json();
+    if (r.ok) {
+      const user = getUser() || {};
+      Object.assign(user, { full_name: body.full_name, email: body.email, phone: body.phone, country: body.country });
+      localStorage.setItem('at_user', JSON.stringify(user));
+      fillProfile(user);
+      notif.textContent = 'Profil mis à jour avec succès.';
+      notif.style.background = '#16a34a';
+      notif.style.display = 'block';
+      setTimeout(() => { toggleEdit(); }, 1500);
+    } else {
+      notif.textContent = data.detail || 'Erreur lors de la mise à jour.';
+      notif.style.background = '#dc2626';
+      notif.style.display = 'block';
+    }
+  } catch(e) {
+    notif.textContent = 'Impossible de contacter le serveur.';
+    notif.style.background = '#dc2626';
+    notif.style.display = 'block';
+  }
+}
+
+function renderNoPlan() {
+  document.getElementById('statPlan').textContent = 'Aucun';
+  document.getElementById('statStatus').innerHTML = '<span class="badge badge-red">Inactif</span>';
+  document.getElementById('downloadSection').style.display = 'none';
+  document.getElementById('downloadLocked').style.display  = 'block';
+}
+</script>
+</body>
+</html>
+

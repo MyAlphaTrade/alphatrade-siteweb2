@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JQR0P1GWEX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-JQR0P1GWEX');
+</script>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="apple-touch-icon" href="assets/logo.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inscription — AlphaTrade</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="nav" id="mainNav">
+  <a href="index.html" class="nav-logo">
+    <img src="assets/logo.png" alt="AlphaTrade" onerror="this.style.display='none'">
+    AlphaTrade
+  </a>
+  <div class="nav-links"></div>
+  <div class="nav-cta"></div>
+</nav>
+
+<div class="auth-page">
+  <!-- ÉTAPE 1 -->
+  <div class="auth-box" id="step1">
+    <div class="auth-logo">
+      <img src="assets/logo.png" alt="" onerror="this.style.display='none'">
+      <span>AlphaTrade</span>
+    </div>
+    <h1>Créer mon compte</h1>
+    <p class="sub">Étape 1 sur 3 — Vos informations personnelles</p>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Prénom *</label>
+        <input class="form-input" type="text" id="firstName" placeholder="Jean">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Nom *</label>
+        <input class="form-input" type="text" id="lastName" placeholder="Dupont">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Adresse email *</label>
+      <input class="form-input" type="email" id="email" placeholder="jean@email.com">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Numéro de téléphone *</label>
+      <div class="form-phone-row">
+        <select class="form-input" id="phoneCountry" onchange="updatePhoneRules()">
+          <optgroup label="── Afrique Centrale ──">
+            <option value="+257|8">🇧🇮 (+257) Burundi</option>
+            <option value="+237|9" selected>🇨🇲 (+237) Cameroun</option>
+            <option value="+236|8">🇨🇫 (+236) Centrafrique</option>
+            <option value="+242|9">🇨🇬 (+242) Congo</option>
+            <option value="+241|8">🇬🇦 (+241) Gabon</option>
+            <option value="+240|9">🇬🇶 (+240) Guinée Équatoriale</option>
+            <option value="+243|9">🇨🇩 (+243) RD Congo</option>
+            <option value="+250|9">🇷🇼 (+250) Rwanda</option>
+            <option value="+235|8">🇹🇩 (+235) Tchad</option>
+          </optgroup>
+          <optgroup label="── Afrique de l'Ouest ──">
+            <option value="+229|8">🇧🇯 (+229) Bénin</option>
+            <option value="+226|8">🇧🇫 (+226) Burkina Faso</option>
+            <option value="+225|10">🇨🇮 (+225) Côte d'Ivoire</option>
+            <option value="+233|9">🇬🇭 (+233) Ghana</option>
+            <option value="+224|9">🇬🇳 (+224) Guinée</option>
+            <option value="+245|9">🇬🇼 (+245) Guinée-Bissau</option>
+            <option value="+231|8">🇱🇷 (+231) Libéria</option>
+            <option value="+223|8">🇲🇱 (+223) Mali</option>
+            <option value="+222|8">🇲🇷 (+222) Mauritanie</option>
+            <option value="+227|8">🇳🇪 (+227) Niger</option>
+            <option value="+234|10">🇳🇬 (+234) Nigeria</option>
+            <option value="+221|9">🇸🇳 (+221) Sénégal</option>
+            <option value="+232|8">🇸🇱 (+232) Sierra Leone</option>
+            <option value="+228|8">🇹🇬 (+228) Togo</option>
+          </optgroup>
+          <optgroup label="── Afrique du Nord ──">
+            <option value="+213|9">🇩🇿 (+213) Algérie</option>
+            <option value="+20|10">🇪🇬 (+20) Égypte</option>
+            <option value="+218|9">🇱🇾 (+218) Libye</option>
+            <option value="+212|9">🇲🇦 (+212) Maroc</option>
+            <option value="+249|9">🇸🇩 (+249) Soudan</option>
+            <option value="+216|8">🇹🇳 (+216) Tunisie</option>
+          </optgroup>
+          <optgroup label="── Afrique Est & Sud ──">
+            <option value="+27|9">🇿🇦 (+27) Afrique du Sud</option>
+            <option value="+251|9">🇪🇹 (+251) Éthiopie</option>
+            <option value="+254|9">🇰🇪 (+254) Kenya</option>
+            <option value="+261|9">🇲🇬 (+261) Madagascar</option>
+            <option value="+265|9">🇲🇼 (+265) Malawi</option>
+            <option value="+258|9">🇲🇿 (+258) Mozambique</option>
+            <option value="+264|9">🇳🇦 (+264) Namibie</option>
+            <option value="+256|9">🇺🇬 (+256) Ouganda</option>
+            <option value="+255|9">🇹🇿 (+255) Tanzanie</option>
+            <option value="+260|9">🇿🇲 (+260) Zambie</option>
+            <option value="+263|9">🇿🇼 (+263) Zimbabwe</option>
+          </optgroup>
+          <optgroup label="── Amérique du Nord ──">
+            <option value="+1|10">🇨🇦 (+1) Canada</option>
+            <option value="+1|10">🇺🇸 (+1) États-Unis</option>
+            <option value="+52|10">🇲🇽 (+52) Mexique</option>
+          </optgroup>
+          <optgroup label="── Europe ──">
+            <option value="+49|10">🇩🇪 (+49) Allemagne</option>
+            <option value="+43|10">🇦🇹 (+43) Autriche</option>
+            <option value="+32|9">🇧🇪 (+32) Belgique</option>
+            <option value="+34|9">🇪🇸 (+34) Espagne</option>
+            <option value="+33|9">🇫🇷 (+33) France</option>
+            <option value="+30|10">🇬🇷 (+30) Grèce</option>
+            <option value="+39|10">🇮🇹 (+39) Italie</option>
+            <option value="+31|9">🇳🇱 (+31) Pays-Bas</option>
+            <option value="+48|9">🇵🇱 (+48) Pologne</option>
+            <option value="+351|9">🇵🇹 (+351) Portugal</option>
+            <option value="+44|10">🇬🇧 (+44) Royaume-Uni</option>
+            <option value="+7|10">🇷🇺 (+7) Russie</option>
+            <option value="+46|9">🇸🇪 (+46) Suède</option>
+            <option value="+41|9">🇨🇭 (+41) Suisse</option>
+            <option value="+90|10">🇹🇷 (+90) Turquie</option>
+            <option value="+380|9">🇺🇦 (+380) Ukraine</option>
+          </optgroup>
+          <optgroup label="── Asie & Océanie ──">
+            <option value="+61|9">🇦🇺 (+61) Australie</option>
+            <option value="+86|11">🇨🇳 (+86) Chine</option>
+            <option value="+82|10">🇰🇷 (+82) Corée du Sud</option>
+            <option value="+91|10">🇮🇳 (+91) Inde</option>
+            <option value="+62|11">🇮🇩 (+62) Indonésie</option>
+            <option value="+81|10">🇯🇵 (+81) Japon</option>
+            <option value="+60|10">🇲🇾 (+60) Malaisie</option>
+            <option value="+64|9">🇳🇿 (+64) Nouvelle-Zélande</option>
+            <option value="+65|8">🇸🇬 (+65) Singapour</option>
+            <option value="+66|9">🇹🇭 (+66) Thaïlande</option>
+            <option value="+84|9">🇻🇳 (+84) Vietnam</option>
+          </optgroup>
+          <optgroup label="── Moyen-Orient ──">
+            <option value="+966|9">🇸🇦 (+966) Arabie Saoudite</option>
+            <option value="+971|9">🇦🇪 (+971) Émirats Arabes Unis</option>
+            <option value="+962|9">🇯🇴 (+962) Jordanie</option>
+            <option value="+965|8">🇰🇼 (+965) Koweït</option>
+            <option value="+961|8">🇱🇧 (+961) Liban</option>
+            <option value="+974|8">🇶🇦 (+974) Qatar</option>
+          </optgroup>
+        </select>
+        <div>
+          <input class="form-input" type="tel" id="phoneNumber" placeholder="612 345 678" inputmode="numeric">
+          <div id="phoneHint" style="font-size:11px;color:var(--muted);margin-top:4px"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Pays de résidence *</label>
+      <select class="form-input" id="country">
+        <option value="">— Sélectionner votre pays —</option>
+        <optgroup label="── Afrique Centrale ──">
+          <option value="BI">🇧🇮 Burundi</option>
+          <option value="CM">🇨🇲 Cameroun</option>
+          <option value="CF">🇨🇫 Centrafrique</option>
+          <option value="CG">🇨🇬 Congo</option>
+          <option value="GA">🇬🇦 Gabon</option>
+          <option value="GQ">🇬🇶 Guinée Équatoriale</option>
+          <option value="CD">🇨🇩 RD Congo</option>
+          <option value="RW">🇷🇼 Rwanda</option>
+          <option value="TD">🇹🇩 Tchad</option>
+        </optgroup>
+        <optgroup label="── Afrique de l'Ouest ──">
+          <option value="BJ">🇧🇯 Bénin</option>
+          <option value="BF">🇧🇫 Burkina Faso</option>
+          <option value="CI">🇨🇮 Côte d'Ivoire</option>
+          <option value="GH">🇬🇭 Ghana</option>
+          <option value="GN">🇬🇳 Guinée</option>
+          <option value="GW">🇬🇼 Guinée-Bissau</option>
+          <option value="LR">🇱🇷 Libéria</option>
+          <option value="ML">🇲🇱 Mali</option>
+          <option value="MR">🇲🇷 Mauritanie</option>
+          <option value="NE">🇳🇪 Niger</option>
+          <option value="NG">🇳🇬 Nigeria</option>
+          <option value="SN">🇸🇳 Sénégal</option>
+          <option value="SL">🇸🇱 Sierra Leone</option>
+          <option value="TG">🇹🇬 Togo</option>
+        </optgroup>
+        <optgroup label="── Afrique du Nord ──">
+          <option value="DZ">🇩🇿 Algérie</option>
+          <option value="EG">🇪🇬 Égypte</option>
+          <option value="LY">🇱🇾 Libye</option>
+          <option value="MA">🇲🇦 Maroc</option>
+          <option value="SD">🇸🇩 Soudan</option>
+          <option value="TN">🇹🇳 Tunisie</option>
+        </optgroup>
+        <optgroup label="── Afrique Est & Sud ──">
+          <option value="ZA">🇿🇦 Afrique du Sud</option>
+          <option value="ET">🇪🇹 Éthiopie</option>
+          <option value="KE">🇰🇪 Kenya</option>
+          <option value="MG">🇲🇬 Madagascar</option>
+          <option value="MW">🇲🇼 Malawi</option>
+          <option value="MZ">🇲🇿 Mozambique</option>
+          <option value="NA">🇳🇦 Namibie</option>
+          <option value="UG">🇺🇬 Ouganda</option>
+          <option value="TZ">🇹🇿 Tanzanie</option>
+          <option value="ZM">🇿🇲 Zambie</option>
+          <option value="ZW">🇿🇼 Zimbabwe</option>
+        </optgroup>
+        <optgroup label="── Amérique du Nord ──">
+          <option value="CA">🇨🇦 Canada</option>
+          <option value="US">🇺🇸 États-Unis</option>
+          <option value="MX">🇲🇽 Mexique</option>
+        </optgroup>
+        <optgroup label="── Europe ──">
+          <option value="DE">🇩🇪 Allemagne</option>
+          <option value="AT">🇦🇹 Autriche</option>
+          <option value="BE">🇧🇪 Belgique</option>
+          <option value="ES">🇪🇸 Espagne</option>
+          <option value="FR">🇫🇷 France</option>
+          <option value="GR">🇬🇷 Grèce</option>
+          <option value="IT">🇮🇹 Italie</option>
+          <option value="NL">🇳🇱 Pays-Bas</option>
+          <option value="PL">🇵🇱 Pologne</option>
+          <option value="PT">🇵🇹 Portugal</option>
+          <option value="GB">🇬🇧 Royaume-Uni</option>
+          <option value="RU">🇷🇺 Russie</option>
+          <option value="SE">🇸🇪 Suède</option>
+          <option value="CH">🇨🇭 Suisse</option>
+          <option value="TR">🇹🇷 Turquie</option>
+          <option value="UA">🇺🇦 Ukraine</option>
+        </optgroup>
+        <optgroup label="── Asie & Océanie ──">
+          <option value="AU">🇦🇺 Australie</option>
+          <option value="CN">🇨🇳 Chine</option>
+          <option value="KR">🇰🇷 Corée du Sud</option>
+          <option value="IN">🇮🇳 Inde</option>
+          <option value="ID">🇮🇩 Indonésie</option>
+          <option value="JP">🇯🇵 Japon</option>
+          <option value="MY">🇲🇾 Malaisie</option>
+          <option value="NZ">🇳🇿 Nouvelle-Zélande</option>
+          <option value="SG">🇸🇬 Singapour</option>
+          <option value="TH">🇹🇭 Thaïlande</option>
+          <option value="VN">🇻🇳 Vietnam</option>
+        </optgroup>
+        <optgroup label="── Moyen-Orient ──">
+          <option value="SA">🇸🇦 Arabie Saoudite</option>
+          <option value="AE">🇦🇪 Émirats Arabes Unis</option>
+          <option value="JO">🇯🇴 Jordanie</option>
+          <option value="KW">🇰🇼 Koweït</option>
+          <option value="LB">🇱🇧 Liban</option>
+          <option value="QA">🇶🇦 Qatar</option>
+        </optgroup>
+        <option value="OTHER">🌍 Autre pays</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Mot de passe *</label>
+      <input class="form-input" type="password" id="password" placeholder="Minimum 8 caractères">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Confirmer le mot de passe *</label>
+      <input class="form-input" type="password" id="password2" placeholder="Retaper le mot de passe">
+    </div>
+
+    <div class="form-error" id="err1"></div>
+    <button class="btn btn-primary btn-full" style="margin-top:10px" onclick="goStep2()">Continuer →</button>
+    <p class="form-link">Déjà inscrit ? <a href="connexion.html">Se connecter</a></p>
+  </div>
+
+  <!-- ÉTAPE 2 : Vérification -->
+  <div class="auth-box verify-box" id="step2" style="display:none">
+    <div class="auth-logo">
+      <img src="assets/logo.png" alt="" onerror="this.style.display='none'">
+      <span>AlphaTrade</span>
+    </div>
+    <h1>Vérification</h1>
+    <p class="sub">Étape 2 sur 3 — Confirmez votre identité</p>
+    <div style="background:rgba(0,200,150,0.06);border:1px solid rgba(0,200,150,0.2);border-radius:10px;padding:16px;margin-bottom:24px;font-size:14px;color:var(--muted)">
+      Code de vérification envoyé à :<br>
+      <strong id="verifyTarget" style="color:var(--text)"></strong>
+    </div>
+    <label class="form-label" style="text-align:center;display:block;margin-bottom:14px">Entrez le code à 6 chiffres</label>
+    <div class="code-inputs">
+      <input class="code-input" maxlength="1" id="c0" oninput="nextCode(0)" onkeydown="prevCode(event,0)">
+      <input class="code-input" maxlength="1" id="c1" oninput="nextCode(1)" onkeydown="prevCode(event,1)">
+      <input class="code-input" maxlength="1" id="c2" oninput="nextCode(2)" onkeydown="prevCode(event,2)">
+      <input class="code-input" maxlength="1" id="c3" oninput="nextCode(3)" onkeydown="prevCode(event,3)">
+      <input class="code-input" maxlength="1" id="c4" oninput="nextCode(4)" onkeydown="prevCode(event,4)">
+      <input class="code-input" maxlength="1" id="c5" oninput="nextCode(5)" onkeydown="prevCode(event,5)">
+    </div>
+    <div class="form-error" id="err2"></div>
+    <button class="btn btn-primary btn-full" style="margin-top:8px" onclick="verifyCode()">Vérifier mon compte</button>
+    <p style="font-size:13px;color:var(--muted);text-align:center;margin-top:14px">
+      Code non reçu ? <a href="#" style="color:var(--green);font-weight:600" onclick="resendCode();return false">Renvoyer</a>
+    </p>
+  </div>
+
+  <!-- ÉTAPE 3 : Forfait -->
+  <div class="auth-box" id="step3" style="display:none">
+    <div class="auth-logo">
+      <img src="assets/logo.png" alt="" onerror="this.style.display='none'">
+      <span>AlphaTrade</span>
+    </div>
+    <h1>Choisir un forfait</h1>
+    <p class="sub">Étape 3 sur 3 — Compte créé ! Choisissez votre abonnement.</p>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px">
+      <label onclick="selectPlan('starter',this)" style="display:flex;align-items:center;gap:12px;padding:14px;border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:all .2s">
+        <div style="flex:1"><div style="font-weight:700">Starter</div><div style="font-size:12px;color:var(--muted)">Uniquement Or · Lot 0.01 fixe · Session Londres</div></div>
+        <div style="text-align:right"><div style="font-size:18px;font-weight:800;color:var(--green)">29.99$</div><div style="font-size:11px;color:var(--muted)">/mois</div></div>
+      </label>
+      <label onclick="selectPlan('pro',this)" style="display:flex;align-items:center;gap:12px;padding:14px;border:2px solid var(--green);border-radius:10px;cursor:pointer;background:rgba(0,200,150,0.04);transition:all .2s">
+        <div style="flex:1"><div style="font-weight:700">Pro <span style="font-size:11px;background:rgba(0,200,150,0.15);color:var(--green);padding:2px 8px;border-radius:10px">POPULAIRE</span></div><div style="font-size:12px;color:var(--muted)">Or · Lot 0.01-0.03 · Londres + New York</div></div>
+        <div style="text-align:right"><div style="font-size:18px;font-weight:800;color:var(--green)">79.99$</div><div style="font-size:11px;color:var(--muted)">/mois</div></div>
+      </label>
+      <label onclick="selectPlan('elite',this)" style="display:flex;align-items:center;gap:12px;padding:14px;border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:all .2s">
+        <div style="flex:1"><div style="font-weight:700">Elite</div><div style="font-size:12px;color:var(--muted)">Or + EURUSD · Lot 0.01-0.06 · 3 sessions · IA</div></div>
+        <div style="text-align:right"><div style="font-size:18px;font-weight:800;color:var(--green)">299.99$</div><div style="font-size:11px;color:var(--muted)">/mois</div></div>
+      </label>
+      <label onclick="selectPlan('premium',this)" style="display:flex;align-items:center;gap:12px;padding:14px;border:1px solid var(--gold);border-radius:10px;cursor:pointer;transition:all .2s;background:rgba(212,175,55,0.04)">
+        <div style="flex:1"><div style="font-weight:700;color:var(--gold)">Premium ⭐</div><div style="font-size:12px;color:var(--muted)">Or + EURUSD · Lot 0.01-0.10 · Tout débloqué · IA</div></div>
+        <div style="text-align:right"><div style="font-size:18px;font-weight:800;color:var(--gold)">999.99$</div><div style="font-size:11px;color:var(--muted)">/mois</div></div>
+      </label>
+    </div>
+    <button class="btn btn-primary btn-full" onclick="finishRegistration()">Accéder à mon espace →</button>
+    <p style="font-size:13px;color:var(--muted);text-align:center;margin-top:12px">
+      <a href="espace-client.html" style="color:var(--muted)">Passer cette étape</a>
+    </p>
+  </div>
+</div>
+
+<div id="notif"></div>
+<script src="js/api.js"></script>
+<script src="js/nav.js"></script>
+<script>
+if (getToken()) window.location.href = 'espace-client.html';
+
+// Règles téléphone
+let phoneRules = { max: 10, code: '+1' };
+let rawPhone = '';
+
+function formatPhone(digits, code) {
+  if (code === '+1') {
+    // Canada / USA : (XXX) XXX-XXXX
+    const d = digits.slice(0, 10);
+    if (d.length <= 3) return d.length ? '(' + d : '';
+    if (d.length <= 6) return '(' + d.slice(0,3) + ') ' + d.slice(3);
+    return '(' + d.slice(0,3) + ') ' + d.slice(3,6) + '-' + d.slice(6,10);
+  }
+  if (code === '+33') {
+    // France : XX XX XX XX XX
+    return digits.replace(/(\d{2})(?=\d)/g, '$1 ').trim();
+  }
+  // Par défaut : groupes de 3 (Afrique, etc.)
+  return digits.replace(/(\d{3})(?=\d)/g, '$1 ').trim();
+}
+
+function updatePhoneRules() {
+  const val = document.getElementById('phoneCountry').value;
+  const parts = val.split('|');
+  phoneRules.code = parts[0];
+  phoneRules.max = parseInt(parts[1]) || 10;
+  rawPhone = '';
+  const inp = document.getElementById('phoneNumber');
+  inp.value = '';
+  if (phoneRules.code === '+1') {
+    inp.placeholder = '(514) 123-4567';
+  } else if (phoneRules.code === '+33') {
+    inp.placeholder = '06 12 34 56 78';
+  } else {
+    inp.placeholder = '— ' + phoneRules.max + ' chiffres —';
+  }
+  document.getElementById('phoneHint').textContent = phoneRules.max + ' chiffres';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  updatePhoneRules();
+  const inp = document.getElementById('phoneNumber');
+  inp.addEventListener('input', () => {
+    rawPhone = inp.value.replace(/\D/g, '').slice(0, phoneRules.max);
+    const cursor = inp.selectionStart;
+    inp.value = formatPhone(rawPhone, phoneRules.code);
+    // Restaurer la position du curseur approximativement
+    try { inp.setSelectionRange(cursor, cursor); } catch(e) {}
+  });
+  inp.addEventListener('keypress', (e) => {
+    if (!/[0-9]/.test(e.key)) e.preventDefault();
+  });
+});
+
+let formData = {};
+let selectedPlan = 'pro';
+const DEMO_CODE = '123456';
+
+function goStep2() {
+  const firstName = document.getElementById('firstName').value.trim();
+  const lastName  = document.getElementById('lastName').value.trim();
+  const email     = document.getElementById('email').value.trim();
+  const phone     = rawPhone;
+  const country   = document.getElementById('country').value;
+  const password  = document.getElementById('password').value;
+  const password2 = document.getElementById('password2').value;
+  const err = document.getElementById('err1');
+  err.style.display = 'none';
+
+  if (!firstName || !lastName || !email || !phone || !country || !password) {
+    err.textContent = 'Veuillez remplir tous les champs obligatoires.'; err.style.display = 'block'; return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    err.textContent = 'Adresse email invalide.'; err.style.display = 'block'; return;
+  }
+  if (phone.length < phoneRules.max) {
+    err.textContent = `Le numéro de téléphone doit contenir ${phoneRules.max} chiffres.`; err.style.display = 'block'; return;
+  }
+  if (password.length < 8) {
+    err.textContent = 'Le mot de passe doit faire au moins 8 caractères.'; err.style.display = 'block'; return;
+  }
+  if (password !== password2) {
+    err.textContent = 'Les mots de passe ne correspondent pas.'; err.style.display = 'block'; return;
+  }
+
+  formData = { firstName, lastName, email, phone, country, password };
+  document.getElementById('step1').style.display = 'none';
+  document.getElementById('step2').style.display = 'block';
+  document.getElementById('verifyTarget').textContent = email;
+  document.getElementById('c0').focus();
+  notify('Code envoyé à ' + email + ' (démo : 123456)', 'green');
+}
+
+function nextCode(i) {
+  const v = document.getElementById('c'+i).value.replace(/\D/g,'');
+  document.getElementById('c'+i).value = v;
+  if (v && i < 5) document.getElementById('c'+(i+1)).focus();
+  const code = [0,1,2,3,4,5].map(n => document.getElementById('c'+n).value).join('');
+  if (code.length === 6) setTimeout(verifyCode, 300);
+}
+
+function prevCode(e, i) {
+  if (e.key === 'Backspace' && !document.getElementById('c'+i).value && i > 0)
+    document.getElementById('c'+(i-1)).focus();
+}
+
+async function verifyCode() {
+  const code = [0,1,2,3,4,5].map(n => document.getElementById('c'+n).value).join('');
+  const err = document.getElementById('err2');
+  err.style.display = 'none';
+  if (code.length < 6) { err.textContent = 'Code incomplet.'; err.style.display = 'block'; return; }
+  if (code !== DEMO_CODE) { err.textContent = 'Code incorrect. Réessayez.'; err.style.display = 'block'; return; }
+  try {
+    await apiPost('/auth/register', { email: formData.email, password: formData.password, full_name: formData.firstName + ' ' + formData.lastName });
+    const login = await apiPost('/auth/login', { email: formData.email, password: formData.password });
+    saveSession(login.token, login.user, login.plan);
+    document.getElementById('step2').style.display = 'none';
+    document.getElementById('step3').style.display = 'block';
+    notify('Compte créé et vérifié !', 'green');
+  } catch(e) { err.textContent = e.message; err.style.display = 'block'; }
+}
+
+function resendCode() {
+  [0,1,2,3,4,5].forEach(i => document.getElementById('c'+i).value='');
+  document.getElementById('c0').focus();
+  notify('Code renvoyé (démo : 123456)', 'green');
+}
+
+function selectPlan(plan, el) {
+  selectedPlan = plan;
+  document.querySelectorAll('#step3 label').forEach(o => {
+    o.style.border = '1px solid var(--border)';
+    o.style.background = 'transparent';
+  });
+  el.style.border = '2px solid var(--green)';
+  el.style.background = 'rgba(0,200,150,0.04)';
+}
+
+function finishRegistration() {
+  const plan = selectedPlan || 'pro';
+  localStorage.setItem('at_pending_plan', plan);
+  localStorage.setItem('at_pending_billing', 'monthly');
+  window.location.href = 'paiement.html?plan=' + plan + '&billing=monthly';
+}
+</script>
+<script src="js/bg.js"></script>
+</body>
+</html>
+

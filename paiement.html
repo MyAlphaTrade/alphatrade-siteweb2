@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JQR0P1GWEX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-JQR0P1GWEX');
+</script>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="apple-touch-icon" href="assets/logo.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paiement — AlphaTrade</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .pay-page { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:100px 20px 60px; }
+  .pay-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:40px; max-width:540px; width:100%; }
+  .pay-box h2 { font-size:22px; margin-bottom:6px; }
+  .pay-sub { color:var(--muted); font-size:14px; margin-bottom:28px; }
+  .plan-summary { background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:18px 20px; margin-bottom:28px; display:flex; justify-content:space-between; align-items:center; }
+  .plan-name { font-size:16px; font-weight:700; text-transform:capitalize; }
+  .plan-billing-txt { font-size:12px; color:var(--muted); margin-top:3px; }
+  .plan-price { font-size:24px; font-weight:800; color:var(--green); }
+  .section-title { font-size:12px; font-weight:600; color:var(--muted); letter-spacing:.06em; text-transform:uppercase; margin-bottom:12px; }
+  .pay-methods { display:flex; flex-direction:column; gap:10px; margin-bottom:28px; }
+  .pay-method { display:flex; align-items:center; gap:14px; padding:15px 18px; background:var(--bg); border:2px solid var(--border); border-radius:10px; cursor:pointer; transition:border-color .18s, background .18s; position:relative; }
+  .pay-method:hover:not(.disabled) { border-color:var(--green); }
+  .pay-method.selected { border-color:var(--green); background:rgba(0,200,150,.05); }
+  .pay-method.disabled { cursor:not-allowed; opacity:.45; }
+  .pay-icon { width:36px; height:36px; display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--green); }
+  .pay-method.disabled .pay-icon { color:var(--muted); }
+  .pay-method-info { flex:1; }
+  .pay-method-label { font-size:14px; font-weight:600; }
+  .pay-method-desc { font-size:12px; color:var(--muted); margin-top:2px; }
+  .pay-badge-soon { position:absolute; right:14px; top:50%; transform:translateY(-50%); font-size:10px; font-weight:700; background:rgba(100,116,139,.15); color:var(--muted); padding:3px 8px; border-radius:10px; letter-spacing:.04em; }
+  .pay-radio { width:18px; height:18px; border-radius:50%; border:2px solid var(--border); flex-shrink:0; display:flex; align-items:center; justify-content:center; transition:border-color .18s, background .18s; }
+  .pay-method.selected .pay-radio { border-color:var(--green); background:var(--green); }
+  .pay-method.selected .pay-radio::after { content:''; width:7px; height:7px; border-radius:50%; background:#07100b; }
+  .btn-pay { width:100%; padding:15px; font-size:15px; font-weight:700; background:var(--green); color:#07100b; border:none; border-radius:10px; cursor:pointer; transition:opacity .2s; margin-top:4px; }
+  .btn-pay:hover:not(:disabled) { opacity:.85; }
+  .btn-pay:disabled { opacity:.45; cursor:not-allowed; }
+  .pay-note { font-size:12px; color:var(--muted); text-align:center; margin-top:14px; display:flex; align-items:center; justify-content:center; gap:6px; }
+  .pay-back { display:inline-flex; align-items:center; gap:6px; margin-bottom:22px; color:var(--muted); font-size:13px; text-decoration:none; transition:color .15s; }
+  .pay-back:hover { color:var(--green); }
+  #payNotif { display:none; padding:12px 16px; border-radius:8px; margin-bottom:16px; font-size:14px; color:#fff; font-weight:500; }
+  .stripe-logos { display:flex; align-items:center; gap:8px; margin-top:16px; justify-content:center; flex-wrap:wrap; }
+  .card-logo { height:22px; background:rgba(255,255,255,.06); border:1px solid var(--border); border-radius:4px; padding:2px 8px; display:flex; align-items:center; font-size:11px; font-weight:700; color:var(--muted); letter-spacing:.03em; }
+</style>
+</head>
+<body>
+
+<nav class="nav" id="mainNav">
+  <a href="index.html" class="nav-logo">
+    <img src="assets/logo.png" alt="AlphaTrade" onerror="this.style.display='none'">
+    AlphaTrade
+  </a>
+  <div class="nav-links"></div>
+  <div class="nav-cta"></div>
+</nav>
+
+<div class="pay-page">
+  <div class="pay-box">
+
+    <a href="tarifs.html" class="pay-back">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Retour aux forfaits
+    </a>
+
+    <h2>Finaliser votre abonnement</h2>
+    <p class="pay-sub">Choisissez votre méthode de paiement pour activer votre forfait.</p>
+
+    <div id="payNotif"></div>
+
+    <!-- Résumé du forfait -->
+    <div class="plan-summary">
+      <div>
+        <div class="plan-name" id="summaryPlan">—</div>
+        <div class="plan-billing-txt" id="summaryBilling">—</div>
+      </div>
+      <div class="plan-price" id="summaryPrice">—</div>
+    </div>
+
+    <!-- Méthodes disponibles -->
+    <div class="section-title">Méthode de paiement</div>
+    <div class="pay-methods">
+
+      <!-- Carte bancaire — ACTIVE via Stripe -->
+      <div class="pay-method" id="method-card" onclick="selectMethod('card')">
+        <div class="pay-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+            <line x1="1" y1="10" x2="23" y2="10"/>
+          </svg>
+        </div>
+        <div class="pay-method-info">
+          <div class="pay-method-label">Carte bancaire</div>
+          <div class="pay-method-desc">Visa · Mastercard · American Express</div>
+        </div>
+        <div class="pay-radio"></div>
+      </div>
+
+      <!-- Interac — ACTIVE via Stripe (Canada) -->
+      <div class="pay-method" id="method-interac" onclick="selectMethod('interac')">
+        <div class="pay-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="5" width="20" height="14" rx="2"/>
+            <path d="M2 10h20"/>
+            <path d="M6 15h2"/>
+            <path d="M10 15h4"/>
+          </svg>
+        </div>
+        <div class="pay-method-info">
+          <div class="pay-method-label">Interac e-Transfer</div>
+          <div class="pay-method-desc">Canada uniquement · Via Stripe</div>
+        </div>
+        <div class="pay-radio"></div>
+      </div>
+
+      <!-- Virement bancaire — ACTIVE via Stripe -->
+      <div class="pay-method" id="method-transfer" onclick="selectMethod('transfer')">
+        <div class="pay-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="22" x2="21" y2="22"/>
+            <line x1="6" y1="18" x2="6" y2="11"/>
+            <line x1="10" y1="18" x2="10" y2="11"/>
+            <line x1="14" y1="18" x2="14" y2="11"/>
+            <line x1="18" y1="18" x2="18" y2="11"/>
+            <polygon points="12 2 20 7 4 7"/>
+          </svg>
+        </div>
+        <div class="pay-method-info">
+          <div class="pay-method-label">Virement bancaire</div>
+          <div class="pay-method-desc">SEPA · ACH · Via Stripe</div>
+        </div>
+        <div class="pay-radio"></div>
+      </div>
+
+      <!-- PayPal — Bientôt disponible -->
+      <div class="pay-method disabled">
+        <div class="pay-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6.5 3h8.25C17.5 3 19 4.5 19 6.75c0 3-2.25 4.5-4.5 4.5H12l-1 5H7.5L6.5 3z"/>
+            <path d="M4 10.5h7.25c2.75 0 4.25 1.5 4.25 3.75 0 3-2.25 4.5-4.5 4.5H8.5L7.25 24"/>
+          </svg>
+        </div>
+        <div class="pay-method-info">
+          <div class="pay-method-label">PayPal</div>
+          <div class="pay-method-desc">Paiement via votre compte PayPal</div>
+        </div>
+        <span class="pay-badge-soon">Bientôt</span>
+      </div>
+
+      <!-- Cryptomonnaie — Bientôt disponible -->
+      <div class="pay-method disabled">
+        <div class="pay-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9.5 2h5c1.38 0 2.5 1.12 2.5 2.5S15.88 7 14.5 7h-5C8.12 7 7 5.88 7 4.5S8.12 2 9.5 2z"/>
+            <path d="M9.5 7h6c1.66 0 3 1.34 3 3s-1.34 3-3 3h-6C8.12 13 7 11.88 7 10.5S8.12 7 9.5 7z"/>
+            <line x1="10" y1="2" x2="10" y2="22"/>
+            <line x1="14" y1="2" x2="14" y2="22"/>
+            <line x1="7" y1="13" x2="7" y2="17"/>
+            <path d="M7 17c0 1.66 1.34 3 3 3h4c1.66 0 3-1.34 3-3"/>
+          </svg>
+        </div>
+        <div class="pay-method-info">
+          <div class="pay-method-label">Cryptomonnaie</div>
+          <div class="pay-method-desc">Bitcoin · Ethereum · USDT</div>
+        </div>
+        <span class="pay-badge-soon">Bientôt</span>
+      </div>
+
+      <!-- Orange Money / MTN — Bientôt disponible -->
+      <div class="pay-method disabled">
+        <div class="pay-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+            <line x1="12" y1="18" x2="12.01" y2="18"/>
+          </svg>
+        </div>
+        <div class="pay-method-info">
+          <div class="pay-method-label">Mobile Money</div>
+          <div class="pay-method-desc">Orange Money · MTN Mobile Money</div>
+        </div>
+        <span class="pay-badge-soon">Bientôt</span>
+      </div>
+
+    </div>
+
+    <button class="btn-pay" id="btnPay" onclick="submitPayment()" disabled>
+      Procéder au paiement
+    </button>
+
+    <div class="pay-note">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Paiement sécurisé par Stripe · Annulable à tout moment
+    </div>
+
+    <div class="stripe-logos">
+      <div class="card-logo">VISA</div>
+      <div class="card-logo">MASTERCARD</div>
+      <div class="card-logo">AMEX</div>
+      <div class="card-logo">INTERAC</div>
+      <div class="card-logo">SEPA</div>
+      <div class="card-logo">ACH</div>
+    </div>
+
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script>
+const PRICES = {
+  monthly: { starter:'29.99 USD', pro:'79.99 USD', elite:'299.99 USD', premium:'999.99 USD' },
+  weekly:  { starter:'9.99 USD',  pro:'24.99 USD', elite:'99.99 USD',  premium:'149.99 USD' },
+};
+const PERIODS = { monthly:'Facturé mensuellement', weekly:'Facturé à la semaine' };
+
+if (!getUser()) { window.location.href = 'connexion.html'; }
+
+const params  = new URLSearchParams(window.location.search);
+const plan    = params.get('plan')    || localStorage.getItem('at_pending_plan')    || 'pro';
+const billing = params.get('billing') || localStorage.getItem('at_pending_billing') || 'monthly';
+
+document.getElementById('summaryPlan').textContent    = plan.charAt(0).toUpperCase() + plan.slice(1);
+document.getElementById('summaryBilling').textContent = PERIODS[billing] || PERIODS.monthly;
+document.getElementById('summaryPrice').textContent   = (PRICES[billing] || PRICES.monthly)[plan] || '—';
+
+let selectedMethod = null;
+
+function selectMethod(method) {
+  selectedMethod = method;
+  document.querySelectorAll('.pay-method:not(.disabled)').forEach(el => el.classList.remove('selected'));
+  const el = document.getElementById('method-' + method);
+  if (el) el.classList.add('selected');
+  document.getElementById('btnPay').disabled = false;
+}
+
+function payNotif(msg, color) {
+  const el = document.getElementById('payNotif');
+  el.textContent = msg;
+  el.style.background = color === 'red' ? '#dc2626' : color === 'yellow' ? '#ca8a04' : '#16a34a';
+  el.style.display = 'block';
+  setTimeout(() => el.style.display = 'none', 5000);
+}
+
+async function submitPayment() {
+  if (!selectedMethod) return;
+  const btn = document.getElementById('btnPay');
+  btn.disabled = true;
+  btn.textContent = 'Connexion à Stripe…';
+  try {
+    const token = getToken();
+    const r = await fetch('https://web-production-9312ae.up.railway.app/stripe/create-checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify({ plan: plan, billing: billing }),
+    });
+    const data = await r.json();
+    if (r.ok && data.checkout_url) {
+      localStorage.setItem('at_pending_plan', plan);
+      localStorage.setItem('at_pending_billing', billing);
+      window.location.href = data.checkout_url;
+    } else {
+      payNotif(data.detail || 'Erreur lors de la connexion à Stripe.', 'red');
+      btn.disabled = false;
+      btn.textContent = 'Procéder au paiement';
+    }
+  } catch(e) {
+    payNotif('Impossible de contacter le serveur. Vérifiez votre connexion.', 'red');
+    btn.disabled = false;
+    btn.textContent = 'Procéder au paiement';
+  }
+}
+</script>
+<script src="js/nav.js"></script>
+<script src="js/bg.js"></script>
+</body>
+</html>
