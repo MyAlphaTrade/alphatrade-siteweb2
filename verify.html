@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vérification email — AlphaTrade</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: #0b0f1a; color: #f1f5f9; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+    .card { background: #1e293b; border-radius: 16px; padding: 48px; text-align: center; max-width: 480px; width: 90%; }
+    .logo { font-size: 28px; font-weight: 800; color: #2563eb; margin-bottom: 32px; }
+    .icon { font-size: 64px; margin-bottom: 24px; }
+    h1 { font-size: 22px; margin-bottom: 12px; }
+    p { color: #94a3b8; line-height: 1.6; margin-bottom: 24px; }
+    .btn { display: inline-block; background: #2563eb; color: white; padding: 12px 32px; border-radius: 8px; text-decoration: none; font-weight: bold; }
+    .spinner { width: 48px; height: 48px; border: 4px solid #1e293b; border-top-color: #2563eb; border-radius: 50%; margin: 0 auto 24px; animation: spin 1s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">AlphaTrade</div>
+  <div id="loading">
+    <div class="spinner"></div>
+    <p>Vérification en cours...</p>
+  </div>
+  <div id="success" style="display:none">
+    <div class="icon">✅</div>
+    <h1>Email vérifié !</h1>
+    <p>Votre adresse email a été confirmée. Vous pouvez maintenant vous connecter à votre compte.</p>
+    <a href="/connexion.html" class="btn">Se connecter</a>
+  </div>
+  <div id="error" style="display:none">
+    <div class="icon">❌</div>
+    <h1>Lien invalide</h1>
+    <p id="errorMsg">Ce lien de vérification est invalide ou a expiré. Veuillez vous réinscrire.</p>
+    <a href="/inscription.html" class="btn">S'inscrire</a>
+  </div>
+</div>
+<script>
+  const API = 'https://web-production-9312ae.up.railway.app';
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get('token');
+
+  async function verify() {
+    if (!token) {
+      show('error', 'Aucun token de vérification trouvé.');
+      return;
+    }
+    try {
+      const res = await fetch(`${API}/auth/verify-email?token=${token}`);
+      const data = await res.json();
+      if (res.ok) {
+        if (data.token) sessionStorage.setItem('at_token', data.token);
+        show('success');
+      } else {
+        show('error', data.detail || 'Lien invalide ou expiré.');
+      }
+    } catch {
+      show('error', 'Erreur de connexion au serveur.');
+    }
+  }
+
+  function show(id, msg) {
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById(id).style.display = 'block';
+    if (msg && id === 'error') document.getElementById('errorMsg').textContent = msg;
+  }
+
+  verify();
+</script>
+</body>
+</html>
