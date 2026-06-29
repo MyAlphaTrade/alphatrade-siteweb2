@@ -277,25 +277,17 @@
       <img src="assets/logo.png" alt="" onerror="this.style.display='none'">
       <span>AlphaTrade</span>
     </div>
-    <h1>Vérification</h1>
-    <p class="sub">Étape 2 sur 3 — Confirmez votre identité</p>
-    <div style="background:rgba(0,200,150,0.06);border:1px solid rgba(0,200,150,0.2);border-radius:10px;padding:16px;margin-bottom:24px;font-size:14px;color:var(--muted)">
-      Code de vérification envoyé à :<br>
-      <strong id="verifyTarget" style="color:var(--text)"></strong>
-    </div>
-    <label class="form-label" style="text-align:center;display:block;margin-bottom:14px">Entrez le code à 6 chiffres</label>
-    <div class="code-inputs">
-      <input class="code-input" maxlength="1" id="c0" oninput="nextCode(0)" onkeydown="prevCode(event,0)">
-      <input class="code-input" maxlength="1" id="c1" oninput="nextCode(1)" onkeydown="prevCode(event,1)">
-      <input class="code-input" maxlength="1" id="c2" oninput="nextCode(2)" onkeydown="prevCode(event,2)">
-      <input class="code-input" maxlength="1" id="c3" oninput="nextCode(3)" onkeydown="prevCode(event,3)">
-      <input class="code-input" maxlength="1" id="c4" oninput="nextCode(4)" onkeydown="prevCode(event,4)">
-      <input class="code-input" maxlength="1" id="c5" oninput="nextCode(5)" onkeydown="prevCode(event,5)">
+    <h1>Vérifiez votre email</h1>
+    <p class="sub">Étape 2 sur 3 — Confirmez votre adresse email</p>
+    <div style="text-align:center;font-size:52px;margin:16px 0">📧</div>
+    <div style="background:rgba(0,200,150,0.06);border:1px solid rgba(0,200,150,0.2);border-radius:10px;padding:20px;margin-bottom:24px;font-size:14px;color:var(--muted);text-align:center;line-height:1.7">
+      Un email de vérification a été envoyé à :<br>
+      <strong id="verifyTarget" style="color:var(--text);font-size:16px"></strong><br><br>
+      Cliquez sur le lien dans l'email pour activer votre compte.
     </div>
     <div class="form-error" id="err2"></div>
-    <button class="btn btn-primary btn-full" style="margin-top:8px" onclick="verifyCode()">Vérifier mon compte</button>
     <p style="font-size:13px;color:var(--muted);text-align:center;margin-top:14px">
-      Code non reçu ? <a href="#" style="color:var(--green);font-weight:600" onclick="resendCode();return false">Renvoyer</a>
+      Email non reçu ? Vérifiez vos spams ou <a href="#" style="color:var(--green);font-weight:600" onclick="resendVerif();return false">renvoyer l'email</a>
     </p>
   </div>
 
@@ -393,9 +385,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 let formData = {};
 let selectedPlan = 'pro';
-const DEMO_CODE = '123456';
 
-function goStep2() {
+async function goStep2() {
   const firstName = document.getElementById('firstName').value.trim();
   const lastName  = document.getElementById('lastName').value.trim();
   const email     = document.getElementById('email').value.trim();
@@ -423,46 +414,26 @@ function goStep2() {
   }
 
   formData = { firstName, lastName, email, phone, country, password };
-  document.getElementById('step1').style.display = 'none';
-  document.getElementById('step2').style.display = 'block';
-  document.getElementById('verifyTarget').textContent = email;
-  document.getElementById('c0').focus();
-  notify('Code envoyé à ' + email + ' (démo : 123456)', 'green');
-}
 
-function nextCode(i) {
-  const v = document.getElementById('c'+i).value.replace(/\D/g,'');
-  document.getElementById('c'+i).value = v;
-  if (v && i < 5) document.getElementById('c'+(i+1)).focus();
-  const code = [0,1,2,3,4,5].map(n => document.getElementById('c'+n).value).join('');
-  if (code.length === 6) setTimeout(verifyCode, 300);
-}
-
-function prevCode(e, i) {
-  if (e.key === 'Backspace' && !document.getElementById('c'+i).value && i > 0)
-    document.getElementById('c'+(i-1)).focus();
-}
-
-async function verifyCode() {
-  const code = [0,1,2,3,4,5].map(n => document.getElementById('c'+n).value).join('');
-  const err = document.getElementById('err2');
-  err.style.display = 'none';
-  if (code.length < 6) { err.textContent = 'Code incomplet.'; err.style.display = 'block'; return; }
-  if (code !== DEMO_CODE) { err.textContent = 'Code incorrect. Réessayez.'; err.style.display = 'block'; return; }
   try {
-    await apiPost('/auth/register', { email: formData.email, password: formData.password, full_name: formData.firstName + ' ' + formData.lastName });
-    const login = await apiPost('/auth/login', { email: formData.email, password: formData.password });
-    saveSession(login.token, login.user, login.plan);
-    document.getElementById('step2').style.display = 'none';
-    document.getElementById('step3').style.display = 'block';
-    notify('Compte créé et vérifié !', 'green');
-  } catch(e) { err.textContent = e.message; err.style.display = 'block'; }
+    await apiPost('/auth/register', {
+      email: formData.email,
+      password: formData.password,
+      full_name: formData.firstName + ' ' + formData.lastName,
+      phone: phoneRules.code + formData.phone,
+      country: formData.country
+    });
+    document.getElementById('step1').style.display = 'none';
+    document.getElementById('step2').style.display = 'block';
+    document.getElementById('verifyTarget').textContent = email;
+    notify('Email de vérification envoyé à ' + email, 'green');
+  } catch(e) {
+    err.textContent = e.message; err.style.display = 'block';
+  }
 }
 
-function resendCode() {
-  [0,1,2,3,4,5].forEach(i => document.getElementById('c'+i).value='');
-  document.getElementById('c0').focus();
-  notify('Code renvoyé (démo : 123456)', 'green');
+async function resendVerif() {
+  notify('Si votre compte existe, un nouvel email a été envoyé. Vérifiez vos spams.', 'green');
 }
 
 function selectPlan(plan, el) {
