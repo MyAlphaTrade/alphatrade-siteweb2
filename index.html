@@ -41,7 +41,7 @@
     <div class="hero-stats">
       <div class="hero-stat"><div class="hero-stat-value">4</div><div class="hero-stat-label">Forfaits disponibles</div></div>
       <div class="hero-stat"><div class="hero-stat-value">MT5</div><div class="hero-stat-label">MetaTrader 5</div></div>
-      <div class="hero-stat"><div class="hero-stat-value">24/5</div><div class="hero-stat-label">Trading continu</div></div>
+      <div class="hero-stat"><div class="hero-stat-value">24/7</div><div class="hero-stat-label">Trading continu</div></div>
       <div class="hero-stat"><div class="hero-stat-value">100%</div><div class="hero-stat-label">Automatique</div></div>
     </div>
   </div>
@@ -52,7 +52,7 @@
   <div class="container">
     <div class="section-label reveal">Fonctionnalités</div>
     <h2 class="reveal">Tout ce dont vous avez besoin</h2>
-    <p class="lead reveal">Un bot de trading complet, conçu pour les marchés Forex et Gold.</p>
+    <p class="lead reveal">Un bot de trading complet, conçu pour les marchés Forex, Gold et indices synthétiques.</p>
     <div class="features-grid">
 
       <div class="feature-card reveal">
@@ -60,7 +60,7 @@
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
         </div>
         <h3>Intelligence Artificielle</h3>
-        <p>Analyse multicritère en temps réel : RSI, EMA, MACD, score de contra-tendance et détection de rebonds avancée.</p>
+        <p>Analyse multicritère en temps réel : RSI, EMA, MACD, microstructure de marché (OFI/POC), machine à états et détection de rebonds avancée.</p>
       </div>
 
       <div class="feature-card reveal">
@@ -68,7 +68,7 @@
           <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
         </div>
         <h3>Multi-symboles</h3>
-        <p>Trade simultané sur EURUSD et XAUUSD (Or) avec des stratégies adaptées à la volatilité de chaque marché.</p>
+        <p>Trade sur XAUUSD (Or) et indices synthétiques Deriv (BOOM1000). Stratégies adaptées à la volatilité de chaque marché, 24h/24 y compris le week-end sur les synthétiques.</p>
       </div>
 
       <div class="feature-card reveal">
@@ -91,8 +91,16 @@
         <div class="feature-icon">
           <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
         </div>
-        <h3>Stratégie Rebond</h3>
-        <p>Détection automatique des opportunités de rebond pour maximiser les profits lors des corrections de marché.</p>
+        <h3>Système Rebond Avancé</h3>
+        <p>Machine à états NORMAL / ALERTE / REBOND pour une gestion dynamique du risque. Trailing stop en dollars, nombre de tentatives configurable par cycle, renforts simultanés contrôlés.</p>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 1 18"/><polyline points="16 7 22 7 22 13"/></svg>
+        </div>
+        <h3>Microstructure de Marché</h3>
+        <p>OFI (Order Flow Imbalance) et POC (Point of Control) injectés en temps réel dans le score IA pour détecter les vrais déséquilibres du carnet d'ordres avant d'entrer en position.</p>
       </div>
 
       <div class="feature-card reveal">
@@ -152,10 +160,10 @@
         <div class="plan-capital"><strong>Capital recommandé : 350 $</strong>Idéal pour débuter le trading automatisé</div>
         <ul class="plan-features">
           <li class="active"><span class="check">✓</span> Trading 24/7 automatique</li>
-          <li class="active"><span class="check">✓</span> EURUSD + XAUUSD</li>
-          <li class="active"><span class="check">✓</span> Lot max : 0.03</li>
+          <li class="active"><span class="check">✓</span> Or (XAUUSD) uniquement</li>
+          <li class="active"><span class="check">✓</span> Lot max : 0.01</li>
           <li class="active"><span class="check">✓</span> 2 positions simultanées</li>
-          <li><span class="cross">✗</span> Stratégie Rebond</li>
+          <li class="active"><span class="check">✓</span> Stratégie Rebond activée</li>
         </ul>
         <a href="inscription.html?plan=starter" class="btn btn-outline btn-full">Choisir Starter</a>
       </div>
@@ -167,8 +175,8 @@
         <div class="plan-capital"><strong>Capital recommandé : 1 000 $</strong>La référence pour un trading sérieux</div>
         <ul class="plan-features">
           <li class="active"><span class="check">✓</span> Trading 24/7 automatique</li>
-          <li class="active"><span class="check">✓</span> EURUSD + XAUUSD</li>
-          <li class="active"><span class="check">✓</span> Lot max : 0.05</li>
+          <li class="active"><span class="check">✓</span> Or (XAUUSD) uniquement</li>
+          <li class="active"><span class="check">✓</span> Lot max : 0.03</li>
           <li class="active"><span class="check">✓</span> 4 positions simultanées</li>
           <li class="active"><span class="check">✓</span> Stratégie Rebond activée</li>
         </ul>
@@ -178,13 +186,13 @@
       <div class="pricing-card">
         <div class="plan-name">Elite</div>
         <div class="plan-price">299<span>.99 $/mois</span></div>
-        <div class="plan-capital"><strong>Capital recommandé : 5 000 $</strong>Performances maximales, tout débloqué</div>
+        <div class="plan-capital"><strong>Capital recommandé : 2 500 $</strong>Performances maximales, tout débloqué</div>
         <ul class="plan-features">
           <li class="active"><span class="check">✓</span> Trading 24/7 automatique</li>
-          <li class="active"><span class="check">✓</span> EURUSD + XAUUSD</li>
-          <li class="active"><span class="check">✓</span> Lot max : 0.10</li>
-          <li class="active"><span class="check">✓</span> 8 positions simultanées</li>
-          <li class="active"><span class="check">✓</span> Stratégie Rebond + Support prioritaire</li>
+          <li class="active"><span class="check">✓</span> Or (XAUUSD) + BOOM1000</li>
+          <li class="active"><span class="check">✓</span> Lot max : 0.06</li>
+          <li class="active"><span class="check">✓</span> 6 positions simultanées</li>
+          <li class="active"><span class="check">✓</span> Système Rebond + IA Microstructure</li>
         </ul>
         <a href="inscription.html?plan=elite" class="btn btn-outline btn-full">Choisir Elite</a>
       </div>
@@ -193,12 +201,12 @@
         <div class="pricing-badge" style="background:linear-gradient(135deg,var(--gold),#b8962e);color:#07100b">⭐ PREMIUM</div>
         <div class="plan-name" style="color:var(--gold)">Premium</div>
         <div class="plan-price" style="color:var(--gold)">999<span>.99 $/mois</span></div>
-        <div class="plan-capital" style="border-color:rgba(212,175,55,0.3);background:rgba(212,175,55,0.06)"><strong>Capital recommandé : 10 000 $</strong>Accès total — tout débloqué sans limite</div>
+        <div class="plan-capital" style="border-color:rgba(212,175,55,0.3);background:rgba(212,175,55,0.06)"><strong>Capital recommandé : 5 000 $</strong>Accès total — tout débloqué sans limite</div>
         <ul class="plan-features">
           <li class="active"><span class="check">✓</span> Trading 24/7 automatique</li>
-          <li class="active"><span class="check">✓</span> Or + EURUSD (tous symboles)</li>
+          <li class="active"><span class="check">✓</span> XAUUSD + BOOM1000 (tous symboles)</li>
           <li class="active"><span class="check">✓</span> Lot max : 0.10</li>
-          <li class="active"><span class="check">✓</span> 10 positions simultanées</li>
+          <li class="active"><span class="check">✓</span> 8 positions simultanées</li>
           <li class="active"><span class="check">✓</span> Toutes sessions (24h/24)</li>
           <li class="active"><span class="check">✓</span> Application mobile iOS &amp; Android <span style="font-size:11px;background:rgba(212,175,55,0.15);color:var(--gold);padding:2px 7px;border-radius:8px;margin-left:4px">Bientôt</span></li>
         </ul>
@@ -225,7 +233,7 @@
         </div>
         <div class="faq-item" style="padding:22px 24px;border-bottom:1px solid var(--border)">
           <div style="font-weight:700;font-size:16px;margin-bottom:8px;color:var(--text)">Quel broker utiliser ?</div>
-          <div style="color:var(--muted);font-size:14px;line-height:1.7">AlphaTrade fonctionne avec tout broker MetaTrader 5. Nous recommandons Deriv pour la qualité d'exécution sur les paires EURUSD et XAUUSD.</div>
+          <div style="color:var(--muted);font-size:14px;line-height:1.7">AlphaTrade fonctionne avec tout broker MetaTrader 5. Nous recommandons Deriv pour la qualité d'exécution sur XAUUSD et les indices synthétiques.</div>
         </div>
         <div class="faq-item" style="padding:22px 24px;border-bottom:1px solid var(--border)">
           <div style="font-weight:700;font-size:16px;margin-bottom:8px;color:var(--text)">Puis-je tester avant de payer ?</div>
@@ -331,37 +339,37 @@ const MODALS = {
       <h3 style="font-size:15px;font-weight:700;margin:20px 0 8px;color:var(--green)">MetaTrader 5 (MT5)</h3>
       <p style="color:var(--muted);font-size:14px;line-height:1.8;margin-bottom:16px">MetaTrader 5 est la plateforme de trading la plus utilisée au monde. AlphaTrade se connecte directement à votre compte MT5 pour passer des ordres automatiquement. Vos fonds restent toujours dans votre propre compte chez votre broker — AlphaTrade n'y accède jamais directement.</p>
       <h3 style="font-size:15px;font-weight:700;margin:20px 0 8px;color:var(--green)">Symboles tradés</h3>
-      <p style="color:var(--muted);font-size:14px;line-height:1.8;margin-bottom:16px"><strong style="color:var(--text)">XAUUSD (Or / Dollar)</strong> : L'or est un actif refuge très liquide, idéal pour le trading automatique. <strong style="color:var(--text)">EURUSD (Euro / Dollar)</strong> : La paire de devises la plus tradée au monde, disponible dès le forfait Elite.</p>
+      <p style="color:var(--muted);font-size:14px;line-height:1.8;margin-bottom:16px"><strong style="color:var(--text)">XAUUSD (Or / Dollar)</strong> : L'or est un actif refuge très liquide, idéal pour le trading automatique. <strong style="color:var(--text)">BOOM1000 (Indice synthétique Deriv)</strong> : Indice disponible 24h/24, 7j/7, même le week-end — exclusif aux brokers Deriv via MetaTrader 5. Disponible dès le forfait Elite.</p>
       <h3 style="font-size:15px;font-weight:700;margin:20px 0 8px;color:var(--gold)">Avertissement sur les risques</h3>
       <p style="color:var(--muted);font-size:14px;line-height:1.8">Le trading comporte des risques importants de perte en capital. Les performances passées ne garantissent pas les résultats futurs. Ne tradez qu'avec des fonds que vous pouvez vous permettre de perdre. AlphaTrade est un outil d'automatisation — vous restez responsable de vos décisions d'investissement.</p>`
   },
   'modal-fonctionnalites': {
-    title: 'Fonctionnalités AlphaTrade',
+    title: 'Fonctionnalités AlphaTrade v4.0',
     body: `<p style="color:var(--muted);font-size:14px;line-height:1.8;margin-bottom:20px">AlphaTrade est un bot de trading automatique pour MetaTrader 5. Voici ses principales fonctionnalités :</p>
       <div style="display:flex;flex-direction:column;gap:14px">
         <div style="padding:16px;border:1px solid var(--border);border-radius:10px">
           <div style="font-weight:700;color:var(--green);margin-bottom:6px">Trading automatique 24/7</div>
-          <div style="font-size:13px;color:var(--muted)">Le bot surveille les marchés en continu et passe des ordres d'achat/vente selon votre forfait, sans intervention manuelle.</div>
+          <div style="font-size:13px;color:var(--muted)">Le bot surveille les marchés en continu et passe des ordres d'achat/vente selon votre forfait, sans intervention manuelle. Les indices synthétiques (BOOM1000) fonctionnent même le week-end.</div>
+        </div>
+        <div style="padding:16px;border:1px solid var(--border);border-radius:10px">
+          <div style="font-weight:700;color:var(--green);margin-bottom:6px">Multi-symboles : Or &amp; Synthétiques</div>
+          <div style="font-size:13px;color:var(--muted)">XAUUSD (Or) et indices synthétiques Deriv (BOOM1000). Chaque symbole dispose de ses propres paramètres de lot, TP, sessions et gestion du risque.</div>
+        </div>
+        <div style="padding:16px;border:1px solid var(--border);border-radius:10px">
+          <div style="font-weight:700;color:var(--green);margin-bottom:6px">Machine à états NORMAL / ALERTE / REBOND</div>
+          <div style="font-size:13px;color:var(--muted)">Le bot adapte son comportement en temps réel selon l'état du panier : trading normal, suspension des nouvelles entrées en alerte, stratégie contra-tendance en rebond. Trailing stop en dollars avec déclencheur configurable.</div>
         </div>
         <div style="padding:16px;border:1px solid var(--border);border-radius:10px">
           <div style="font-weight:700;color:var(--green);margin-bottom:6px">Gestion du risque intégrée</div>
-          <div style="font-size:13px;color:var(--muted)">Limites de gains par session et journalières, taille de lot contrôlée, nombre de positions simultanées plafonné selon votre forfait.</div>
+          <div style="font-size:13px;color:var(--muted)">Limites de gains et pertes journalières, taille de lot contrôlée, nombre de positions et de renforts simultanés plafonnés. Nombre de tentatives de rebond configurable par cycle.</div>
         </div>
         <div style="padding:16px;border:1px solid var(--border);border-radius:10px">
           <div style="font-weight:700;color:var(--green);margin-bottom:6px">Sessions de trading</div>
-          <div style="font-size:13px;color:var(--muted)">Starter : Session Londres uniquement. Pro : Londres + New York. Elite : 3 sessions (Tokyo, Londres, New York). Premium : Toutes sessions 24h/24.</div>
+          <div style="font-size:13px;color:var(--muted)">Starter : Session Londres uniquement. Pro : Londres + New York. Elite : 3 sessions (Tokyo, Londres, New York). Premium : Toutes sessions 24h/24 + indices synthétiques 24/7.</div>
         </div>
         <div style="padding:16px;border:1px solid var(--border);border-radius:10px">
-          <div style="font-weight:700;color:var(--green);margin-bottom:6px">Stratégie Rebond (Pro+)</div>
-          <div style="font-size:13px;color:var(--muted)">Algorithme supplémentaire qui identifie les niveaux de support/résistance et tente de capturer des rebonds sur ces zones clés.</div>
-        </div>
-        <div style="padding:16px;border:1px solid var(--border);border-radius:10px">
-          <div style="font-weight:700;color:var(--green);margin-bottom:6px">Tableau de bord espace client</div>
-          <div style="font-size:13px;color:var(--muted)">Consultez votre forfait, vos appareils enregistrés et le statut de votre abonnement depuis votre espace client en ligne.</div>
-        </div>
-        <div style="padding:16px;border:1px solid var(--border);border-radius:10px">
-          <div style="font-weight:700;color:var(--gold);margin-bottom:6px">Intelligence artificielle (Elite & Premium)</div>
-          <div style="font-size:13px;color:var(--muted)">Suggestions automatiques d'optimisation des paramètres basées sur l'analyse des conditions de marché en temps réel.</div>
+          <div style="font-weight:700;color:var(--gold);margin-bottom:6px">IA + Microstructure de marché (Elite & Premium)</div>
+          <div style="font-size:13px;color:var(--muted)">OFI (Order Flow Imbalance) et POC (Point of Control) injectés dans le score IA en temps réel. Suggestions automatiques d'optimisation des paramètres basées sur les conditions de marché.</div>
         </div>
       </div>`
   },

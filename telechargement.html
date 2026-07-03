@@ -32,7 +32,7 @@
     <div class="container" style="max-width:860px">
       <div class="section-label reveal">Téléchargement</div>
       <h2 class="reveal">Télécharger AlphaTrade</h2>
-      <p class="lead reveal">Version 0.2.0 — Compatible Windows 10 et Windows 11 (64-bit)</p>
+      <p class="lead reveal">Version 4.0.0 — Compatible Windows 10 et Windows 11 (64-bit)</p>
 
       <!-- Boutons de téléchargement par OS -->
       <div class="reveal" style="margin-bottom:32px">
@@ -208,19 +208,21 @@
 const MODALS = {
   'modal-trading': {
     title: 'Introduction au trading',
-    body: `<p style="color:var(--muted);font-size:14px;line-height:1.8;margin-bottom:16px">Le trading est l'achat et la vente d'instruments financiers dans le but de réaliser un profit. AlphaTrade se concentre sur le marché Forex et l'or (XAUUSD).</p>
+    body: `<p style="color:var(--muted);font-size:14px;line-height:1.8;margin-bottom:16px">Le trading est l'achat et la vente d'instruments financiers dans le but de réaliser un profit. AlphaTrade couvre le marché Forex, l'or (XAUUSD) et les indices synthétiques Deriv (BOOM1000).</p>
       <h3 style="font-size:15px;font-weight:700;margin:20px 0 8px;color:var(--green)">MetaTrader 5 (MT5)</h3>
-      <p style="color:var(--muted);font-size:14px;line-height:1.8;margin-bottom:16px">AlphaTrade se connecte à votre compte MT5 pour passer des ordres automatiquement. Vos fonds restent toujours dans votre propre compte chez votre broker.</p>
+      <p style="color:var(--muted);font-size:14px;line-height:1.8;margin-bottom:16px">AlphaTrade se connecte à votre compte MT5 pour passer des ordres automatiquement. Vos fonds restent toujours dans votre propre compte chez votre broker. BOOM1000 est disponible via les comptes Deriv CFDs Standard sur MT5.</p>
       <h3 style="font-size:15px;font-weight:700;margin:20px 0 8px;color:var(--gold)">Avertissement sur les risques</h3>
       <p style="color:var(--muted);font-size:14px;line-height:1.8">Le trading comporte des risques importants de perte en capital. Ne tradez qu'avec des fonds que vous pouvez vous permettre de perdre.</p>`
   },
   'modal-fonctionnalites': {
-    title: 'Fonctionnalités AlphaTrade',
+    title: 'Fonctionnalités AlphaTrade v4.0',
     body: `<div style="display:flex;flex-direction:column;gap:14px">
-        <div style="padding:16px;border:1px solid var(--border);border-radius:10px"><div style="font-weight:700;color:var(--green);margin-bottom:6px">Trading automatique 24/7</div><div style="font-size:13px;color:var(--muted)">Le bot surveille les marchés en continu et passe des ordres selon votre forfait, sans intervention manuelle.</div></div>
-        <div style="padding:16px;border:1px solid var(--border);border-radius:10px"><div style="font-weight:700;color:var(--green);margin-bottom:6px">Gestion du risque intégrée</div><div style="font-size:13px;color:var(--muted)">Limites de gains par session et journalières, taille de lot contrôlée, nombre de positions plafonnées selon le forfait.</div></div>
-        <div style="padding:16px;border:1px solid var(--border);border-radius:10px"><div style="font-weight:700;color:var(--green);margin-bottom:6px">Sessions de trading</div><div style="font-size:13px;color:var(--muted)">Starter : Londres. Pro : Londres + New York. Elite : 3 sessions. Premium : Toutes sessions 24h/24.</div></div>
-        <div style="padding:16px;border:1px solid var(--border);border-radius:10px"><div style="font-weight:700;color:var(--gold);margin-bottom:6px">Intelligence artificielle (Elite & Premium)</div><div style="font-size:13px;color:var(--muted)">Suggestions automatiques d'optimisation basées sur les conditions de marché.</div></div>
+        <div style="padding:16px;border:1px solid var(--border);border-radius:10px"><div style="font-weight:700;color:var(--green);margin-bottom:6px">Trading automatique 24/7</div><div style="font-size:13px;color:var(--muted)">Le bot surveille les marchés en continu et passe des ordres selon votre forfait, sans intervention manuelle. BOOM1000 (indice synthétique) disponible même le week-end.</div></div>
+        <div style="padding:16px;border:1px solid var(--border);border-radius:10px"><div style="font-weight:700;color:var(--green);margin-bottom:6px">Multi-symboles : Or &amp; Synthétiques</div><div style="font-size:13px;color:var(--muted)">XAUUSD (Or) et BOOM1000 (indice synthétique Deriv). Paramètres indépendants par symbole.</div></div>
+        <div style="padding:16px;border:1px solid var(--border);border-radius:10px"><div style="font-weight:700;color:var(--green);margin-bottom:6px">Machine à états NORMAL / ALERTE / REBOND</div><div style="font-size:13px;color:var(--muted)">Gestion dynamique du risque : nouvelles entrées suspendues en ALERTE, stratégie contra-tendance en REBOND. Trailing stop en dollars configurable.</div></div>
+        <div style="padding:16px;border:1px solid var(--border);border-radius:10px"><div style="font-weight:700;color:var(--green);margin-bottom:6px">Gestion du risque intégrée</div><div style="font-size:13px;color:var(--muted)">Limites de gains et pertes journalières, taille de lot contrôlée, renforts simultanés et tentatives de rebond plafonnés par cycle selon le forfait.</div></div>
+        <div style="padding:16px;border:1px solid var(--border);border-radius:10px"><div style="font-weight:700;color:var(--green);margin-bottom:6px">Sessions de trading</div><div style="font-size:13px;color:var(--muted)">Starter : Londres. Pro : Londres + New York. Elite : 3 sessions + BOOM1000. Premium : Toutes sessions 24h/24 + indices synthétiques 24/7.</div></div>
+        <div style="padding:16px;border:1px solid var(--border);border-radius:10px"><div style="font-weight:700;color:var(--gold);margin-bottom:6px">IA + Microstructure de marché (Elite & Premium)</div><div style="font-size:13px;color:var(--muted)">OFI et POC injectés dans le score IA. Suggestions automatiques d'optimisation basées sur les conditions réelles de marché.</div></div>
       </div>`
   },
   'modal-mentions': {
@@ -282,7 +284,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:20px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         <h2>Votre téléchargement est prêt</h2>
         <p>Forfait <strong>${(data.plan.plan_key||'starter').toUpperCase()}</strong> actif · Valable jusqu'au ${exp}</p>
-        <a href="#" class="btn btn-primary btn-lg" onclick="startDownload();return false">Télécharger AlphaTrade v0.2.0</a>
+        <a href="#" class="btn btn-primary btn-lg" onclick="startDownload();return false">Télécharger AlphaTrade v4.0.0</a>
         <div class="system-req">Windows 10/11 · 64-bit · ~150 MB</div>
       </div>`;
     } else {
