@@ -300,7 +300,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:20px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         <h2>Votre téléchargement est prêt</h2>
         <p>Forfait <strong>${(data.plan.plan_key||'starter').toUpperCase()}</strong> actif · Valable jusqu'au ${exp}</p>
-        <a id="downloadBtnMain" href="#" class="btn btn-primary btn-lg" onclick="startDownload();return false">Télécharger AlphaTrade</a>
+        <a id="downloadBtnMain" href="#" class="btn btn-primary btn-lg" onclick="startDownload();return false">${DOWNLOAD_LABEL}</a>
         <div class="system-req">Windows 10/11 · 64-bit · ~183 MB</div>
       </div>`;
     } else {
@@ -326,7 +326,8 @@ window.addEventListener('DOMContentLoaded', async () => {
 let DOWNLOAD_URL          = 'https://github.com/MyAlphaTrade/alphatrade-releases/releases/latest/download/AlphaTrade-Setup-4.0.2.exe';
 let DOWNLOAD_URL_MAC_INTEL = 'https://github.com/MyAlphaTrade/alphatrade-releases/releases/latest/download/AlphaTrade-4.0.2.dmg';
 let DOWNLOAD_URL_MAC_ARM   = 'https://github.com/MyAlphaTrade/alphatrade-releases/releases/latest/download/AlphaTrade-4.0.2-arm64.dmg';
-let DOWNLOAD_SIZE = '~183 MB';
+let DOWNLOAD_SIZE  = '~183 MB';
+let DOWNLOAD_LABEL = 'Télécharger AlphaTrade';
 
 // Badge "Nouveau" : date de mise en ligne + durée d'affichage
 const NOUVEAU_RELEASES = {
@@ -354,6 +355,11 @@ async function loadReleaseInfo() {
     const assets = data.assets || [];
 
     const tag = data.tag_name || '';
+    if (tag) {
+      DOWNLOAD_LABEL = 'Télécharger AlphaTrade ' + tag;
+      const btn = document.getElementById('downloadBtnMain');
+      if (btn) btn.textContent = DOWNLOAD_LABEL;
+    }
     const exeAsset = assets.find(a => a.name.endsWith('.exe'));
     if (exeAsset) {
       DOWNLOAD_URL = exeAsset.browser_download_url;
@@ -361,8 +367,6 @@ async function loadReleaseInfo() {
       document.querySelectorAll('.system-req').forEach(el => {
         el.textContent = el.textContent.replace(/~?\d+ MB/, DOWNLOAD_SIZE);
       });
-      const btn = document.getElementById('downloadBtnMain');
-      if (btn && tag) btn.textContent = 'Télécharger AlphaTrade ' + tag;
     }
 
     const armAsset = assets.find(a => a.name.endsWith('-arm64.dmg'));
