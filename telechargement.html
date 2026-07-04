@@ -306,7 +306,24 @@ window.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-const DOWNLOAD_URL = 'https://github.com/myalphatrade/alphatrade-releases/releases/download/v4.0.0/AlphaTrade-Setup-4.0.0.exe';
+let DOWNLOAD_URL = 'https://github.com/MyAlphaTrade/alphatrade-releases/releases/latest/download/AlphaTrade-Setup-4.0.0.exe';
+let DOWNLOAD_SIZE = '~183 MB';
+
+async function loadReleaseInfo() {
+  try {
+    const res = await fetch('https://api.github.com/repos/MyAlphaTrade/alphatrade-releases/releases/latest');
+    const data = await res.json();
+    const asset = (data.assets || []).find(a => a.name.endsWith('.exe'));
+    if (asset) {
+      DOWNLOAD_URL = asset.browser_download_url;
+      DOWNLOAD_SIZE = Math.round(asset.size / 1024 / 1024) + ' MB';
+      document.querySelectorAll('.system-req').forEach(el => {
+        el.textContent = el.textContent.replace(/~?\d+ MB/, DOWNLOAD_SIZE);
+      });
+    }
+  } catch {}
+}
+loadReleaseInfo();
 
 function startDownload() {
   notify('Téléchargement en cours...', 'green');
