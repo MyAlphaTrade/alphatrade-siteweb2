@@ -32,7 +32,7 @@
     <div class="container" style="max-width:860px">
       <div class="section-label reveal">Téléchargement</div>
       <h2 class="reveal">Télécharger AlphaTrade</h2>
-      <p class="lead reveal">Version 4.0.0 — Compatible Windows 10 et Windows 11 (64-bit)</p>
+      <p class="lead reveal">Version 4.0.1 — Compatible Windows 10 et Windows 11 (64-bit)</p>
 
       <!-- Boutons de téléchargement par OS -->
       <div class="reveal" style="margin-bottom:32px">
@@ -285,7 +285,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:20px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         <h2>Votre téléchargement est prêt</h2>
         <p>Forfait <strong>${(data.plan.plan_key||'starter').toUpperCase()}</strong> actif · Valable jusqu'au ${exp}</p>
-        <a href="#" class="btn btn-primary btn-lg" onclick="startDownload();return false">Télécharger AlphaTrade v4.0.0</a>
+        <a href="#" class="btn btn-primary btn-lg" onclick="startDownload();return false">Télécharger AlphaTrade v4.0.1</a>
         <div class="system-req">Windows 10/11 · 64-bit · ~183 MB</div>
       </div>`;
     } else {
@@ -306,7 +306,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-let DOWNLOAD_URL = 'https://github.com/MyAlphaTrade/alphatrade-releases/releases/latest/download/AlphaTrade-Setup-4.0.0.exe';
+let DOWNLOAD_URL = 'https://github.com/MyAlphaTrade/alphatrade-releases/releases/latest/download/AlphaTrade-Setup-4.0.1.exe';
 let DOWNLOAD_SIZE = '~183 MB';
 
 async function loadReleaseInfo() {
