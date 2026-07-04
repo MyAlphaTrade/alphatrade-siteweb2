@@ -246,6 +246,19 @@ section[id] { scroll-margin-top: 84px; }
 @media (max-width: 1200px) { .pricing-grid-4 { grid-template-columns: repeat(2, 1fr); max-width: 760px; } }
 @media (max-width: 600px)  { .pricing-grid-4 { grid-template-columns: 1fr; max-width: 420px; } }
 
+.pricing-grid-5 {
+  grid-template-columns: repeat(5, 1fr);
+  max-width: 1600px;
+}
+@media (max-width: 1400px) { .pricing-grid-5 { grid-template-columns: repeat(3, 1fr); max-width: 980px; } }
+@media (max-width: 900px)  { .pricing-grid-5 { grid-template-columns: repeat(2, 1fr); max-width: 640px; } }
+@media (max-width: 600px)  { .pricing-grid-5 { grid-template-columns: 1fr; max-width: 420px; } }
+
+.basique-card {
+  border-color: rgba(34,197,94,0.3);
+  background: linear-gradient(160deg, #0e1a12 0%, #0a1a0f 100%);
+}
+
 .premium-card {
   border-color: rgba(212,175,55,0.35);
   background: linear-gradient(160deg, #111a13 0%, #1a1508 100%);

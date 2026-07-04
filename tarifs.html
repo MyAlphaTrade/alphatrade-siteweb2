@@ -43,7 +43,28 @@
         <span>Hebdomadaire &nbsp;<span class="badge-save">Flexible</span></span>
       </div>
 
-      <div class="pricing-grid pricing-grid-4 reveal">
+      <div class="pricing-grid pricing-grid-5 reveal">
+        <div class="pricing-card basique-card">
+          <div class="pricing-badge" style="background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff">⚡ BOOM1000 ONLY</div>
+          <div class="plan-name">Basique</div>
+          <div class="plan-price" id="price-basique">14<span>.99 $/mois</span></div>
+          <div class="plan-period" id="period-basique" style="font-size:13px;color:var(--muted);margin-bottom:20px">Facturé mensuellement</div>
+          <div class="plan-capital"><strong>Capital minimum : 50 $</strong>Débuter avec les indices synthétiques Deriv</div>
+          <ul class="plan-features">
+            <li class="active"><span class="check">✓</span> Trading automatique 24h/7j</li>
+            <li class="active"><span class="check">✓</span> Symbole : BOOM1000 uniquement</li>
+            <li class="active"><span class="check">✓</span> Lot fixe : 0.01</li>
+            <li class="active"><span class="check">✓</span> Max 2 positions simultanées</li>
+            <li class="active"><span class="check">✓</span> Scalping rapide (indices 24h/7j)</li>
+            <li class="active"><span class="check">✓</span> Gain max / session : 5 $</li>
+            <li class="active"><span class="check">✓</span> Gain max journalier : 15 $</li>
+            <li><span class="cross">✗</span> Paramètres personnalisables</li>
+            <li><span class="cross">✗</span> Système Rebond avancé</li>
+            <li><span class="cross">✗</span> Accès IA</li>
+          </ul>
+          <a href="#" class="btn btn-outline btn-full" onclick="choosePlan('basique')">Choisir Basique</a>
+        </div>
+
         <div class="pricing-card">
           <div class="plan-name">Starter</div>
           <div class="plan-price" id="price-starter">29<span>.99 $/mois</span></div>
@@ -272,12 +293,14 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
 <script>
 const PRICES = {
   monthly: {
+    basique: '14<span>.99 $/mois</span>',
     starter: '29<span>.99 $/mois</span>',
     pro:     '79<span>.99 $/mois</span>',
     elite:   '299<span>.99 $/mois</span>',
     premium: '999<span>.99 $/mois</span>',
   },
   weekly: {
+    basique: '6<span>.99 $/sem</span>',
     starter: '9<span>.99 $/sem</span>',
     pro:     '24<span>.99 $/sem</span>',
     elite:   '99<span>.99 $/sem</span>',
@@ -298,7 +321,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 function switchBilling() {
   billing = document.getElementById('billingToggle').checked ? 'weekly' : 'monthly';
-  ['starter','pro','elite','premium'].forEach(p => {
+  ['basique','starter','pro','elite','premium'].forEach(p => {
     document.getElementById('price-'+p).innerHTML = PRICES[billing][p];
     document.getElementById('period-'+p).textContent = PERIODS[billing];
   });
