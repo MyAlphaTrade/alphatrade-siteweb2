@@ -433,13 +433,31 @@ async function goStep2() {
     document.getElementById('step2').style.display = 'block';
     document.getElementById('verifyTarget').textContent = email;
     notify('Email de vérification envoyé à ' + email, 'green');
+    startVerifyPolling();
   } catch(e) {
     err.textContent = e.message; err.style.display = 'block';
   }
 }
 
+function startVerifyPolling() {
+  const poll = setInterval(() => {
+    const tok = localStorage.getItem('at_token') || sessionStorage.getItem('at_token');
+    if (tok) {
+      clearInterval(poll);
+      window.location.href = 'espace-client.html';
+    }
+  }, 2000);
+}
+
 async function resendVerif() {
-  notify('Si votre compte existe, un nouvel email a été envoyé. Vérifiez vos spams.', 'green');
+  const email = formData.email;
+  if (!email) { notify('Aucun email trouvé. Recommencez l\'inscription.', 'red'); return; }
+  try {
+    await apiPost('/auth/resend-verification', { email });
+    notify('Un nouveau lien a été envoyé. Vérifiez vos spams.', 'green');
+  } catch(e) {
+    notify('Erreur lors de l\'envoi. Réessayez dans quelques secondes.', 'red');
+  }
 }
 
 function selectPlan(plan, el) {
