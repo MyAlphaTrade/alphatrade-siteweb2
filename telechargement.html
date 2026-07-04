@@ -305,8 +305,11 @@ window.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
+const DOWNLOAD_URL = 'https://github.com/myalphatrade/alphatrade-releases/releases/download/v4.0.0/AlphaTrade-Setup-4.0.0.exe';
+
 function startDownload() {
-  notify('Le fichier d\'installation sera disponible au lancement officiel.', 'green');
+  notify('Téléchargement en cours...', 'green');
+  window.location.href = DOWNLOAD_URL;
 }
 
 function handleDownload(os) {
