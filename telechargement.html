@@ -261,10 +261,26 @@ function closeModal() {
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 </script>
 <script>
+let userPlanActive = false;
+
+function disableDownloadButtons() {
+  document.querySelectorAll('#btn-win64, #btn-mac-intel, #btn-mac-arm').forEach(el => {
+    el.classList.add('os-btn-disabled');
+    el.style.cursor = 'not-allowed';
+    el.style.opacity = '0.45';
+    el.onclick = (e) => {
+      e.preventDefault();
+      notify('Forfait actif requis pour télécharger.', 'red');
+      setTimeout(() => { window.location.href = 'tarifs.html'; }, 1500);
+    };
+  });
+}
+
 window.addEventListener('DOMContentLoaded', async () => {
   const zone = document.getElementById('mainZone');
   const token = getToken();
   if (!token) {
+    disableDownloadButtons();
     zone.innerHTML = `<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:44px;text-align:center">
       <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:18px"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
       <h3 style="margin-bottom:10px;font-size:20px">Connexion requise</h3>
@@ -278,15 +294,17 @@ window.addEventListener('DOMContentLoaded', async () => {
   try {
     const data = await apiGet('/auth/verify', token);
     if (data.valid) {
+      userPlanActive = true;
       const exp = new Date(data.plan.expires_at).toLocaleDateString('fr-FR');
       zone.innerHTML = `<div class="download-card">
         <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:20px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         <h2>Votre téléchargement est prêt</h2>
         <p>Forfait <strong>${(data.plan.plan_key||'starter').toUpperCase()}</strong> actif · Valable jusqu'au ${exp}</p>
-        <a href="#" class="btn btn-primary btn-lg" onclick="startDownload();return false">Télécharger AlphaTrade v4.0.1</a>
+        <a href="#" class="btn btn-primary btn-lg" onclick="startDownload();return false">Télécharger AlphaTrade v4.0.2</a>
         <div class="system-req">Windows 10/11 · 64-bit · ~183 MB</div>
       </div>`;
     } else {
+      disableDownloadButtons();
       zone.innerHTML = `<div style="background:rgba(212,175,55,0.06);border:1px solid rgba(212,175,55,0.25);border-radius:12px;padding:36px;text-align:center">
         <div style="font-size:44px;margin-bottom:16px">⚠️</div>
         <h3 style="margin-bottom:8px;color:var(--gold)">Forfait expiré</h3>
@@ -295,6 +313,7 @@ window.addEventListener('DOMContentLoaded', async () => {
       </div>`;
     }
   } catch {
+    disableDownloadButtons();
     zone.innerHTML = `<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:36px;text-align:center">
       <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-linecap="round" style="margin-bottom:16px"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
       <h3 style="margin-bottom:8px">Forfait requis</h3>
@@ -304,9 +323,9 @@ window.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-let DOWNLOAD_URL          = 'https://github.com/MyAlphaTrade/alphatrade-releases/releases/latest/download/AlphaTrade-Setup-4.0.1.exe';
-let DOWNLOAD_URL_MAC_INTEL = 'https://github.com/MyAlphaTrade/alphatrade-releases/releases/latest/download/AlphaTrade-4.0.1.dmg';
-let DOWNLOAD_URL_MAC_ARM   = 'https://github.com/MyAlphaTrade/alphatrade-releases/releases/latest/download/AlphaTrade-4.0.1-arm64.dmg';
+let DOWNLOAD_URL          = 'https://github.com/MyAlphaTrade/alphatrade-releases/releases/latest/download/AlphaTrade-Setup-4.0.2.exe';
+let DOWNLOAD_URL_MAC_INTEL = 'https://github.com/MyAlphaTrade/alphatrade-releases/releases/latest/download/AlphaTrade-4.0.2.dmg';
+let DOWNLOAD_URL_MAC_ARM   = 'https://github.com/MyAlphaTrade/alphatrade-releases/releases/latest/download/AlphaTrade-4.0.2-arm64.dmg';
 let DOWNLOAD_SIZE = '~183 MB';
 
 // Badge "Nouveau" : date de mise en ligne + durée d'affichage
@@ -362,6 +381,11 @@ function handleDownload(os) {
   if (!token) {
     notify('Vous devez être connecté pour télécharger.', 'red');
     setTimeout(() => { window.location.href = 'connexion.html'; }, 1200);
+    return;
+  }
+  if (!userPlanActive) {
+    notify('Forfait actif requis pour télécharger.', 'red');
+    setTimeout(() => { window.location.href = 'tarifs.html'; }, 1500);
     return;
   }
   const urls = {
