@@ -287,6 +287,13 @@ section[id] { scroll-margin-top: 84px; }
 .os-badge-soon {
   background: rgba(212,175,55,0.12); color: var(--gold);
 }
+.os-badge-new {
+  animation: badge-pulse 2.4s ease-in-out infinite;
+}
+@keyframes badge-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .6; }
+}
 
 .pricing-card {
   background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);

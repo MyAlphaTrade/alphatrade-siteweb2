@@ -65,25 +65,25 @@
           </div>
 
           <!-- Mac Intel -->
-          <div class="os-btn-card os-btn-disabled">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.4" style="margin-bottom:10px;opacity:.5">
+          <div id="btn-mac-intel" class="os-btn-card" onclick="handleDownload('mac-intel')">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.4" style="margin-bottom:10px">
               <path d="M12 2C8 2 6 5 6 7c0 1 .5 2 1 2.5C4.5 11 3 13.5 3 16c0 3.5 2.5 6 5.5 6 .8 0 1.6-.2 2.5-.5.9.3 1.7.5 2.5.5C16.5 22 19 19.5 19 16c0-2.5-1.5-5-4-6.5.5-.5 1-1.5 1-2.5 0-2-2-5-4-5z"/>
               <path d="M12 2v3"/>
             </svg>
-            <div style="font-weight:700;font-size:15px;margin-bottom:4px;color:var(--muted)">Mac Intel</div>
+            <div style="font-weight:700;font-size:15px;margin-bottom:4px">Mac Intel</div>
             <div style="font-size:12px;color:var(--muted)">macOS 12+</div>
-            <div class="os-badge os-badge-soon">Bientôt</div>
+            <div class="os-badge os-badge-new" id="badge-mac-intel">Nouveau</div>
           </div>
 
           <!-- Mac Apple Silicon -->
-          <div class="os-btn-card os-btn-disabled">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.4" style="margin-bottom:10px;opacity:.5">
+          <div id="btn-mac-arm" class="os-btn-card" onclick="handleDownload('mac-arm')">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.4" style="margin-bottom:10px">
               <path d="M12 2C8 2 6 5 6 7c0 1 .5 2 1 2.5C4.5 11 3 13.5 3 16c0 3.5 2.5 6 5.5 6 .8 0 1.6-.2 2.5-.5.9.3 1.7.5 2.5.5C16.5 22 19 19.5 19 16c0-2.5-1.5-5-4-6.5.5-.5 1-1.5 1-2.5 0-2-2-5-4-5z"/>
               <path d="M12 2v3"/>
             </svg>
-            <div style="font-weight:700;font-size:15px;margin-bottom:4px;color:var(--muted)">Mac Apple Silicon</div>
+            <div style="font-weight:700;font-size:15px;margin-bottom:4px">Mac Apple Silicon</div>
             <div style="font-size:12px;color:var(--muted)">M1 / M2 / M3</div>
-            <div class="os-badge os-badge-soon">Bientôt</div>
+            <div class="os-badge os-badge-new" id="badge-mac-arm">Nouveau</div>
           </div>
 
           <!-- Application Mobile — Premium uniquement -->
@@ -306,21 +306,50 @@ window.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-let DOWNLOAD_URL = 'https://github.com/MyAlphaTrade/alphatrade-releases/releases/latest/download/AlphaTrade-Setup-4.0.1.exe';
+let DOWNLOAD_URL          = 'https://github.com/MyAlphaTrade/alphatrade-releases/releases/latest/download/AlphaTrade-Setup-4.0.1.exe';
+let DOWNLOAD_URL_MAC_INTEL = 'https://github.com/MyAlphaTrade/alphatrade-releases/releases/latest/download/AlphaTrade-4.0.1.dmg';
+let DOWNLOAD_URL_MAC_ARM   = 'https://github.com/MyAlphaTrade/alphatrade-releases/releases/latest/download/AlphaTrade-4.0.1-arm64.dmg';
 let DOWNLOAD_SIZE = '~183 MB';
+
+// Badge "Nouveau" : date de mise en ligne + durée d'affichage
+const NOUVEAU_RELEASES = {
+  'mac-intel': { date: '2026-07-04', days: 30 },
+  'mac-arm':   { date: '2026-07-04', days: 30 },
+};
+
+function isNew(dateStr, days) {
+  return (Date.now() - new Date(dateStr).getTime()) < days * 86400000;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  Object.entries(NOUVEAU_RELEASES).forEach(([key, { date, days }]) => {
+    if (!isNew(date, days)) {
+      const el = document.getElementById('badge-' + key);
+      if (el) el.style.display = 'none';
+    }
+  });
+});
 
 async function loadReleaseInfo() {
   try {
     const res = await fetch('https://api.github.com/repos/MyAlphaTrade/alphatrade-releases/releases/latest');
     const data = await res.json();
-    const asset = (data.assets || []).find(a => a.name.endsWith('.exe'));
-    if (asset) {
-      DOWNLOAD_URL = asset.browser_download_url;
-      DOWNLOAD_SIZE = Math.round(asset.size / 1024 / 1024) + ' MB';
+    const assets = data.assets || [];
+
+    const exeAsset = assets.find(a => a.name.endsWith('.exe'));
+    if (exeAsset) {
+      DOWNLOAD_URL = exeAsset.browser_download_url;
+      DOWNLOAD_SIZE = Math.round(exeAsset.size / 1024 / 1024) + ' MB';
       document.querySelectorAll('.system-req').forEach(el => {
         el.textContent = el.textContent.replace(/~?\d+ MB/, DOWNLOAD_SIZE);
       });
     }
+
+    const armAsset = assets.find(a => a.name.endsWith('-arm64.dmg'));
+    if (armAsset) DOWNLOAD_URL_MAC_ARM = armAsset.browser_download_url;
+
+    const intelAsset = assets.find(a => a.name.endsWith('.dmg') && !a.name.endsWith('-arm64.dmg'));
+    if (intelAsset) DOWNLOAD_URL_MAC_INTEL = intelAsset.browser_download_url;
   } catch {}
 }
 loadReleaseInfo();
@@ -337,11 +366,20 @@ function handleDownload(os) {
     setTimeout(() => { window.location.href = 'connexion.html'; }, 1200);
     return;
   }
-  const labels = { win64: 'Windows 64-bit', win32: 'Windows 32-bit' };
-  notify('Préparation du téléchargement ' + labels[os] + '...', 'green');
-  setTimeout(() => {
-    notify('Le téléchargement sera disponible au lancement officiel.', 'green');
-  }, 1800);
+  const urls = {
+    win64:       DOWNLOAD_URL,
+    'mac-intel': DOWNLOAD_URL_MAC_INTEL,
+    'mac-arm':   DOWNLOAD_URL_MAC_ARM,
+  };
+  const labels = {
+    win64:       'Windows 64-bit',
+    'mac-intel': 'Mac Intel',
+    'mac-arm':   'Mac Apple Silicon',
+  };
+  const url = urls[os];
+  if (!url) return;
+  notify('Téléchargement ' + labels[os] + ' en cours...', 'green');
+  setTimeout(() => { window.location.href = url; }, 600);
 }
 </script>
 <script src="js/nav.js"></script>
