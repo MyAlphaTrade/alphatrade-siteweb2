@@ -364,7 +364,11 @@ function choosePlan(plan) {
   if (!user) { window.location.href = 'inscription.html?plan=' + plan; return; }
   localStorage.setItem('at_pending_plan', plan);
   localStorage.setItem('at_pending_billing', billing);
-  window.location.href = 'paiement.html?plan=' + plan + '&billing=' + billing;
+  const f = forfaitsData[plan];
+  const price = f ? (billing === 'weekly' ? f.price_weekly : f.price_monthly) : null;
+  let url = 'paiement.html?plan=' + plan + '&billing=' + billing;
+  if (price) url += '&price=' + price;
+  window.location.href = url;
 }
 </script>
 <script src="js/nav.js"></script>

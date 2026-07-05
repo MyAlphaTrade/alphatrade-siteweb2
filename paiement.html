@@ -223,10 +223,14 @@ if (!getUser()) { window.location.href = 'connexion.html'; }
 const params  = new URLSearchParams(window.location.search);
 const plan    = params.get('plan')    || localStorage.getItem('at_pending_plan')    || 'pro';
 const billing = params.get('billing') || localStorage.getItem('at_pending_billing') || 'monthly';
+const priceFromURL = params.get('price');
 
 document.getElementById('summaryPlan').textContent    = plan.charAt(0).toUpperCase() + plan.slice(1);
 document.getElementById('summaryBilling').textContent = PERIODS[billing] || PERIODS.monthly;
-document.getElementById('summaryPrice').textContent   = (PRICES_DEFAULT[billing] || PRICES_DEFAULT.monthly)[plan] || '—';
+// Priorité : prix passé dans l'URL (depuis tarifs.html) → pas de flash
+document.getElementById('summaryPrice').textContent   = priceFromURL
+  ? parseFloat(priceFromURL).toFixed(2) + ' USD'
+  : (PRICES_DEFAULT[billing] || PRICES_DEFAULT.monthly)[plan] || '—';
 
 // Mise à jour dynamique du prix depuis le backend
 (async () => {
