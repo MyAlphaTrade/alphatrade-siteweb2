@@ -49,12 +49,12 @@
           <div class="plan-name">Basique</div>
           <div class="plan-price" id="price-basique">14<span>.99 $/mois</span></div>
           <div class="plan-period" id="period-basique" style="font-size:13px;color:var(--muted);margin-bottom:20px">Facturé mensuellement</div>
-          <div class="plan-capital"><strong>Capital minimum : 50 $</strong>Débuter avec les indices synthétiques Deriv</div>
+          <div class="plan-capital"><strong id="capital-basique">Capital minimum : 50 $</strong>Débuter avec les indices synthétiques Deriv</div>
           <ul class="plan-features">
             <li class="active"><span class="check">✓</span> Trading automatique 24h/7j</li>
             <li class="active"><span class="check">✓</span> Symbole : BOOM1000 uniquement</li>
-            <li class="active"><span class="check">✓</span> Lot fixe : 0.02</li>
-            <li class="active"><span class="check">✓</span> Max 2 positions simultanées</li>
+            <li class="active" id="lot-basique"><span class="check">✓</span> Lot fixe : 0.02</li>
+            <li class="active" id="pos-basique"><span class="check">✓</span> Max 2 positions simultanées</li>
             <li class="active"><span class="check">✓</span> Scalping rapide (indices 24h/7j)</li>
             <li class="active"><span class="check">✓</span> Gain max / session : 5 $</li>
             <li class="active"><span class="check">✓</span> Gain max journalier : 15 $</li>
@@ -69,12 +69,12 @@
           <div class="plan-name">Starter</div>
           <div class="plan-price" id="price-starter">29<span>.99 $/mois</span></div>
           <div class="plan-period" id="period-starter" style="font-size:13px;color:var(--muted);margin-bottom:20px">Facturé mensuellement</div>
-          <div class="plan-capital"><strong>Capital recommandé : 350 $</strong>Idéal pour débuter le trading automatisé</div>
+          <div class="plan-capital"><strong id="capital-starter">Capital recommandé : 350 $</strong>Idéal pour débuter le trading automatisé</div>
           <ul class="plan-features">
             <li class="active"><span class="check">✓</span> Trading automatique 24/7</li>
             <li class="active"><span class="check">✓</span> Symbole : Or (XAUUSD) uniquement</li>
-            <li class="active"><span class="check">✓</span> Lot fixe : 0.01</li>
-            <li class="active"><span class="check">✓</span> Max 2 positions simultanées</li>
+            <li class="active" id="lot-starter"><span class="check">✓</span> Lot fixe : 0.01</li>
+            <li class="active" id="pos-starter"><span class="check">✓</span> Max 2 positions simultanées</li>
             <li class="active"><span class="check">✓</span> Session Londres uniquement</li>
             <li class="active"><span class="check">✓</span> Gain max / session : 10 $</li>
             <li class="active"><span class="check">✓</span> Gain max journalier : 30 $</li>
@@ -90,12 +90,12 @@
           <div class="plan-name">Pro</div>
           <div class="plan-price" id="price-pro">79<span>.99 $/mois</span></div>
           <div class="plan-period" id="period-pro" style="font-size:13px;color:var(--muted);margin-bottom:20px">Facturé mensuellement</div>
-          <div class="plan-capital"><strong>Capital recommandé : 1 000 $</strong>La référence pour un trading sérieux</div>
+          <div class="plan-capital"><strong id="capital-pro">Capital recommandé : 1 000 $</strong>La référence pour un trading sérieux</div>
           <ul class="plan-features">
             <li class="active"><span class="check">✓</span> Trading automatique 24/7</li>
             <li class="active"><span class="check">✓</span> Or (XAUUSD) uniquement</li>
-            <li class="active"><span class="check">✓</span> Lot : 0.01 – 0.03</li>
-            <li class="active"><span class="check">✓</span> Max 4 positions simultanées</li>
+            <li class="active" id="lot-pro"><span class="check">✓</span> Lot : 0.01 – 0.03</li>
+            <li class="active" id="pos-pro"><span class="check">✓</span> Max 4 positions simultanées</li>
             <li class="active"><span class="check">✓</span> Sessions Londres + New York</li>
             <li class="active"><span class="check">✓</span> Gain max / session : 25 $</li>
             <li class="active"><span class="check">✓</span> Gain max journalier : 100 $</li>
@@ -110,12 +110,12 @@
           <div class="plan-name">Elite</div>
           <div class="plan-price" id="price-elite">299<span>.99 $/mois</span></div>
           <div class="plan-period" id="period-elite" style="font-size:13px;color:var(--muted);margin-bottom:20px">Facturé mensuellement</div>
-          <div class="plan-capital"><strong>Capital recommandé : 2 500 $</strong>Performances maximales, fonctionnalités avancées</div>
+          <div class="plan-capital"><strong id="capital-elite">Capital recommandé : 2 500 $</strong>Performances maximales, fonctionnalités avancées</div>
           <ul class="plan-features">
             <li class="active"><span class="check">✓</span> Trading automatique 24/7</li>
             <li class="active"><span class="check">✓</span> Or (XAUUSD) + BOOM1000</li>
-            <li class="active"><span class="check">✓</span> Lot : 0.01 – 0.06</li>
-            <li class="active"><span class="check">✓</span> Max 6 positions simultanées</li>
+            <li class="active" id="lot-elite"><span class="check">✓</span> Lot : 0.01 – 0.06</li>
+            <li class="active" id="pos-elite"><span class="check">✓</span> Max 6 positions simultanées</li>
             <li class="active"><span class="check">✓</span> 3 sessions (Lon. + N.Y. + Tokyo)</li>
             <li class="active"><span class="check">✓</span> Gain max / session : 50 $</li>
             <li class="active"><span class="check">✓</span> Gain max journalier : 200 $</li>
@@ -131,12 +131,12 @@
           <div class="plan-name" style="color:var(--gold)">Premium</div>
           <div class="plan-price" id="price-premium" style="color:var(--gold)">999<span>.99 $/mois</span></div>
           <div class="plan-period" id="period-premium" style="font-size:13px;color:var(--muted);margin-bottom:20px">Facturé mensuellement</div>
-          <div class="plan-capital" style="border-color:rgba(212,175,55,0.3);background:rgba(212,175,55,0.06)"><strong>Capital recommandé : 5 000 $</strong>Accès total — tout débloqué sans limite</div>
+          <div class="plan-capital" style="border-color:rgba(212,175,55,0.3);background:rgba(212,175,55,0.06)"><strong id="capital-premium">Capital recommandé : 5 000 $</strong>Accès total — tout débloqué sans limite</div>
           <ul class="plan-features">
             <li class="active"><span class="check">✓</span> Trading automatique 24/7</li>
             <li class="active"><span class="check">✓</span> XAUUSD + BOOM1000 (tous symboles)</li>
-            <li class="active"><span class="check">✓</span> Lot : 0.01 – 0.10</li>
-            <li class="active"><span class="check">✓</span> Max 8 positions simultanées</li>
+            <li class="active" id="lot-premium"><span class="check">✓</span> Lot : 0.01 – 0.10</li>
+            <li class="active" id="pos-premium"><span class="check">✓</span> Max 8 positions simultanées</li>
             <li class="active"><span class="check">✓</span> Toutes sessions (24h/24)</li>
             <li class="active"><span class="check">✓</span> Gain max / session : 100 $</li>
             <li class="active"><span class="check">✓</span> Gain max journalier : 500 $</li>
@@ -291,26 +291,54 @@ function closeModal() {
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 </script>
 <script>
-const PRICES = {
-  monthly: {
-    basique: '14<span>.99 $/mois</span>',
-    starter: '29<span>.99 $/mois</span>',
-    pro:     '79<span>.99 $/mois</span>',
-    elite:   '299<span>.99 $/mois</span>',
-    premium: '999<span>.99 $/mois</span>',
-  },
-  weekly: {
-    basique: '4<span>.99 $/sem</span>',
-    starter: '9<span>.99 $/sem</span>',
-    pro:     '24<span>.99 $/sem</span>',
-    elite:   '99<span>.99 $/sem</span>',
-    premium: '299<span>.99 $/sem</span>',
-  },
-};
+const API_URL = 'https://web-production-9312ae.up.railway.app';
+const PLANS_ORDER = ['basique','starter','pro','elite','premium'];
 const PERIODS = { monthly: 'Facturé mensuellement', weekly: 'Facturé à la semaine' };
 let billing = 'monthly';
 
+// Valeurs par défaut (fallback si le backend est inaccessible)
+let forfaitsData = {
+  basique:  { price_monthly: 14.99,  price_weekly: 4.99,   capital_min: 50,   lot_max: 0.02, max_positions: 2 },
+  starter:  { price_monthly: 29.99,  price_weekly: 9.99,   capital_min: 350,  lot_max: 0.03, max_positions: 2 },
+  pro:      { price_monthly: 79.99,  price_weekly: 24.99,  capital_min: 1000, lot_max: 0.05, max_positions: 4 },
+  elite:    { price_monthly: 299.99, price_weekly: 99.99,  capital_min: 2500, lot_max: 0.10, max_positions: 6 },
+  premium:  { price_monthly: 999.99, price_weekly: 299.99, capital_min: 5000, lot_max: 0.20, max_positions: 8 },
+};
+
+function formatPrice(amount, period) {
+  const parts = amount.toFixed(2).split('.');
+  const suffix = period === 'weekly' ? ' $/sem' : ' $/mois';
+  return `${parts[0]}<span>.${parts[1]}${suffix}</span>`;
+}
+
+function applyForfaitsToPage() {
+  PLANS_ORDER.forEach(p => {
+    const f = forfaitsData[p];
+    if (!f) return;
+    const priceEl   = document.getElementById('price-' + p);
+    const capitalEl = document.getElementById('capital-' + p);
+    const lotEl     = document.getElementById('lot-' + p);
+    const posEl     = document.getElementById('pos-' + p);
+    if (priceEl)   priceEl.innerHTML = formatPrice(billing === 'weekly' ? f.price_weekly : f.price_monthly, billing);
+    if (capitalEl) capitalEl.textContent = `Capital ${p === 'basique' ? 'minimum' : 'recommandé'} : ${Number(f.capital_min).toLocaleString('fr-FR')} $`;
+    if (lotEl)     lotEl.innerHTML = `<span class="check">✓</span> Lot max : ${f.lot_max}`;
+    if (posEl)     posEl.innerHTML = `<span class="check">✓</span> Max ${f.max_positions} position${f.max_positions > 1 ? 's' : ''} simultanée${f.max_positions > 1 ? 's' : ''}`;
+  });
+}
+
+async function loadForfaits() {
+  try {
+    const r = await fetch(`${API_URL}/public/forfaits`, { signal: AbortSignal.timeout(5000) });
+    if (r.ok) {
+      const d = await r.json();
+      if (d.forfaits && Object.keys(d.forfaits).length) forfaitsData = d.forfaits;
+    }
+  } catch (_) {}
+  applyForfaitsToPage();
+}
+
 window.addEventListener('DOMContentLoaded', () => {
+  loadForfaits();
   const params = new URLSearchParams(window.location.search);
   const plan = params.get('plan');
   if (plan) {
@@ -321,9 +349,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
 function switchBilling() {
   billing = document.getElementById('billingToggle').checked ? 'weekly' : 'monthly';
-  ['basique','starter','pro','elite','premium'].forEach(p => {
-    document.getElementById('price-'+p).innerHTML = PRICES[billing][p];
-    document.getElementById('period-'+p).textContent = PERIODS[billing];
+  PLANS_ORDER.forEach(p => {
+    const f = forfaitsData[p];
+    if (!f) return;
+    const priceEl  = document.getElementById('price-' + p);
+    const periodEl = document.getElementById('period-' + p);
+    if (priceEl)  priceEl.innerHTML = formatPrice(billing === 'weekly' ? f.price_weekly : f.price_monthly, billing);
+    if (periodEl) periodEl.textContent = PERIODS[billing];
   });
 }
 

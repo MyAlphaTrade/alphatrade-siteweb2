@@ -212,9 +212,9 @@
 
 <script src="js/api.js"></script>
 <script>
-const PRICES = {
-  monthly: { starter:'29.99 USD', pro:'79.99 USD', elite:'299.99 USD', premium:'999.99 USD' },
-  weekly:  { starter:'9.99 USD',  pro:'24.99 USD', elite:'99.99 USD',  premium:'149.99 USD' },
+const PRICES_DEFAULT = {
+  monthly: { basique:'14.99 USD', starter:'29.99 USD', pro:'79.99 USD', elite:'299.99 USD', premium:'999.99 USD' },
+  weekly:  { basique:'4.99 USD',  starter:'9.99 USD',  pro:'24.99 USD', elite:'99.99 USD',  premium:'299.99 USD' },
 };
 const PERIODS = { monthly:'Facturé mensuellement', weekly:'Facturé à la semaine' };
 
@@ -226,7 +226,22 @@ const billing = params.get('billing') || localStorage.getItem('at_pending_billin
 
 document.getElementById('summaryPlan').textContent    = plan.charAt(0).toUpperCase() + plan.slice(1);
 document.getElementById('summaryBilling').textContent = PERIODS[billing] || PERIODS.monthly;
-document.getElementById('summaryPrice').textContent   = (PRICES[billing] || PRICES.monthly)[plan] || '—';
+document.getElementById('summaryPrice').textContent   = (PRICES_DEFAULT[billing] || PRICES_DEFAULT.monthly)[plan] || '—';
+
+// Mise à jour dynamique du prix depuis le backend
+(async () => {
+  try {
+    const r = await fetch('https://web-production-9312ae.up.railway.app/public/forfaits', { signal: AbortSignal.timeout(5000) });
+    if (r.ok) {
+      const d = await r.json();
+      const f = d.forfaits?.[plan];
+      if (f) {
+        const price = billing === 'weekly' ? f.price_weekly : f.price_monthly;
+        document.getElementById('summaryPrice').textContent = price.toFixed(2) + ' USD';
+      }
+    }
+  } catch (_) {}
+})();
 
 let selectedMethod = null;
 
