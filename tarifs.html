@@ -339,6 +339,7 @@ async function loadForfaits() {
 
 window.addEventListener('DOMContentLoaded', () => {
   loadForfaits();
+  setInterval(loadForfaits, 60000);
   const params = new URLSearchParams(window.location.search);
   const plan = params.get('plan');
   if (plan) {
