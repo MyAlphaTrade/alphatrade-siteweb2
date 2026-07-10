@@ -14,10 +14,15 @@
 
   const pageActiveMap = {
     'tarifs.html':         'tarifs',
+    'tarifs':              'tarifs',
     'telechargement.html': 'dl',
+    'telechargement':      'dl',
     'inscription.html':    null,
+    'inscription':         null,
     'connexion.html':      null,
+    'connexion':           null,
     'espace-client.html':  null,
+    'espace-client':       null,
   };
 
   // Active initial selon la page
@@ -48,6 +53,15 @@
   if (nav) {
     nav.querySelector('.nav-links').innerHTML = renderLinks(initialActive);
     nav.querySelector('.nav-cta').innerHTML   = ctaHtml;
+  }
+
+  // Re-applique l'état actif après chargement complet (pages hors index)
+  if (!isIndex && initialActive) {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => setActive(initialActive));
+    } else {
+      setActive(initialActive);
+    }
   }
 
   // Sur index.html : détection active par scroll + clic

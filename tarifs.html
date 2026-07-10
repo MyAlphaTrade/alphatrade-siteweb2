@@ -296,14 +296,13 @@ const PLANS_ORDER = ['basique','starter','pro','elite','premium'];
 const PERIODS = { monthly: 'Facturé mensuellement', weekly: 'Facturé à la semaine' };
 let billing = 'monthly';
 
-// Valeurs par défaut (fallback si le backend est inaccessible)
-let forfaitsData = {
-  basique:  { price_monthly: 14.99,  price_weekly: 4.99,   capital_min: 50,   lot_max: 0.02, max_positions: 2 },
-  starter:  { price_monthly: 29.99,  price_weekly: 9.99,   capital_min: 350,  lot_max: 0.03, max_positions: 2 },
-  pro:      { price_monthly: 79.99,  price_weekly: 24.99,  capital_min: 1000, lot_max: 0.05, max_positions: 4 },
-  elite:    { price_monthly: 299.99, price_weekly: 99.99,  capital_min: 2500, lot_max: 0.10, max_positions: 6 },
-  premium:  { price_monthly: 999.99, price_weekly: 299.99, capital_min: 5000, lot_max: 0.20, max_positions: 8 },
-};
+// Prix chargés depuis le cache localStorage (mise à jour à chaque fetch réussi)
+let forfaitsData = {};
+try {
+  const _c = localStorage.getItem('at_forfaits_cache');
+  if (_c) forfaitsData = JSON.parse(_c);
+} catch (_) {}
+if (Object.keys(forfaitsData).length) applyForfaitsToPage();
 
 function formatPrice(amount, period) {
   const parts = amount.toFixed(2).split('.');
@@ -331,7 +330,10 @@ async function loadForfaits() {
     const r = await fetch(`${API_URL}/public/forfaits`, { signal: AbortSignal.timeout(5000) });
     if (r.ok) {
       const d = await r.json();
-      if (d.forfaits && Object.keys(d.forfaits).length) forfaitsData = d.forfaits;
+      if (d.forfaits && Object.keys(d.forfaits).length) {
+        forfaitsData = d.forfaits;
+        try { localStorage.setItem('at_forfaits_cache', JSON.stringify(forfaitsData)); } catch (_) {}
+      }
     }
   } catch (_) {}
   applyForfaitsToPage();
