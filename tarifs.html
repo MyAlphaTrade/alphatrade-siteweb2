@@ -43,110 +43,8 @@
         <span>Hebdomadaire &nbsp;<span class="badge-save">Flexible</span></span>
       </div>
 
-      <div class="pricing-grid pricing-grid-5 reveal">
-        <div class="pricing-card basique-card">
-          <div class="pricing-badge" style="background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff">⚡ BOOM1000 ONLY</div>
-          <div class="plan-name">Basique</div>
-          <div class="plan-price" id="price-basique">—</div>
-          <div class="plan-period" id="period-basique" style="font-size:13px;color:var(--muted);margin-bottom:20px">Facturé mensuellement</div>
-          <div class="plan-capital"><strong id="capital-basique">Capital minimum : 50 $</strong>Débuter avec les indices synthétiques Deriv</div>
-          <ul class="plan-features">
-            <li class="active"><span class="check">✓</span> Trading automatique 24h/7j</li>
-            <li class="active"><span class="check">✓</span> Symbole : BOOM1000 uniquement</li>
-            <li class="active" id="lot-basique"><span class="check">✓</span> Lot fixe : 0.02</li>
-            <li class="active" id="pos-basique"><span class="check">✓</span> Max 2 positions simultanées</li>
-            <li class="active"><span class="check">✓</span> Scalping rapide (indices 24h/7j)</li>
-            <li class="active"><span class="check">✓</span> Gain max / session : 5 $</li>
-            <li class="active"><span class="check">✓</span> Gain max journalier : 15 $</li>
-            <li><span class="cross">✗</span> Paramètres personnalisables</li>
-            <li><span class="cross">✗</span> Système Rebond avancé</li>
-            <li><span class="cross">✗</span> Accès IA</li>
-          </ul>
-          <a href="#" class="btn btn-outline btn-full" onclick="choosePlan('basique')">Choisir Basique</a>
-        </div>
-
-        <div class="pricing-card">
-          <div class="plan-name">Starter</div>
-          <div class="plan-price" id="price-starter">—</div>
-          <div class="plan-period" id="period-starter" style="font-size:13px;color:var(--muted);margin-bottom:20px">Facturé mensuellement</div>
-          <div class="plan-capital"><strong id="capital-starter">Capital recommandé : 350 $</strong>Idéal pour débuter le trading automatisé</div>
-          <ul class="plan-features">
-            <li class="active"><span class="check">✓</span> Trading automatique 24/7</li>
-            <li class="active"><span class="check">✓</span> Symbole : Or (XAUUSD) uniquement</li>
-            <li class="active" id="lot-starter"><span class="check">✓</span> Lot fixe : 0.01</li>
-            <li class="active" id="pos-starter"><span class="check">✓</span> Max 2 positions simultanées</li>
-            <li class="active"><span class="check">✓</span> Session Londres uniquement</li>
-            <li class="active"><span class="check">✓</span> Gain max / session : 10 $</li>
-            <li class="active"><span class="check">✓</span> Gain max journalier : 30 $</li>
-            <li><span class="cross">✗</span> Paramètres personnalisables</li>
-            <li class="active"><span class="check">✓</span> Système Rebond avancé (machine à états)</li>
-            <li><span class="cross">✗</span> Accès IA</li>
-          </ul>
-          <a href="#" class="btn btn-outline btn-full" onclick="choosePlan('starter')">Choisir Starter</a>
-        </div>
-
-        <div class="pricing-card featured">
-          <div class="pricing-badge">⭐ LE PLUS POPULAIRE</div>
-          <div class="plan-name">Pro</div>
-          <div class="plan-price" id="price-pro">—</div>
-          <div class="plan-period" id="period-pro" style="font-size:13px;color:var(--muted);margin-bottom:20px">Facturé mensuellement</div>
-          <div class="plan-capital"><strong id="capital-pro">Capital recommandé : 1 000 $</strong>La référence pour un trading sérieux</div>
-          <ul class="plan-features">
-            <li class="active"><span class="check">✓</span> Trading automatique 24/7</li>
-            <li class="active"><span class="check">✓</span> Or (XAUUSD) uniquement</li>
-            <li class="active" id="lot-pro"><span class="check">✓</span> Lot : 0.01 – 0.03</li>
-            <li class="active" id="pos-pro"><span class="check">✓</span> Max 4 positions simultanées</li>
-            <li class="active"><span class="check">✓</span> Sessions Londres + New York</li>
-            <li class="active"><span class="check">✓</span> Gain max / session : 25 $</li>
-            <li class="active"><span class="check">✓</span> Gain max journalier : 100 $</li>
-            <li class="active"><span class="check">✓</span> Paramètres partiels</li>
-            <li class="active"><span class="check">✓</span> Système Rebond avancé (machine à états)</li>
-            <li><span class="cross">✗</span> Accès IA</li>
-          </ul>
-          <a href="#" class="btn btn-primary btn-full" onclick="choosePlan('pro')">Choisir Pro</a>
-        </div>
-
-        <div class="pricing-card">
-          <div class="plan-name">Elite</div>
-          <div class="plan-price" id="price-elite">—</div>
-          <div class="plan-period" id="period-elite" style="font-size:13px;color:var(--muted);margin-bottom:20px">Facturé mensuellement</div>
-          <div class="plan-capital"><strong id="capital-elite">Capital recommandé : 2 500 $</strong>Performances maximales, fonctionnalités avancées</div>
-          <ul class="plan-features">
-            <li class="active"><span class="check">✓</span> Trading automatique 24/7</li>
-            <li class="active"><span class="check">✓</span> Or (XAUUSD) + BOOM1000</li>
-            <li class="active" id="lot-elite"><span class="check">✓</span> Lot : 0.01 – 0.06</li>
-            <li class="active" id="pos-elite"><span class="check">✓</span> Max 6 positions simultanées</li>
-            <li class="active"><span class="check">✓</span> 3 sessions (Lon. + N.Y. + Tokyo)</li>
-            <li class="active"><span class="check">✓</span> Gain max / session : 50 $</li>
-            <li class="active"><span class="check">✓</span> Gain max journalier : 200 $</li>
-            <li class="active"><span class="check">✓</span> Paramètres avancés débloqués</li>
-            <li class="active"><span class="check">✓</span> Système Rebond avancé (machine à états)</li>
-            <li class="active"><span class="check">✓</span> IA + Microstructure de marché</li>
-          </ul>
-          <a href="#" class="btn btn-outline btn-full" onclick="choosePlan('elite')">Choisir Elite</a>
-        </div>
-
-        <div class="pricing-card premium-card">
-          <div class="pricing-badge" style="background:linear-gradient(135deg,var(--gold),#b8962e);color:#07100b">⭐ PREMIUM</div>
-          <div class="plan-name" style="color:var(--gold)">Premium</div>
-          <div class="plan-price" id="price-premium" style="color:var(--gold)">—</div>
-          <div class="plan-period" id="period-premium" style="font-size:13px;color:var(--muted);margin-bottom:20px">Facturé mensuellement</div>
-          <div class="plan-capital" style="border-color:rgba(212,175,55,0.3);background:rgba(212,175,55,0.06)"><strong id="capital-premium">Capital recommandé : 5 000 $</strong>Accès total — tout débloqué sans limite</div>
-          <ul class="plan-features">
-            <li class="active"><span class="check">✓</span> Trading automatique 24/7</li>
-            <li class="active"><span class="check">✓</span> XAUUSD + BOOM1000 (tous symboles)</li>
-            <li class="active" id="lot-premium"><span class="check">✓</span> Lot : 0.01 – 0.10</li>
-            <li class="active" id="pos-premium"><span class="check">✓</span> Max 8 positions simultanées</li>
-            <li class="active"><span class="check">✓</span> Toutes sessions (24h/24)</li>
-            <li class="active"><span class="check">✓</span> Gain max / session : 100 $</li>
-            <li class="active"><span class="check">✓</span> Gain max journalier : 500 $</li>
-            <li class="active"><span class="check">✓</span> Tous paramètres débloqués</li>
-            <li class="active"><span class="check">✓</span> Système Rebond avancé (machine à états)</li>
-            <li class="active"><span class="check">✓</span> IA + Microstructure (OFI/POC) — priorité</li>
-            <li class="active"><span class="check">✓</span> Application mobile iOS &amp; Android <span style="font-size:11px;background:rgba(212,175,55,0.15);color:var(--gold);padding:2px 7px;border-radius:8px;margin-left:4px">Bientôt</span></li>
-          </ul>
-          <a href="#" class="btn btn-full" style="background:linear-gradient(135deg,var(--gold),#b8962e);color:#07100b;font-weight:800;border:none;padding:14px;border-radius:10px;font-size:15px;cursor:pointer;display:block;text-align:center;text-decoration:none" onclick="choosePlan('premium')">Choisir Premium</a>
-        </div>
+      <div class="pricing-grid pricing-grid-5 reveal" id="pricingGrid">
+        <!-- Reconstruit entièrement par applyForfaitsToPage() depuis /public/forfaits (nom, badge, prix, capital, fonctionnalités, disponibilité) -->
       </div>
 
       <!-- Paiements -->
@@ -292,7 +190,6 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
 </script>
 <script>
 const API_URL = 'https://web-production-9312ae.up.railway.app';
-const PLANS_ORDER = ['basique','starter','pro','elite','premium'];
 const PERIODS = { monthly: 'Facturé mensuellement', weekly: 'Facturé à la semaine' };
 let billing = 'monthly';
 
@@ -305,24 +202,52 @@ try {
 if (Object.keys(forfaitsData).length) applyForfaitsToPage();
 
 function formatPrice(amount, period) {
-  const parts = amount.toFixed(2).split('.');
+  const parts = Number(amount).toFixed(2).split('.');
   const suffix = period === 'weekly' ? ' $/sem' : ' $/mois';
   return `${parts[0]}<span>.${parts[1]}${suffix}</span>`;
 }
 
+function escapeHtml(str) {
+  return String(str == null ? '' : str).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+// Refonte du 17/07/2026 (demande de Louis) : la carte entière (nom, badge,
+// prix, capital, liste de fonctionnalités, statut disponible/indisponible)
+// est reconstruite depuis /public/forfaits — avant, seuls 4 champs
+// numériques étaient patchés dans du HTML fixe à 5 forfaits.
 function applyForfaitsToPage() {
-  PLANS_ORDER.forEach(p => {
-    const f = forfaitsData[p];
-    if (!f) return;
-    const priceEl   = document.getElementById('price-' + p);
-    const capitalEl = document.getElementById('capital-' + p);
-    const lotEl     = document.getElementById('lot-' + p);
-    const posEl     = document.getElementById('pos-' + p);
-    if (priceEl)   priceEl.innerHTML = formatPrice(billing === 'weekly' ? f.price_weekly : f.price_monthly, billing);
-    if (capitalEl) capitalEl.textContent = `Capital ${p === 'basique' ? 'minimum' : 'recommandé'} : ${Number(f.capital_min).toLocaleString('fr-FR')} $`;
-    if (lotEl)     lotEl.innerHTML = `<span class="check">✓</span> Lot max : ${f.lot_max}`;
-    if (posEl)     posEl.innerHTML = `<span class="check">✓</span> Max ${f.max_positions} position${f.max_positions > 1 ? 's' : ''} simultanée${f.max_positions > 1 ? 's' : ''}`;
-  });
+  const grid = document.getElementById('pricingGrid');
+  if (!grid) return;
+  const plans = Object.entries(forfaitsData).sort((a, b) => (a[1].price_monthly || 0) - (b[1].price_monthly || 0));
+  if (!plans.length) return;
+  grid.innerHTML = plans.map(([key, f]) => {
+    const available = f.available !== false;
+    const features = f.features || [];
+    const price = billing === 'weekly' ? f.price_weekly : f.price_monthly;
+    const badgeHtml = !available
+      ? `<div class="pricing-badge unavailable-badge">BIENTÔT DISPONIBLE</div>`
+      : (f.badge ? `<div class="pricing-badge">${escapeHtml(f.badge)}</div>` : '');
+    const featuresHtml = features.map(feat =>
+      `<li class="${feat.active ? 'active' : ''}"><span class="${feat.active ? 'check' : 'cross'}">${feat.active ? '✓' : '✗'}</span> ${escapeHtml(feat.text)}</li>`
+    ).join('');
+    const ctaHtml = available
+      ? `<a href="#" class="btn btn-outline btn-full" onclick="choosePlan('${key}')">Choisir ${escapeHtml(f.name)}</a>`
+      : `<span class="btn-disabled">Bientôt disponible</span>`;
+    return `
+      <div class="pricing-card ${available ? '' : 'unavailable'}" data-plan="${key}">
+        ${badgeHtml}
+        <div class="plan-name">${escapeHtml(f.name)}</div>
+        <div class="plan-price">${available ? formatPrice(price, billing) : 'Indisponible'}</div>
+        <div class="plan-period">${available ? PERIODS[billing] : 'En attente de lancement'}</div>
+        <div class="plan-capital"><strong>Capital minimum : ${Number(f.capital_min || 0).toLocaleString('fr-FR')} $</strong></div>
+        <ul class="plan-features">
+          <li class="active"><span class="check">✓</span> Lot max : ${f.lot_max}</li>
+          <li class="active"><span class="check">✓</span> Max ${f.max_positions} position${f.max_positions > 1 ? 's' : ''} simultanée${f.max_positions > 1 ? 's' : ''}</li>
+          ${featuresHtml}
+        </ul>
+        ${ctaHtml}
+      </div>`;
+  }).join('');
 }
 
 async function loadForfaits() {
@@ -352,22 +277,16 @@ window.addEventListener('DOMContentLoaded', () => {
 
 function switchBilling() {
   billing = document.getElementById('billingToggle').checked ? 'weekly' : 'monthly';
-  PLANS_ORDER.forEach(p => {
-    const f = forfaitsData[p];
-    if (!f) return;
-    const priceEl  = document.getElementById('price-' + p);
-    const periodEl = document.getElementById('period-' + p);
-    if (priceEl)  priceEl.innerHTML = formatPrice(billing === 'weekly' ? f.price_weekly : f.price_monthly, billing);
-    if (periodEl) periodEl.textContent = PERIODS[billing];
-  });
+  applyForfaitsToPage();
 }
 
 function choosePlan(plan) {
+  const f = forfaitsData[plan];
+  if (f && f.available === false) return;
   const user = getUser();
   if (!user) { window.location.href = 'inscription.html?plan=' + plan; return; }
   localStorage.setItem('at_pending_plan', plan);
   localStorage.setItem('at_pending_billing', billing);
-  const f = forfaitsData[plan];
   const price = f ? (billing === 'weekly' ? f.price_weekly : f.price_monthly) : null;
   let url = 'paiement.html?plan=' + plan + '&billing=' + billing;
   if (price) url += '&price=' + price;

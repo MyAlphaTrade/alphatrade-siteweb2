@@ -115,6 +115,48 @@
   </div>
 </section>
 
+<!-- ANNONCE KB1000 GOLD AI (bientôt disponible) — ajoutée le 17/07/2026 -->
+<section class="section section-center" id="kb1000-promo">
+  <div class="container">
+    <div class="section-label reveal">Bientôt disponible</div>
+    <h2 class="reveal">Une nouvelle IA arrive : <span style="color:var(--green)">KB1000 Gold AI</span></h2>
+    <p class="lead reveal">Un moteur dédié aux indices synthétiques, conçu pour un style de trading totalement différent d'AlphaTrade AI — et livré comme une application séparée.</p>
+
+    <div class="kb1000-carousel reveal">
+      <div class="kb1000-slide active" data-slide="0">
+        <div class="kb1000-slide-icon">🧠</div>
+        <h3>Structure, zones &amp; Smart Money</h3>
+        <p>KB1000 analyse la structure du marché en cascade multi-timeframe (D1→M1), détecte les zones de liquidité et les concepts Smart Money (FVG, BOS, CHOCH) pour repérer les points d'entrée à haute probabilité.</p>
+      </div>
+      <div class="kb1000-slide" data-slide="1">
+        <div class="kb1000-slide-icon">📈</div>
+        <h3>Pensé pour les indices synthétiques</h3>
+        <p>Contrairement à AlphaTrade AI (Or/XAUUSD), KB1000 est calibré spécifiquement pour BOOM1000 et CRASH1000 — des marchés qui tournent 24h/24, 7j/7, sans les contraintes de session du Forex classique.</p>
+      </div>
+      <div class="kb1000-slide" data-slide="2">
+        <div class="kb1000-slide-icon">🎯</div>
+        <h3>Confirmations &amp; Fibonacci</h3>
+        <p>Chaque setup est validé par plusieurs confirmations (EMA/RSI/MACD/Momentum) et des niveaux de Fibonacci, avant toute prise de position — même logique de rigueur que le moteur principal.</p>
+      </div>
+      <div class="kb1000-slide" data-slide="3">
+        <div class="kb1000-slide-icon">📦</div>
+        <h3>Une application à part, incluse avec Basique</h3>
+        <p>KB1000 sera livré comme un téléchargement dédié, séparé de l'app AlphaTrade principale — inclus automatiquement pour les clients du forfait Basique dès sa sortie.</p>
+      </div>
+
+      <div class="kb1000-nav">
+        <button class="kb1000-arrow" onclick="kb1000Prev()" aria-label="Précédent">‹</button>
+        <div class="kb1000-dots" id="kb1000Dots"></div>
+        <button class="kb1000-arrow" onclick="kb1000Next()" aria-label="Suivant">›</button>
+      </div>
+    </div>
+
+    <div class="kb1000-cta reveal">
+      <span class="kb1000-soon-badge">🚀 BIENTÔT DISPONIBLE</span>
+    </div>
+  </div>
+</section>
+
 <!-- COMMENT ÇA MARCHE ───────────────────────────────────────────────────── -->
 <section class="section" id="comment" style="background:var(--bg2);">
   <div class="container section-center">
@@ -382,6 +424,26 @@ function submitFaq() {
   loadFaqs();
 }
 window.addEventListener('DOMContentLoaded', () => loadFaqs());
+</script>
+<script>
+// Carrousel promo KB1000 Gold AI — ajouté le 17/07/2026
+let kb1000Index = 0;
+let kb1000Slides, kb1000Dots;
+function kb1000Render() {
+  kb1000Slides.forEach((s, i) => s.classList.toggle('active', i === kb1000Index));
+  kb1000Dots.forEach((d, i) => d.classList.toggle('active', i === kb1000Index));
+}
+function kb1000Next() { kb1000Index = (kb1000Index + 1) % kb1000Slides.length; kb1000Render(); }
+function kb1000Prev() { kb1000Index = (kb1000Index - 1 + kb1000Slides.length) % kb1000Slides.length; kb1000Render(); }
+function kb1000GoTo(i) { kb1000Index = i; kb1000Render(); }
+window.addEventListener('DOMContentLoaded', () => {
+  kb1000Slides = document.querySelectorAll('.kb1000-slide');
+  const dotsEl = document.getElementById('kb1000Dots');
+  if (!kb1000Slides.length || !dotsEl) return;
+  dotsEl.innerHTML = Array.from(kb1000Slides).map((_, i) => `<div class="kb1000-dot ${i === 0 ? 'active' : ''}" onclick="kb1000GoTo(${i})"></div>`).join('');
+  kb1000Dots = document.querySelectorAll('.kb1000-dot');
+  setInterval(kb1000Next, 5000);
+});
 </script>
 <script src="js/nav.js"></script>
 <script src="js/bg.js"></script>
