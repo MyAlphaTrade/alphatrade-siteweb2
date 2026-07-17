@@ -234,7 +234,7 @@ function applyForfaitsToPage() {
       ? `<a href="#" class="btn btn-outline btn-full" onclick="choosePlan('${key}')">Choisir ${escapeHtml(f.name)}</a>`
       : `<span class="btn-disabled">Bientôt disponible</span>`;
     return `
-      <div class="pricing-card ${available ? '' : 'unavailable'}" data-plan="${key}">
+      <div class="pricing-card ${available ? '' : 'unavailable'} ${available && f.badge ? 'has-badge' : ''}" data-plan="${key}">
         ${badgeHtml}
         <div class="plan-name">${escapeHtml(f.name)}</div>
         <div class="plan-price">${available ? formatPrice(price, billing) : 'Indisponible'}</div>

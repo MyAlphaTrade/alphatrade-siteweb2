@@ -307,6 +307,10 @@ section[id] { scroll-margin-top: 84px; }
   border-color: var(--green); background: linear-gradient(135deg, #111a13, #0d1f10);
   box-shadow: 0 0 40px rgba(0,200,150,0.1);
 }
+.pricing-card.has-badge {
+  border-color: var(--green); background: linear-gradient(135deg, #111a13, #0d1f10);
+  box-shadow: 0 0 40px rgba(0,200,150,0.1);
+}
 .pricing-card.unavailable { opacity: .55; filter: grayscale(.5); }
 .pricing-card.unavailable .plan-price { color: var(--muted); font-size: clamp(20px,2.2vw,28px); }
 .pricing-card.unavailable:hover { transform: none; }
