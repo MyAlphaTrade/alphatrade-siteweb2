@@ -198,6 +198,15 @@ window.addEventListener('DOMContentLoaded', async () => {
     const fresh = await apiGet('/auth/verify', getToken());
     localStorage.setItem('at_plan', JSON.stringify(fresh.plan));
     renderPlan(fresh.plan);
+    // Resynchronise le profil (téléphone/pays) au cas où il a été modifié
+    // ailleurs (Admin, autre appareil) depuis le dernier login -- corrige le
+    // 17/07/2026 : ces infos manquaient du cache de connexion et restaient
+    // affichées à "—" tant qu'on ne se reconnectait pas.
+    if (fresh.user) {
+      const mergedUser = Object.assign({}, user, fresh.user);
+      localStorage.setItem('at_user', JSON.stringify(mergedUser));
+      fillProfile(mergedUser);
+    }
   } catch { renderNoPlan(); }
 });
 
