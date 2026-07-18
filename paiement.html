@@ -48,6 +48,19 @@
   #payNotif { display:none; padding:12px 16px; border-radius:8px; margin-bottom:16px; font-size:14px; color:#fff; font-weight:500; }
   .stripe-logos { display:flex; align-items:center; gap:8px; margin-top:16px; justify-content:center; flex-wrap:wrap; }
   .card-logo { height:22px; background:rgba(255,255,255,.06); border:1px solid var(--border); border-radius:4px; padding:2px 8px; display:flex; align-items:center; font-size:11px; font-weight:700; color:var(--muted); letter-spacing:.03em; }
+
+  .promo-label { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.4px; display:block; margin-bottom:8px; }
+  .promo-field-row { display:flex; gap:8px; }
+  .promo-field-row input { flex:1; background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:10px 14px; color:var(--text); font-size:13.5px; text-transform:uppercase; letter-spacing:1px; }
+  .btn-apply { background:var(--green); color:#07100b; border:none; border-radius:8px; padding:0 18px; font-size:13px; font-weight:800; cursor:pointer; }
+  .btn-apply:disabled { opacity:.5; cursor:not-allowed; }
+  .promo-feedback { margin-top:10px; font-size:12.5px; padding:8px 12px; border-radius:8px; display:none; }
+  .promo-feedback.ok { display:block; background:rgba(0,200,150,.1); color:var(--green); border:1px solid var(--green2,#00a87d); }
+  .promo-feedback.err { display:block; background:rgba(220,38,38,.1); color:#f87171; border:1px solid rgba(220,38,38,.4); }
+  .price-summary { margin-top:14px; background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:16px; display:none; }
+  .price-row { display:flex; justify-content:space-between; font-size:13px; padding:5px 0; }
+  .price-row.total { border-top:1px solid var(--border); margin-top:6px; padding-top:10px; font-weight:800; font-size:15px; }
+  .price-row .discount { color:var(--green); }
 </style>
 </head>
 <body>
@@ -81,6 +94,19 @@
         <div class="plan-billing-txt" id="summaryBilling">—</div>
       </div>
       <div class="plan-price" id="summaryPrice">—</div>
+    </div>
+
+    <!-- Code promo -->
+    <label class="promo-label">Code promo (optionnel)</label>
+    <div class="promo-field-row">
+      <input type="text" id="promoInput" placeholder="Entrez votre code">
+      <button class="btn-apply" id="btnApplyPromo" onclick="applyPromo()">Appliquer</button>
+    </div>
+    <div class="promo-feedback" id="promoFeedback"></div>
+    <div class="price-summary" id="priceSummary">
+      <div class="price-row"><span id="priceRowBaseLabel">Forfait</span><span id="priceRowBase">—</span></div>
+      <div class="price-row"><span id="priceRowDiscountLabel">Réduction</span><span class="discount" id="priceRowDiscount">—</span></div>
+      <div class="price-row total"><span>Total à payer</span><span id="priceRowTotal">—</span></div>
     </div>
 
     <!-- Méthodes disponibles -->
@@ -228,7 +254,8 @@ const priceFromURL = params.get('price');
 document.getElementById('summaryPlan').textContent    = plan.charAt(0).toUpperCase() + plan.slice(1);
 document.getElementById('summaryBilling').textContent = PERIODS[billing] || PERIODS.monthly;
 // Priorité : prix passé dans l'URL (depuis tarifs.html) → pas de flash
-document.getElementById('summaryPrice').textContent   = priceFromURL
+let currentBasePrice = priceFromURL ? parseFloat(priceFromURL) : parseFloat((PRICES_DEFAULT[billing] || PRICES_DEFAULT.monthly)[plan]) || 0;
+document.getElementById('summaryPrice').textContent = priceFromURL
   ? parseFloat(priceFromURL).toFixed(2) + ' USD'
   : (PRICES_DEFAULT[billing] || PRICES_DEFAULT.monthly)[plan] || '—';
 
@@ -241,11 +268,58 @@ document.getElementById('summaryPrice').textContent   = priceFromURL
       const f = d.forfaits?.[plan];
       if (f) {
         const price = billing === 'weekly' ? f.price_weekly : f.price_monthly;
+        currentBasePrice = price;
         document.getElementById('summaryPrice').textContent = price.toFixed(2) + ' USD';
+        if (appliedPromoCode) applyPromo(true);
       }
     }
   } catch (_) {}
 })();
+
+let appliedPromoCode = null;
+
+async function applyPromo(silent) {
+  const input = document.getElementById('promoInput');
+  const code = input.value.trim().toUpperCase();
+  const feedback = document.getElementById('promoFeedback');
+  const summary = document.getElementById('priceSummary');
+  if (!code) return;
+  const btn = document.getElementById('btnApplyPromo');
+  if (!silent) { btn.disabled = true; btn.textContent = '...'; }
+  try {
+    const r = await fetch('https://web-production-9312ae.up.railway.app/public/promo-codes/validate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code, plan, billing }),
+    });
+    const data = await r.json();
+    if (r.ok && data.valid) {
+      appliedPromoCode = code;
+      const base = currentBasePrice;
+      const finalPrice = data.final_price;
+      const discountAmount = (base - finalPrice);
+      feedback.className = 'promo-feedback ok';
+      feedback.textContent = `✓ Code appliqué : -${data.discount_pct}% sur votre paiement`;
+      document.getElementById('priceRowBaseLabel').textContent = `Forfait ${plan.charAt(0).toUpperCase() + plan.slice(1)}`;
+      document.getElementById('priceRowBase').textContent = base.toFixed(2) + ' $';
+      document.getElementById('priceRowDiscountLabel').textContent = `Réduction (${code})`;
+      document.getElementById('priceRowDiscount').textContent = '-' + discountAmount.toFixed(2) + ' $';
+      document.getElementById('priceRowTotal').textContent = finalPrice.toFixed(2) + ' $';
+      summary.style.display = 'block';
+    } else {
+      appliedPromoCode = null;
+      summary.style.display = 'none';
+      feedback.className = 'promo-feedback err';
+      feedback.textContent = data.detail || 'Code promo invalide ou expiré.';
+    }
+  } catch (e) {
+    appliedPromoCode = null;
+    summary.style.display = 'none';
+    feedback.className = 'promo-feedback err';
+    feedback.textContent = 'Impossible de vérifier ce code pour le moment.';
+  }
+  if (!silent) { btn.disabled = false; btn.textContent = 'Appliquer'; }
+}
 
 let selectedMethod = null;
 
@@ -275,7 +349,7 @@ async function submitPayment() {
     const r = await fetch('https://web-production-9312ae.up.railway.app/stripe/create-checkout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
-      body: JSON.stringify({ plan: plan, billing: billing }),
+      body: JSON.stringify({ plan: plan, billing: billing, promo_code: appliedPromoCode }),
     });
     const data = await r.json();
     if (r.ok && data.checkout_url) {
