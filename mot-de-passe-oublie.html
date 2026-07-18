@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JQR0P1GWEX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-JQR0P1GWEX');
+</script>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="apple-touch-icon" href="assets/logo.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mot de passe oublié — AlphaTrade</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="nav" id="mainNav">
+  <a href="index.html" class="nav-logo">
+    <img src="assets/logo.png" alt="AlphaTrade" onerror="this.style.display='none'">
+    AlphaTrade
+  </a>
+  <div class="nav-links"></div>
+  <div class="nav-cta"></div>
+</nav>
+
+<div class="auth-page">
+  <div class="auth-box" id="requestBox">
+    <div class="auth-logo">
+      <img src="assets/logo.png" alt="" onerror="this.style.display='none'">
+      <span>AlphaTrade</span>
+    </div>
+    <h1>Mot de passe oublié</h1>
+    <p class="sub">Entrez votre adresse email, nous vous enverrons un lien pour choisir un nouveau mot de passe.</p>
+
+    <div class="form-group">
+      <label class="form-label">Adresse email</label>
+      <input class="form-input" type="email" id="email" placeholder="votre@email.com" autocomplete="email">
+    </div>
+
+    <div class="form-error" id="errMsg"></div>
+
+    <button class="btn btn-primary btn-full" style="margin-top:10px" id="btnSend" onclick="doForgot()">
+      Envoyer le lien →
+    </button>
+    <p class="form-link"><a href="connexion.html">← Retour à la connexion</a></p>
+  </div>
+
+  <div class="auth-box verify-box" id="sentBox" style="display:none">
+    <div class="auth-logo">
+      <img src="assets/logo.png" alt="" onerror="this.style.display='none'">
+      <span>AlphaTrade</span>
+    </div>
+    <h1>Vérifiez votre email</h1>
+    <div style="text-align:center;margin:16px 0">
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="64" height="64" rx="16" fill="rgba(37,99,235,0.15)"/>
+        <path d="M12 22a4 4 0 0 1 4-4h32a4 4 0 0 1 4 4v20a4 4 0 0 1-4 4H16a4 4 0 0 1-4-4V22z" stroke="#2563eb" stroke-width="2" fill="none"/>
+        <path d="M12 22l20 13 20-13" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div style="background:rgba(0,200,150,0.06);border:1px solid rgba(0,200,150,0.2);border-radius:10px;padding:20px;margin-bottom:24px;font-size:14px;color:var(--muted);text-align:center;line-height:1.7">
+      Si un compte existe pour <strong id="sentTarget" style="color:var(--text);font-size:16px"></strong>, un email vient de lui être envoyé.<br><br>
+      Cliquez sur le lien dans l'email pour choisir un nouveau mot de passe. Le lien est valable 30 minutes.
+    </div>
+    <p class="form-link"><a href="connexion.html">← Retour à la connexion</a></p>
+  </div>
+</div>
+
+<div id="notif"></div>
+<script src="js/api.js"></script>
+<script src="js/nav.js"></script>
+<script>
+if (getToken()) window.location.href = 'espace-client.html';
+
+document.addEventListener('keydown', e => { if (e.key === 'Enter') doForgot(); });
+
+async function doForgot() {
+  const email = document.getElementById('email').value.trim();
+  const errEl = document.getElementById('errMsg');
+  const btn   = document.getElementById('btnSend');
+  errEl.style.display = 'none';
+
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    errEl.textContent = 'Entrez une adresse email valide.';
+    errEl.style.display = 'block'; return;
+  }
+  btn.disabled = true; btn.textContent = 'Envoi…';
+  try {
+    await apiPost('/auth/forgot-password', { email });
+    document.getElementById('requestBox').style.display = 'none';
+    document.getElementById('sentTarget').textContent = email;
+    document.getElementById('sentBox').style.display = 'block';
+  } catch (e) {
+    errEl.textContent = e.message;
+    errEl.style.display = 'block';
+    btn.disabled = false; btn.textContent = 'Envoyer le lien →';
+  }
+}
+</script>
+<script src="js/bg.js"></script>
+</body>
+</html>
