@@ -168,6 +168,18 @@
         </div>
       </div>
 
+      <!-- KB1000 — application séparée, incluse uniquement dans le forfait Basique.
+           Zone indépendante de mainZone : ne modifie jamais la logique/l'état AlphaTrade
+           ci-dessus, seulement affichée en plus sur la même page. -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:32px;margin-top:32px;text-align:center" class="reveal">
+        <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:6px">
+          <span style="font-size:20px">⚡</span>
+          <h3 style="font-size:18px;font-weight:800;margin:0">KB1000 — BOOM1000 / CRASH1000</h3>
+        </div>
+        <p style="color:var(--muted);font-size:13px;margin-bottom:20px">Application dédiée aux indices synthétiques Deriv, incluse dans le forfait <strong>Basique</strong> uniquement.</p>
+        <div id="kb1000Zone"></div>
+      </div>
+
       <p style="color:var(--muted2);font-size:12px;margin-top:28px;line-height:1.9" class="reveal">
         ⚠️ Le trading comporte des risques de perte en capital. AlphaTrade est un outil d'automatisation —
         les performances passées ne garantissent pas les résultats futurs.
@@ -289,6 +301,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         <a href="connexion.html" class="btn btn-primary">Se connecter</a>
         <a href="inscription.html" class="btn btn-outline">Créer un compte</a>
       </div></div>`;
+    renderKB1000Zone('no-token');
     return;
   }
   try {
@@ -303,6 +316,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         <a id="downloadBtnMain" href="#" class="btn btn-primary btn-lg" onclick="startDownload();return false">${DOWNLOAD_LABEL}</a>
         <div class="system-req">Windows 10/11 · 64-bit · ~183 MB</div>
       </div>`;
+      renderKB1000Zone(data.plan.plan_key === 'basique' ? 'basique-active' : 'other-plan', data.plan);
     } else {
       disableDownloadButtons();
       zone.innerHTML = `<div style="background:rgba(212,175,55,0.06);border:1px solid rgba(212,175,55,0.25);border-radius:12px;padding:36px;text-align:center">
@@ -311,6 +325,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         <p style="color:var(--muted);font-size:14px;margin-bottom:22px">Votre abonnement a expiré. Renouvelez pour accéder au téléchargement.</p>
         <a href="tarifs.html" class="btn btn-primary">Renouveler mon forfait →</a>
       </div>`;
+      renderKB1000Zone('expired');
     }
   } catch {
     disableDownloadButtons();
@@ -320,6 +335,7 @@ window.addEventListener('DOMContentLoaded', async () => {
       <p style="color:var(--muted);font-size:14px;margin-bottom:22px">Activez un forfait pour débloquer le téléchargement.</p>
       <a href="tarifs.html" class="btn btn-primary">Choisir un forfait →</a>
     </div>`;
+    renderKB1000Zone('error');
   }
 });
 
@@ -410,6 +426,64 @@ function handleDownload(os) {
   notify('Téléchargement ' + labels[os] + ' en cours...', 'green');
   setTimeout(() => { window.location.href = url; }, 600);
 }
+
+// ── KB1000 — zone indépendante, réservée au forfait Basique (voir renderKB1000Zone
+// appelé depuis les 4 branches de la vérification de session ci-dessus). N'affecte
+// jamais mainZone/userPlanActive/DOWNLOAD_URL (AlphaTrade) au-dessus. ──────────────
+let DOWNLOAD_URL_KB1000  = 'https://github.com/MyAlphaTrade/kb1000-releases/releases/latest/download/KB1000-Setup-1.0.0.exe';
+let DOWNLOAD_SIZE_KB1000 = '~150 MB';
+let DOWNLOAD_LABEL_KB1000 = 'Télécharger KB1000';
+
+async function loadKB1000ReleaseInfo() {
+  try {
+    const res = await fetch('https://api.github.com/repos/MyAlphaTrade/kb1000-releases/releases/latest');
+    const data = await res.json();
+    const assets = data.assets || [];
+    const tag = data.tag_name || '';
+    if (tag) {
+      DOWNLOAD_LABEL_KB1000 = 'Télécharger KB1000 ' + tag;
+      const btn = document.getElementById('downloadBtnKB1000');
+      if (btn) btn.textContent = DOWNLOAD_LABEL_KB1000;
+    }
+    const exeAsset = assets.find(a => a.name.endsWith('.exe'));
+    if (exeAsset) {
+      DOWNLOAD_URL_KB1000 = exeAsset.browser_download_url;
+      DOWNLOAD_SIZE_KB1000 = Math.round(exeAsset.size / 1024 / 1024) + ' MB';
+      const req = document.getElementById('kb1000-system-req');
+      if (req) req.textContent = req.textContent.replace(/~?\d+ MB/, DOWNLOAD_SIZE_KB1000);
+    }
+  } catch {}
+}
+loadKB1000ReleaseInfo();
+
+function startDownloadKB1000() {
+  notify('Téléchargement KB1000 en cours...', 'green');
+  window.location.href = DOWNLOAD_URL_KB1000;
+}
+
+function renderKB1000Zone(state, plan) {
+  const zone = document.getElementById('kb1000Zone');
+  if (!zone) return;
+  if (state === 'basique-active') {
+    const exp = plan && plan.expires_at ? new Date(plan.expires_at).toLocaleDateString('fr-FR') : '—';
+    zone.innerHTML = `
+      <a id="downloadBtnKB1000" href="#" class="btn btn-primary btn-lg" onclick="startDownloadKB1000();return false">${DOWNLOAD_LABEL_KB1000}</a>
+      <div class="system-req" id="kb1000-system-req" style="margin-top:10px">Windows 10/11 · 64-bit · ${DOWNLOAD_SIZE_KB1000} · Valable jusqu'au ${exp}</div>`;
+    return;
+  }
+  const messages = {
+    'no-token':    { title: 'Connexion requise', text: 'Connectez-vous avec un compte Basique actif pour télécharger KB1000.', cta: 'Se connecter', href: 'connexion.html' },
+    'other-plan':  { title: 'Réservé au forfait Basique', text: 'KB1000 fait partie du forfait Basique — votre forfait actuel ne l\'inclut pas.', cta: 'Voir le forfait Basique →', href: 'tarifs.html' },
+    'expired':     { title: 'Forfait Basique requis', text: 'Votre forfait est expiré ou inactif. Activez le forfait Basique pour télécharger KB1000.', cta: 'Choisir le forfait Basique →', href: 'tarifs.html' },
+    'error':       { title: 'Forfait Basique requis', text: 'Activez le forfait Basique pour débloquer le téléchargement de KB1000.', cta: 'Choisir le forfait Basique →', href: 'tarifs.html' },
+  };
+  const m = messages[state] || messages.error;
+  zone.innerHTML = `
+    <h4 style="font-size:14px;font-weight:700;margin:0 0 6px">${m.title}</h4>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:16px">${m.text}</p>
+    <a href="${m.href}" class="btn btn-outline">${m.cta}</a>`;
+}
+
 </script>
 <script src="js/nav.js"></script>
 <script src="js/bg.js"></script>
