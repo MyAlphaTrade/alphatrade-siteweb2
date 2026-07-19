@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JQR0P1GWEX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-JQR0P1GWEX');
+</script>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="apple-touch-icon" href="assets/logo.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Téléchargement KB1000 — AlphaTrade</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="nav" id="mainNav">
+  <a href="index.html" class="nav-logo">
+    <img src="assets/logo.png" alt="AlphaTrade" onerror="this.style.display='none'">
+    AlphaTrade
+  </a>
+  <div class="nav-links"></div>
+  <div class="nav-cta"></div>
+</nav>
+
+<div style="padding-top:68px;min-height:100vh">
+  <section class="section section-center">
+    <div class="container" style="max-width:860px">
+      <div class="section-label reveal">Téléchargement</div>
+      <h2 class="reveal">Télécharger KB1000</h2>
+      <p class="lead reveal">Application dédiée BOOM1000 / CRASH1000 — réservée aux clients du forfait Basique · Windows 10/11 (64-bit)</p>
+
+      <!-- Bouton de téléchargement (Windows uniquement) -->
+      <div class="reveal" style="margin-bottom:32px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:16px;max-width:320px;margin:0 auto">
+          <div id="btn-win64" class="os-btn-card" onclick="handleDownload()">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:10px">
+              <path d="M3 5.5L11 4v7H3V5.5Z" fill="var(--green)" opacity=".9"/>
+              <path d="M13 3.7L21 2.5V11h-8V3.7Z" fill="var(--green)"/>
+              <path d="M3 12h8v6.5L3 17.2V12Z" fill="var(--green)" opacity=".8"/>
+              <path d="M13 12h8v7.5L13 20.3V12Z" fill="var(--green)" opacity=".7"/>
+            </svg>
+            <div style="font-weight:700;font-size:15px;margin-bottom:4px">Windows 64-bit</div>
+            <div style="font-size:12px;color:var(--muted)">Windows 10 / 11</div>
+            <div class="os-badge">Recommandé</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Zone dynamique selon statut -->
+      <div id="mainZone" class="reveal"></div>
+
+      <!-- Prérequis -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-top:32px;text-align:left" class="reveal">
+        <div style="padding:24px 32px;display:flex;align-items:center;justify-content:space-between;cursor:pointer" onclick="toggleSection('prereqs')">
+          <h3 style="font-size:16px;font-weight:700;margin:0;display:flex;align-items:center;gap:10px">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            Prérequis système
+          </h3>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--green);font-weight:600">
+            <span id="prereqs-label">Dérouler</span>
+            <span id="prereqs-arrow" style="transition:transform .3s;display:inline-block">▼</span>
+          </div>
+        </div>
+        <div id="prereqs" style="display:none;padding:0 32px 28px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div style="padding:14px;background:var(--bg);border-radius:8px;border:1px solid var(--border)">
+              <div style="font-size:12px;color:var(--muted);margin-bottom:4px">Système d'exploitation</div>
+              <div style="font-size:14px;font-weight:600">Windows 10 / 11 (64-bit)</div>
+            </div>
+            <div style="padding:14px;background:var(--bg);border-radius:8px;border:1px solid var(--border)">
+              <div style="font-size:12px;color:var(--muted);margin-bottom:4px">Plateforme de trading</div>
+              <div style="font-size:14px;font-weight:600">MetaTrader 5 — compte Deriv</div>
+            </div>
+            <div style="padding:14px;background:var(--bg);border-radius:8px;border:1px solid var(--border)">
+              <div style="font-size:12px;color:var(--muted);margin-bottom:4px">Symboles suivis</div>
+              <div style="font-size:14px;font-weight:600">BOOM1000 · CRASH1000</div>
+            </div>
+            <div style="padding:14px;background:var(--bg);border-radius:8px;border:1px solid var(--border)">
+              <div style="font-size:12px;color:var(--muted);margin-bottom:4px">Connexion internet</div>
+              <div style="font-size:14px;font-weight:600">Requise en permanence</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Guide d'installation -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-top:20px;text-align:left" class="reveal">
+        <div style="padding:24px 32px;display:flex;align-items:center;justify-content:space-between;cursor:pointer" onclick="toggleSection('guide')">
+          <h3 style="font-size:16px;font-weight:700;margin:0;display:flex;align-items:center;gap:10px">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            Guide d'installation
+          </h3>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--green);font-weight:600">
+            <span id="guide-label">Dérouler</span>
+            <span id="guide-arrow" style="transition:transform .3s;display:inline-block">▼</span>
+          </div>
+        </div>
+        <div id="guide" style="display:none;padding:0 32px 28px">
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;gap:14px;align-items:center;padding:14px;background:var(--bg);border-radius:8px;border:1px solid var(--border)">
+              <div style="width:28px;height:28px;background:linear-gradient(135deg,var(--green),var(--green2));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#07100b;flex-shrink:0">1</div>
+              <div style="font-size:14px">Téléchargez le fichier <strong>KB1000 Setup.exe</strong> ci-dessus</div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:center;padding:14px;background:var(--bg);border-radius:8px;border:1px solid var(--border)">
+              <div style="width:28px;height:28px;background:linear-gradient(135deg,var(--green),var(--green2));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#07100b;flex-shrink:0">2</div>
+              <div style="font-size:14px">Double-cliquez sur le fichier et suivez les étapes d'installation</div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:center;padding:14px;background:var(--bg);border-radius:8px;border:1px solid var(--border)">
+              <div style="width:28px;height:28px;background:linear-gradient(135deg,var(--green),var(--green2));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#07100b;flex-shrink:0">3</div>
+              <div style="font-size:14px">Lancez <strong>KB1000</strong> depuis le raccourci sur le bureau</div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:center;padding:14px;background:var(--bg);border-radius:8px;border:1px solid var(--border)">
+              <div style="width:28px;height:28px;background:linear-gradient(135deg,var(--green),var(--green2));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#07100b;flex-shrink:0">4</div>
+              <div style="font-size:14px">Connectez-vous avec votre compte AlphaTrade (même identifiants que sur le site)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p style="color:var(--muted2);font-size:12px;margin-top:28px;line-height:1.9" class="reveal">
+        ⚠️ Le trading comporte des risques de perte en capital. KB1000 est un outil d'automatisation —
+        les performances passées ne garantissent pas les résultats futurs.
+        Tradez uniquement avec des fonds que vous pouvez vous permettre de perdre.
+      </p>
+    </div>
+  </section>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo"><img src="assets/logo.png" alt="Logo" onerror="this.style.display='none'"><span>AlphaTrade</span></div>
+        <p class="footer-desc">Plateforme de trading algorithmique sur MetaTrader 5.</p>
+      </div>
+      <div class="footer-col"><h4>Navigation</h4><a href="index.html">Accueil</a><a href="index.html#fonctionnalites">Fonctionnalités</a><a href="tarifs.html">Tarifs</a><a href="telechargement.html">Téléchargement AlphaTrade</a></div>
+      <div class="footer-col"><h4>Compte</h4><a href="connexion.html">Connexion</a><a href="inscription.html">Inscription</a><a href="espace-client.html">Espace client</a></div>
+      <div class="footer-col"><h4>Support</h4><a href="index.html#faq">FAQ</a><a href="mailto:louismarieduchel@gmail.com">Contact</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 AlphaTrade. Tous droits réservés.</span><span>Le trading comporte des risques.</span></div>
+  </div>
+</footer>
+
+<div id="notif"></div>
+<script src="js/api.js"></script>
+<script>
+function toggleSection(id) {
+  const el = document.getElementById(id);
+  const label = document.getElementById(id+'-label');
+  const arrow = document.getElementById(id+'-arrow');
+  const open = el.style.display !== 'none';
+  el.style.display = open ? 'none' : 'block';
+  if (label) label.textContent = open ? 'Dérouler' : 'Replier';
+  if (arrow) arrow.style.transform = open ? '' : 'rotate(180deg)';
+}
+</script>
+<script>
+// KB1000 fait partie du forfait Basique uniquement (voir backend main.py, PLANS["basique"],
+// boom1000_only=True) — contrairement à telechargement.html (AlphaTrade), l'accès ici exige
+// spécifiquement plan_key === 'basique', pas seulement un forfait actif quelconque.
+let userCanDownload = false;
+
+function disableDownloadButton() {
+  const el = document.getElementById('btn-win64');
+  el.classList.add('os-btn-disabled');
+  el.style.cursor = 'not-allowed';
+  el.style.opacity = '0.45';
+  el.onclick = (e) => {
+    e.preventDefault();
+    notify('Forfait Basique actif requis pour télécharger KB1000.', 'red');
+    setTimeout(() => { window.location.href = 'tarifs.html'; }, 1500);
+  };
+}
+
+window.addEventListener('DOMContentLoaded', async () => {
+  const zone = document.getElementById('mainZone');
+  const token = getToken();
+  if (!token) {
+    disableDownloadButton();
+    zone.innerHTML = `<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:44px;text-align:center">
+      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:18px"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      <h3 style="margin-bottom:10px;font-size:20px">Connexion requise</h3>
+      <p style="color:var(--muted);font-size:15px;margin-bottom:28px">KB1000 est réservé aux clients du forfait Basique. Connectez-vous pour vérifier votre accès.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a href="connexion.html" class="btn btn-primary">Se connecter</a>
+        <a href="inscription.html" class="btn btn-outline">Créer un compte</a>
+      </div></div>`;
+    return;
+  }
+  try {
+    const data = await apiGet('/auth/verify', token);
+    const isBasique = data.valid && data.plan && data.plan.plan_key === 'basique';
+    if (isBasique) {
+      userCanDownload = true;
+      const exp = new Date(data.plan.expires_at).toLocaleDateString('fr-FR');
+      zone.innerHTML = `<div class="download-card">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:20px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <h2>Votre téléchargement est prêt</h2>
+        <p>Forfait <strong>BASIQUE</strong> actif · Valable jusqu'au ${exp}</p>
+        <a id="downloadBtnMain" href="#" class="btn btn-primary btn-lg" onclick="startDownload();return false">${DOWNLOAD_LABEL}</a>
+        <div class="system-req">Windows 10/11 · 64-bit · ${DOWNLOAD_SIZE}</div>
+      </div>`;
+    } else if (data.valid && data.plan) {
+      // Connecté avec un forfait actif, mais pas Basique — KB1000 n'en fait pas partie.
+      disableDownloadButton();
+      zone.innerHTML = `<div style="background:rgba(212,175,55,0.06);border:1px solid rgba(212,175,55,0.25);border-radius:12px;padding:36px;text-align:center">
+        <div style="font-size:44px;margin-bottom:16px">⚡</div>
+        <h3 style="margin-bottom:8px;color:var(--gold)">Réservé au forfait Basique</h3>
+        <p style="color:var(--muted);font-size:14px;margin-bottom:22px">KB1000 (BOOM1000 / CRASH1000) fait partie du forfait Basique. Votre forfait actuel ne l'inclut pas.</p>
+        <a href="tarifs.html" class="btn btn-primary">Voir le forfait Basique →</a>
+      </div>`;
+    } else {
+      disableDownloadButton();
+      zone.innerHTML = `<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:36px;text-align:center">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-linecap="round" style="margin-bottom:16px"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <h3 style="margin-bottom:8px">Forfait Basique requis</h3>
+        <p style="color:var(--muted);font-size:14px;margin-bottom:22px">Activez le forfait Basique pour débloquer le téléchargement de KB1000.</p>
+        <a href="tarifs.html" class="btn btn-primary">Choisir le forfait Basique →</a>
+      </div>`;
+    }
+  } catch {
+    disableDownloadButton();
+    zone.innerHTML = `<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:36px;text-align:center">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-linecap="round" style="margin-bottom:16px"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      <h3 style="margin-bottom:8px">Forfait Basique requis</h3>
+      <p style="color:var(--muted);font-size:14px;margin-bottom:22px">Activez le forfait Basique pour débloquer le téléchargement de KB1000.</p>
+      <a href="tarifs.html" class="btn btn-primary">Choisir le forfait Basique →</a>
+    </div>`;
+  }
+});
+
+let DOWNLOAD_URL   = 'https://github.com/MyAlphaTrade/kb1000-releases/releases/latest/download/KB1000-Setup-1.0.0.exe';
+let DOWNLOAD_SIZE  = '~150 MB';
+let DOWNLOAD_LABEL = 'Télécharger KB1000';
+
+async function loadReleaseInfo() {
+  try {
+    const res = await fetch('https://api.github.com/repos/MyAlphaTrade/kb1000-releases/releases/latest');
+    const data = await res.json();
+    const assets = data.assets || [];
+    const tag = data.tag_name || '';
+    if (tag) {
+      DOWNLOAD_LABEL = 'Télécharger KB1000 ' + tag;
+      const btn = document.getElementById('downloadBtnMain');
+      if (btn) btn.textContent = DOWNLOAD_LABEL;
+    }
+    const exeAsset = assets.find(a => a.name.endsWith('.exe'));
+    if (exeAsset) {
+      DOWNLOAD_URL = exeAsset.browser_download_url;
+      DOWNLOAD_SIZE = Math.round(exeAsset.size / 1024 / 1024) + ' MB';
+      document.querySelectorAll('.system-req').forEach(el => {
+        el.textContent = el.textContent.replace(/~?\d+ MB/, DOWNLOAD_SIZE);
+      });
+    }
+  } catch {}
+}
+loadReleaseInfo();
+
+function startDownload() {
+  notify('Téléchargement en cours...', 'green');
+  window.location.href = DOWNLOAD_URL;
+}
+
+function handleDownload() {
+  const token = getToken();
+  if (!token) {
+    notify('Vous devez être connecté pour télécharger.', 'red');
+    setTimeout(() => { window.location.href = 'connexion.html'; }, 1200);
+    return;
+  }
+  if (!userCanDownload) {
+    notify('Forfait Basique actif requis pour télécharger KB1000.', 'red');
+    setTimeout(() => { window.location.href = 'tarifs.html'; }, 1500);
+    return;
+  }
+  notify('Téléchargement en cours...', 'green');
+  setTimeout(() => { window.location.href = DOWNLOAD_URL; }, 600);
+}
+</script>
+<script src="js/nav.js"></script>
+<script src="js/bg.js"></script>
+</body>
+</html>

@@ -74,6 +74,19 @@
           <button class="btn btn-primary" onclick="goToPayment()">Activer le forfait →</button>
         </div>
       </div>
+
+      <!-- KB1000 — visible uniquement pour les clients du forfait Basique (voir renderPlan()) -->
+      <div id="downloadSectionKB1000" style="display:none;margin-top:20px">
+        <div class="download-card">
+          <div style="font-size:52px;margin-bottom:16px">
+            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </div>
+          <h2>Télécharger KB1000</h2>
+          <p>Application dédiée BOOM1000 / CRASH1000, incluse dans votre forfait Basique.</p>
+          <a href="telechargement-kb1000.html" class="btn btn-primary btn-lg">Télécharger KB1000</a>
+          <div class="system-req">Windows 10 / 11 · 64-bit · MetaTrader 5 (Deriv) requis</div>
+        </div>
+      </div>
     </div>
 
     <!-- DROITE -->
@@ -239,7 +252,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   } catch { renderNoPlan(); }
 });
 
-const PLAN_LABELS = { starter: 'Starter', pro: 'Pro', elite: 'Elite' };
+const PLAN_LABELS = { basique: 'Basique', starter: 'Starter', pro: 'Pro', elite: 'Elite', premium: 'Premium' };
 
 function renderPlan(p) {
   const key = p.plan_key || 'starter';
@@ -256,6 +269,7 @@ function renderPlan(p) {
     document.getElementById('statExpires').textContent = exp.toLocaleDateString('fr-FR');
     document.getElementById('downloadSection').style.display = 'block';
     document.getElementById('downloadLocked').style.display  = 'none';
+    document.getElementById('downloadSectionKB1000').style.display = key === 'basique' ? 'block' : 'none';
     const b = document.getElementById('planBanner');
     b.style.display = 'block';
     b.style.background = 'rgba(0,200,150,0.06)';
@@ -266,6 +280,7 @@ function renderPlan(p) {
     document.getElementById('statExpires').textContent = p.expires_at ? new Date(p.expires_at).toLocaleDateString('fr-FR') : '—';
     document.getElementById('downloadSection').style.display = 'none';
     document.getElementById('downloadLocked').style.display  = 'block';
+    document.getElementById('downloadSectionKB1000').style.display = 'none';
     const b = document.getElementById('planBanner');
     b.style.display = 'block';
     b.style.background = 'rgba(212,175,55,0.06)';
