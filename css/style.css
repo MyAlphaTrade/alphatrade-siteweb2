@@ -320,22 +320,33 @@ section[id] { scroll-margin-top: 84px; }
   border-radius: 10px; padding: 14px; text-align: center; font-size: 15px; font-weight: 700; cursor: not-allowed;
 }
 
-/* ── Carrousel promo KB1000 Gold AI (ajouté le 17/07/2026) ── */
-.kb1000-carousel {
-  position: relative; max-width: 720px; margin: 40px auto 0; background: var(--card);
-  border: 1px solid var(--border); border-radius: 16px; padding: 40px 48px; overflow: hidden;
+/* ── Annonce KB1000, à l'entrée du site (refonte 18/07/2026) ── */
+.kb1000-promo-card {
+  position: relative; max-width: 1080px; margin: 24px auto 0; background: var(--card);
+  border: 1px solid var(--border); border-radius: 16px; padding: 40px 48px; overflow: hidden; text-align: left;
 }
-.kb1000-carousel::before {
+.kb1000-promo-card::before {
   content: ''; position: absolute; inset: 0;
   background: radial-gradient(circle at 20% 0%, rgba(123,47,190,.15), transparent 60%); pointer-events: none;
 }
+.kb1000-promo-head { display: flex; align-items: center; gap: 24px; margin-bottom: 32px; position: relative; }
+.kb1000-promo-logo { width: 72px; height: 72px; object-fit: contain; flex-shrink: 0; }
+.kb1000-promo-body { display: flex; gap: 36px; align-items: center; flex-wrap: wrap; position: relative; }
+.kb1000-promo-shot {
+  flex: 1 1 380px; min-width: 300px; border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,.35);
+}
+.kb1000-promo-shot img { display: block; width: 100%; height: auto; }
+
+.kb1000-carousel { position: relative; flex: 1 1 380px; min-width: 300px; }
 .kb1000-slide { display: none; animation: kb1000Fade .4s ease; }
 .kb1000-slide.active { display: block; }
 @keyframes kb1000Fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 .kb1000-slide-icon { font-size: 42px; margin-bottom: 14px; }
+.kb1000-slide-icon-img { width: 42px; height: 42px; margin-bottom: 14px; border-radius: 10px; object-fit: contain; }
 .kb1000-slide h3 { font-size: 19px; color: #fff; margin: 0 0 10px; }
 .kb1000-slide p { color: var(--muted); font-size: 13.5px; line-height: 1.7; margin: 0; }
-.kb1000-nav { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 26px; position: relative; }
+.kb1000-nav { display: flex; align-items: center; gap: 18px; margin-top: 26px; position: relative; }
 .kb1000-arrow {
   background: var(--card2, #161f18); border: 1px solid var(--border); color: var(--text); width: 34px; height: 34px;
   border-radius: 50%; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center;
@@ -344,12 +355,12 @@ section[id] { scroll-margin-top: 84px; }
 .kb1000-dots { display: flex; gap: 8px; }
 .kb1000-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); cursor: pointer; transition: background .2s, width .2s; }
 .kb1000-dot.active { background: var(--green); width: 22px; border-radius: 5px; }
-.kb1000-cta { margin-top: 26px; }
-.kb1000-soon-badge {
-  display: inline-block; background: var(--purple); color: #fff; font-size: 12px; font-weight: 700;
-  padding: 8px 18px; border-radius: 20px;
+.kb1000-cta { margin-top: 32px; position: relative; display: flex; gap: 14px; flex-wrap: wrap; }
+@media (max-width: 700px) {
+  .kb1000-promo-card { padding: 28px 22px; }
+  .kb1000-promo-head { flex-direction: column; text-align: center; }
+  .kb1000-promo-head p { text-align: center !important; }
 }
-@media (max-width: 600px) { .kb1000-carousel { padding: 28px 22px; } }
 .pricing-badge {
   position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
   background: linear-gradient(135deg, var(--green), var(--green2));
