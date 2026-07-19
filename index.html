@@ -48,57 +48,82 @@
 </section>
 
 <!-- ANNONCE KB1000 (disponible) — repositionnée à l'entrée du site le 18/07/2026,
-     juste après le hero, pour que chaque nouvelle annonce soit vue en premier. -->
+     juste après le hero. Refonte "effets" du 18/07/2026 (demande de Louis) : bordure
+     dégradée animée, halo sur le logo, mockup navigateur + tilt 3D au survol de la
+     capture, badges flottants, bouton CTA à reflet animé. Voir Maquette_Promo_KB1000_v2.html
+     pour la validation d'origine. -->
 <section class="section section-center" id="kb1000-promo">
+  <div class="aurora"><div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div></div>
   <div class="container">
-    <div class="section-label reveal" style="color:var(--green)">Nouveau</div>
-    <div class="kb1000-promo-card reveal">
-      <div class="kb1000-promo-head">
-        <img src="assets/kb1000-logo.png" alt="KB1000" class="kb1000-promo-logo">
-        <div>
-          <h2 style="margin:0 0 8px">KB1000 est arrivé</h2>
-          <p class="lead" style="margin:0;text-align:left">Un moteur IA dédié aux indices synthétiques Deriv — livré comme une application séparée, incluse automatiquement avec le forfait <strong style="color:var(--green)">Basique</strong>.</p>
-        </div>
-      </div>
+    <div class="top-badge-wrap reveal"><span class="top-badge"><span class="dot"></span> Nouveau · Disponible maintenant</span></div>
 
-      <div class="kb1000-promo-body">
-        <div class="kb1000-carousel">
-          <div class="kb1000-slide active" data-slide="0">
-            <div class="kb1000-slide-icon">🧠</div>
-            <h3>Structure, zones &amp; Smart Money</h3>
-            <p>KB1000 analyse la structure du marché en cascade multi-timeframe (D1→M1), détecte les zones de liquidité et les concepts Smart Money (FVG, BOS, CHOCH) pour repérer les points d'entrée à haute probabilité.</p>
-          </div>
-          <div class="kb1000-slide" data-slide="1">
-            <div class="kb1000-slide-icon">📈</div>
-            <h3>Pensé pour les indices synthétiques</h3>
-            <p>Contrairement à AlphaTrade AI (Or/XAUUSD), KB1000 est calibré spécifiquement pour BOOM1000 et CRASH1000 — des marchés qui tournent 24h/24, 7j/7, sans les contraintes de session du Forex classique.</p>
-          </div>
-          <div class="kb1000-slide" data-slide="2">
-            <div class="kb1000-slide-icon">🎯</div>
-            <h3>Confirmations &amp; Fibonacci</h3>
-            <p>Chaque setup est validé par plusieurs confirmations (EMA/RSI/MACD/Momentum) et des niveaux de Fibonacci, avant toute prise de position — même logique de rigueur que le moteur principal.</p>
-          </div>
-          <div class="kb1000-slide" data-slide="3">
-            <img src="assets/kb1000-icon.png" alt="" class="kb1000-slide-icon-img">
-            <h3>Une application à part, incluse avec Basique</h3>
-            <p>KB1000 est livré comme un téléchargement dédié, séparé de l'app AlphaTrade principale — inclus automatiquement pour les clients du forfait Basique.</p>
-          </div>
+    <div class="promo-card reveal">
+      <div class="promo-card-inner">
+        <div class="promo-noise"></div>
 
-          <div class="kb1000-nav">
-            <button class="kb1000-arrow" onclick="kb1000Prev()" aria-label="Précédent">‹</button>
-            <div class="kb1000-dots" id="kb1000Dots"></div>
-            <button class="kb1000-arrow" onclick="kb1000Next()" aria-label="Suivant">›</button>
+        <div class="kb1000-promo-head">
+          <div class="logo-halo"><img src="assets/kb1000-logo.png" alt="KB1000"></div>
+          <div>
+            <h2 class="promo-title">KB1000 est <span class="promo-grad">arrivé</span></h2>
+            <p class="lead" style="margin:0;text-align:left">Un moteur IA dédié aux indices synthétiques Deriv — livré comme une application séparée, incluse automatiquement avec le forfait <strong style="color:var(--green)">Basique</strong>.</p>
           </div>
         </div>
 
-        <div class="kb1000-promo-shot">
-          <img src="assets/kb1000-dashboard.png" alt="Tableau de bord KB1000">
-        </div>
-      </div>
+        <div class="kb1000-promo-body">
+          <div class="kb1000-carousel">
+            <div class="feature-pill-row">
+              <span class="feature-pill">🧠 Smart Money</span>
+              <span class="feature-pill">📈 24/7</span>
+              <span class="feature-pill">🎯 Fibonacci</span>
+            </div>
 
-      <div class="kb1000-cta reveal">
-        <a href="telechargement.html" class="btn btn-primary btn-lg">Télécharger KB1000 →</a>
-        <a href="tarifs.html" class="btn btn-outline">Voir le forfait Basique</a>
+            <div class="kb1000-slide active" data-slide="0">
+              <div class="slide-icon-wrap">🧠</div>
+              <h3>Structure, zones &amp; Smart Money</h3>
+              <p>KB1000 analyse la structure du marché en cascade multi-timeframe (D1→M1), détecte les zones de liquidité et les concepts Smart Money (FVG, BOS, CHOCH) pour repérer les points d'entrée à haute probabilité.</p>
+            </div>
+            <div class="kb1000-slide" data-slide="1">
+              <div class="slide-icon-wrap">📈</div>
+              <h3>Pensé pour les indices synthétiques</h3>
+              <p>Contrairement à AlphaTrade AI (Or/XAUUSD), KB1000 est calibré spécifiquement pour BOOM1000 et CRASH1000 — des marchés qui tournent 24h/24, 7j/7, sans les contraintes de session du Forex classique.</p>
+            </div>
+            <div class="kb1000-slide" data-slide="2">
+              <div class="slide-icon-wrap">🎯</div>
+              <h3>Confirmations &amp; Fibonacci</h3>
+              <p>Chaque setup est validé par plusieurs confirmations (EMA/RSI/MACD/Momentum) et des niveaux de Fibonacci, avant toute prise de position — même logique de rigueur que le moteur principal.</p>
+            </div>
+            <div class="kb1000-slide" data-slide="3">
+              <div class="slide-icon-wrap"><img src="assets/kb1000-icon.png" alt=""></div>
+              <h3>Une application à part, incluse avec Basique</h3>
+              <p>KB1000 est livré comme un téléchargement dédié, séparé de l'app AlphaTrade principale — inclus automatiquement pour les clients du forfait Basique.</p>
+            </div>
+
+            <div class="kb1000-nav">
+              <button class="kb1000-arrow" onclick="kb1000Prev()" aria-label="Précédent">‹</button>
+              <div class="kb1000-dots" id="kb1000Dots"></div>
+              <button class="kb1000-arrow" onclick="kb1000Next()" aria-label="Suivant">›</button>
+            </div>
+          </div>
+
+          <div class="shot-stage" id="kb1000ShotStage">
+            <div class="shot-glow"></div>
+            <div class="sparkle" style="top:-6%; left:8%; font-size:18px; animation-delay:0s;">✦</div>
+            <div class="sparkle" style="top:14%; right:-4%; font-size:12px; animation-delay:-1.1s;">✦</div>
+            <div class="sparkle" style="bottom:6%; left:-3%; font-size:14px; animation-delay:-1.8s;">✦</div>
+            <div class="float-chip chip-live"><span class="dot-live"></span> Moteur actif</div>
+            <div class="float-chip chip-symbols">BOOM1000 · CRASH1000</div>
+            <div class="browser-frame">
+              <div class="browser-bar"><span></span><span></span><span></span></div>
+              <img src="assets/kb1000-dashboard.png" alt="Tableau de bord KB1000">
+            </div>
+          </div>
+        </div>
+
+        <div class="kb1000-cta">
+          <a href="telechargement.html" class="btn btn-hero">⬇ Télécharger KB1000</a>
+          <a href="tarifs.html" class="btn btn-outline-ghost">Voir le forfait Basique</a>
+          <span class="cta-meta">Windows 10/11 · 64-bit · Inclus avec Basique</span>
+        </div>
       </div>
     </div>
   </div>
@@ -458,6 +483,19 @@ window.addEventListener('DOMContentLoaded', () => {
   dotsEl.innerHTML = Array.from(kb1000Slides).map((_, i) => `<div class="kb1000-dot ${i === 0 ? 'active' : ''}" onclick="kb1000GoTo(${i})"></div>`).join('');
   kb1000Dots = document.querySelectorAll('.kb1000-dot');
   setInterval(kb1000Next, 5000);
+
+  // Tilt 3D léger au survol du mockup, suit la souris (refonte "effets" du 18/07/2026)
+  const stage = document.getElementById('kb1000ShotStage');
+  const frame = stage?.querySelector('.browser-frame');
+  if (stage && frame) {
+    stage.addEventListener('mousemove', (e) => {
+      const r = stage.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      frame.style.transform = `rotateY(${-9 + x * 14}deg) rotateX(${5 - y * 10}deg)`;
+    });
+    stage.addEventListener('mouseleave', () => { frame.style.transform = ''; });
+  }
 });
 </script>
 <script src="js/nav.js"></script>
