@@ -832,7 +832,7 @@ section[id] { scroll-margin-top: 84px; }
    de Louis, 24/07/2026). Chaque carte est reprise telle quelle en interne.
    Validé via Maquette_Promo_Carousel3en1.html. ─────────────────────────── */
 #promo-carousel { position: relative; }
-.meta-wrap { max-width: 1180px; margin: 0 auto; position: relative; }
+.meta-wrap { max-width: 1600px; margin: 0 auto; position: relative; }
 .meta-tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; }
 .meta-tab {
   display: inline-flex; align-items: center; gap: 8px; padding: 9px 18px; border-radius: 30px;
@@ -865,8 +865,11 @@ section[id] { scroll-margin-top: 84px; }
   cursor: pointer; transition: all .2s; box-shadow: 0 10px 24px rgba(0,0,0,.4);
 }
 .meta-side-arrow:hover { border-color: var(--text); transform: translateY(-50%) scale(1.06); }
-.meta-side-arrow.left { left: -22px; }
-.meta-side-arrow.right { right: -22px; }
+/* Décalées vers l'intérieur (et non plus en dépassement du bord de la carte) :
+   sur une fenêtre étroite, un dépassement negatif poussait les flèches hors
+   de l'écran, invisibles/coupées (remonté par Louis, 24/07/2026). */
+.meta-side-arrow.left { left: 8px; }
+.meta-side-arrow.right { right: 8px; }
 .meta-side-arrow svg { width: 20px; height: 20px; display: block; }
 
 .meta-progress { display: flex; justify-content: center; gap: 6px; margin-top: 26px; }
