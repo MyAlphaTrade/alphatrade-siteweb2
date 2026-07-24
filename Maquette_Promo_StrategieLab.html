@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Maquette — Promo Stratégie Lab v2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg:      #0a0704;
+    --card:    #151009;
+    --card2:   #1c150d;
+    --border:  #2b2013;
+    --amber:   #f5a524;
+    --amber2:  #b45309;
+    --amber3:  #78350f;
+    --teal:    #2dd4bf;
+    --text:    #f3ead9;
+    --muted:   #9c8768;
+    --muted2:  #5c4f3a;
+  }
+  html { font-size: 16px; }
+  body {
+    background: var(--bg); color: var(--text); font-family: 'Segoe UI', Arial, sans-serif;
+    line-height: 1.6; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    padding: 60px 20px; overflow-x: hidden;
+  }
+  .flag {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 500; background: #1a0f24; border-bottom: 1px solid #7B2FBE;
+    padding: 8px 20px; font-size: 12px; color: #c9a9e8; text-align: center;
+  }
+  .flag b { color: #fff; }
+  svg { display: block; }
+
+  /* ── Fond : papier millimétré ambré + ticker de bougies qui defile ──── */
+  .grid-overlay {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .5;
+    background-image:
+      linear-gradient(rgba(245,165,36,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245,165,36,.05) 1px, transparent 1px);
+    background-size: 34px 34px;
+    mask-image: radial-gradient(ellipse 65% 55% at 50% 35%, #000 30%, transparent 78%);
+  }
+  .ticker-glow { position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background: radial-gradient(700px 420px at 18% 8%, rgba(245,165,36,.10), transparent 60%),
+                radial-gradient(600px 420px at 85% 95%, rgba(45,212,191,.06), transparent 60%);
+  }
+
+  main { position: relative; z-index: 1; width: 100%; max-width: 1180px; margin-top: 30px; }
+
+  /* ── Badge ─────────────────────────────────────────────────────────── */
+  .top-badge-wrap { display: flex; justify-content: center; margin-bottom: 26px; }
+  .top-badge {
+    display: inline-flex; align-items: center; gap: 8px; padding: 7px 18px 7px 12px; border-radius: 6px;
+    background: rgba(245,165,36,.08);
+    border: 1px solid rgba(245,165,36,.35); font-size: 11px; font-weight: 800; letter-spacing: .1em;
+    color: var(--amber); text-transform: uppercase;
+    font-family: 'Consolas', 'SFMono-Regular', monospace;
+  }
+  .top-badge .dot { width: 6px; height: 6px; background: var(--amber); box-shadow: 0 0 10px var(--amber); animation: dotPulse 1.4s ease-in-out infinite; }
+  @keyframes dotPulse { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
+
+  /* ── Carte principale : coins nets, bordure fine (pas de degrade arc-en-ciel) */
+  .promo-card {
+    position: relative; border-radius: 14px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    box-shadow: 0 40px 100px -20px rgba(0,0,0,.85);
+    overflow: hidden;
+  }
+  .promo-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--amber), var(--teal), transparent);
+    background-size: 200% 100%; animation: scanline 5s linear infinite;
+  }
+  @keyframes scanline { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+  .promo-card-inner { position: relative; padding: 54px 58px 46px; }
+
+  /* Bandeau ticker technique en haut de carte : chiffres qui defilent */
+  .ticker-strip {
+    position: absolute; top: 0; left: 0; right: 0; height: 30px; overflow: hidden;
+    background: var(--card2); border-bottom: 1px solid var(--border);
+    display: flex; align-items: center;
+  }
+  .ticker-track { display: flex; gap: 40px; white-space: nowrap; animation: tickerScroll 26s linear infinite; padding-left: 40px; }
+  .ticker-item { font-family: 'Consolas', monospace; font-size: 10.5px; color: var(--muted); letter-spacing: .04em; }
+  .ticker-item b { color: var(--amber); }
+  .ticker-item.up { color: var(--teal); }
+  @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  .promo-head { display: flex; align-items: flex-start; gap: 24px; margin: 26px 0 38px; position: relative; }
+  .logo-mark {
+    flex-shrink: 0; width: 64px; height: 64px; border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    background: var(--card2); border: 1px solid var(--amber3); color: var(--amber);
+    box-shadow: inset 0 0 0 1px rgba(245,165,36,.08);
+  }
+  .logo-mark svg { width: 30px; height: 30px; }
+
+  .promo-eyebrow { font-family: 'Consolas', monospace; font-size: 11px; color: var(--teal); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 6px; }
+  .promo-title { font-size: 38px; font-weight: 800; letter-spacing: -0.015em; line-height: 1.12; margin: 0 0 12px; color: #fff; }
+  .promo-title em { font-style: normal; color: var(--amber); }
+  .promo-lead { font-size: 15px; color: var(--muted); max-width: 620px; }
+  .promo-lead strong { color: var(--amber); font-weight: 700; }
+
+  /* ── Corps ────────────────────────────────────────────────────────── */
+  .promo-body { display: flex; gap: 46px; align-items: center; position: relative; }
+  .promo-carousel { flex: 1 1 380px; min-width: 300px; }
+
+  .feature-pill-row { display: flex; gap: 8px; margin-bottom: 22px; flex-wrap: wrap; }
+  .feature-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 10.5px; font-weight: 700; letter-spacing: .03em; color: var(--muted); background: var(--card2);
+    border: 1px solid var(--border); padding: 5px 11px 5px 8px; border-radius: 5px;
+  }
+  .feature-pill svg { width: 12px; height: 12px; color: var(--amber); }
+
+  .slide { display: none; animation: slideIn .45s cubic-bezier(.16,1,.3,1); }
+  .slide.active { display: block; }
+  @keyframes slideIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .slide-icon-wrap {
+    width: 46px; height: 46px; border-radius: 8px; display: flex; align-items: center; justify-content: center;
+    background: var(--card2); border: 1px solid var(--amber3); color: var(--amber); margin-bottom: 16px;
+  }
+  .slide-icon-wrap svg { width: 22px; height: 22px; }
+  .slide h3 { font-size: 19px; color: #fff; margin: 0 0 9px; font-weight: 800; letter-spacing: -0.01em; }
+  .slide p { color: var(--muted); font-size: 13.5px; line-height: 1.75; margin: 0; max-width: 460px; }
+
+  .carousel-nav { display: flex; align-items: center; gap: 14px; margin-top: 28px; }
+  .arrow {
+    width: 34px; height: 34px; border-radius: 6px; background: var(--card2); border: 1px solid var(--border);
+    color: var(--muted); display: flex; align-items: center; justify-content: center; cursor: pointer;
+    transition: all .2s;
+  }
+  .arrow svg { width: 15px; height: 15px; }
+  .arrow:hover { border-color: var(--amber); color: var(--amber); }
+  .dots { display: flex; gap: 6px; }
+  .dot-btn { width: 5px; height: 5px; border-radius: 1px; background: var(--border); cursor: pointer; transition: all .25s; }
+  .dot-btn.active { width: 20px; background: var(--amber); }
+
+  /* ── Panneau "terminal" (au lieu du navigateur), sans tilt gadget ────── */
+  .shot-stage { flex: 1 1 420px; min-width: 320px; position: relative; }
+  .term-frame {
+    position: relative; border-radius: 10px; overflow: hidden; background: #0d0906;
+    border: 1px solid var(--amber3);
+    box-shadow: 0 30px 60px -18px rgba(0,0,0,.8);
+  }
+  .term-bar {
+    display: flex; align-items: center; justify-content: space-between; padding: 9px 14px;
+    background: var(--card2); border-bottom: 1px solid var(--border);
+    font-family: 'Consolas', monospace; font-size: 10px; color: var(--muted2); letter-spacing: .04em;
+  }
+  .term-bar .lights { display: flex; gap: 5px; }
+  .term-bar .lights span { width: 7px; height: 7px; border-radius: 50%; background: var(--muted2); }
+
+  .fake-ui { padding: 18px 20px; }
+  .fu-eyebrow { font-family: 'Consolas', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--amber); font-weight: 800; margin-bottom: 4px; }
+  .fu-title { font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 14px; }
+  .fu-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+  .fu-stat { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 10px; }
+  .fu-stat .n { font-family: 'Consolas', monospace; font-size: 17px; font-weight: 800; color: #fff; }
+  .fu-stat .l { font-size: 7.5px; color: var(--muted2); text-transform: uppercase; letter-spacing: .06em; margin-top: 3px; }
+  .fu-chart { height: 64px; margin-bottom: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; }
+  .fu-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 13px; }
+  .fu-badges { display: flex; gap: 6px; margin-bottom: 8px; }
+  .fu-badge { font-size: 8px; padding: 3px 7px; border-radius: 4px; font-weight: 700; letter-spacing: .02em; }
+  .fu-badge.b1 { background: rgba(45,212,191,.12); color: var(--teal); }
+  .fu-badge.b2 { background: rgba(255,255,255,.05); color: var(--muted); font-family: 'Consolas', monospace; }
+  .fu-card .fu-name { font-size: 12.5px; font-weight: 800; color: #fff; margin-bottom: 6px; }
+  .fu-tags { display: flex; gap: 12px; font-size: 9px; color: var(--muted); font-family: 'Consolas', monospace; }
+  .fu-tags .up { color: var(--teal); } .fu-tags .down { color: #e0654a; }
+
+  .float-tag {
+    position: absolute; z-index: 2; display: flex; align-items: center; gap: 6px; padding: 6px 11px;
+    background: var(--card2); border: 1px solid var(--border); border-radius: 5px;
+    font-family: 'Consolas', monospace; font-size: 10px; font-weight: 700; color: var(--muted);
+    box-shadow: 0 12px 30px rgba(0,0,0,.5);
+  }
+  .float-tag .dot-live { width: 6px; height: 6px; background: var(--teal); box-shadow: 0 0 8px var(--teal); animation: dotPulse 1.2s ease-in-out infinite; }
+  .tag-live { top: -14px; left: 20px; }
+  .tag-symbols { bottom: -14px; right: 16px; }
+
+  /* ── CTA ──────────────────────────────────────────────────────────── */
+  .promo-cta { display: flex; gap: 14px; margin-top: 42px; flex-wrap: wrap; align-items: center; position: relative; }
+  .btn { font-family: inherit; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-hero {
+    padding: 15px 28px; border-radius: 8px; font-weight: 800; font-size: 14.5px;
+    color: #1a0f00; background: var(--amber);
+    box-shadow: 0 14px 34px -10px rgba(245,165,36,.5);
+    transition: transform .15s, box-shadow .15s;
+  }
+  .btn-hero:hover { transform: translateY(-1px); box-shadow: 0 18px 40px -10px rgba(245,165,36,.65); }
+  .btn-hero svg { width: 15px; height: 15px; }
+  .btn-outline-ghost {
+    padding: 15px 24px; border-radius: 8px; font-weight: 700; font-size: 13.5px; color: var(--text);
+    background: transparent; border: 1px solid var(--border); transition: all .2s;
+  }
+  .btn-outline-ghost:hover { border-color: var(--amber); color: var(--amber); }
+  .cta-meta { font-family: 'Consolas', monospace; font-size: 11px; color: var(--muted2); margin-left: 4px; }
+
+  @media (max-width: 880px) {
+    .promo-card-inner { padding: 40px 24px 34px; }
+    .promo-head { flex-direction: column; }
+    .promo-body { flex-direction: column; }
+    .promo-title { font-size: 28px; }
+    .promo-cta { justify-content: center; }
+    .float-tag { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="flag">
+  🎨 <b>MAQUETTE v2 — Stratégie Lab</b> — identité "labo technique" : papier millimétré ambré, ticker de données, bandeau scanline, icônes SVG (aucun emoji), panneau "terminal" à coins nets. Aucun code live modifié.
+</div>
+
+<div class="grid-overlay"></div>
+<div class="ticker-glow"></div>
+
+<main>
+  <div class="top-badge-wrap">
+    <span class="top-badge"><span class="dot"></span> Nouveau module · v1.0</span>
+  </div>
+
+  <div class="promo-card">
+    <div class="ticker-strip">
+      <div class="ticker-track">
+        <span class="ticker-item">XAUUSD <b>2 418,30</b></span>
+        <span class="ticker-item up">WIN RATE 76,9%</span>
+        <span class="ticker-item">BOOM1000 <b>9 812,4</b></span>
+        <span class="ticker-item up">PROFIT FACTOR 2,15</span>
+        <span class="ticker-item">CRASH1000 <b>14 220,1</b></span>
+        <span class="ticker-item up">17 STRATÉGIES TESTÉES</span>
+        <span class="ticker-item">VIX75 <b>301,88</b></span>
+        <span class="ticker-item">XAUUSD <b>2 418,30</b></span>
+        <span class="ticker-item up">WIN RATE 76,9%</span>
+        <span class="ticker-item">BOOM1000 <b>9 812,4</b></span>
+        <span class="ticker-item up">PROFIT FACTOR 2,15</span>
+        <span class="ticker-item">CRASH1000 <b>14 220,1</b></span>
+        <span class="ticker-item up">17 STRATÉGIES TESTÉES</span>
+        <span class="ticker-item">VIX75 <b>301,88</b></span>
+      </div>
+    </div>
+
+    <div class="promo-card-inner">
+      <div class="promo-head">
+        <div class="logo-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 2v6.5L4.2 18.2a2 2 0 0 0 1.8 2.8h12a2 2 0 0 0 1.8-2.8L15 8.5V2"/>
+            <path d="M8.5 14h7"/><path d="M9 2h6"/>
+          </svg>
+        </div>
+        <div>
+          <div class="promo-eyebrow">Backtesting &amp; recherche de stratégies</div>
+          <h2 class="promo-title">Éprouvez chaque idée<br><em>avant le premier trade</em></h2>
+          <p class="promo-lead">Le laboratoire de recherche AlphaTrade — concevez, testez et validez vos stratégies sur des <strong>données historiques réelles</strong>, avant de les connecter à votre compte.</p>
+        </div>
+      </div>
+
+      <div class="promo-body">
+        <div class="promo-carousel">
+          <div class="feature-pill-row">
+            <span class="feature-pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+              Données MT5 réelles
+            </span>
+            <span class="feature-pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>
+              IA intégrée
+            </span>
+            <span class="feature-pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l6 3"/></svg>
+              Monte Carlo
+            </span>
+          </div>
+
+          <div class="slide active" data-slide="0">
+            <div class="slide-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><rect x="7" y="12" width="2.5" height="6"/><rect x="11.5" y="8" width="2.5" height="10"/><rect x="16" y="5" width="2.5" height="13"/></svg>
+            </div>
+            <h3>Backtesting sur données réelles</h3>
+            <p>Testez vos stratégies sur l'historique MT5 réel de chaque actif — XAUUSD, BOOM1000, CRASH1000, VIX75 — pas des données simulées. Résultats exportables en PDF, CSV ou TXT.</p>
+          </div>
+          <div class="slide" data-slide="1">
+            <div class="slide-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>
+            </div>
+            <h3>Concevez avec l'IA</h3>
+            <p>Décrivez votre idée en langage naturel et laissez l'IA construire la stratégie — ou importez un script Pine Script TradingView, elle en traduit la logique dans son propre langage.</p>
+          </div>
+          <div class="slide" data-slide="2">
+            <div class="slide-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            </div>
+            <h3>Bibliothèque &amp; Monte Carlo</h3>
+            <p>Démarrez depuis une bibliothèque de stratégies d'analyse technique prêtes à l'emploi, puis validez leur robustesse avec un bootstrap Monte Carlo avant de risquer un centime.</p>
+          </div>
+          <div class="slide" data-slide="3">
+            <div class="slide-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 13a5 5 0 0 0 7.5.5l2-2a5 5 0 0 0-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.5-.5l-2 2a5 5 0 0 0 7 7l1.5-1.5"/></svg>
+            </div>
+            <h3>Connecté à AlphaTrade</h3>
+            <p>Une fois une stratégie validée, exportez-la directement comme signal vers AlphaTrade — sans ressaisie, sans copier-coller.</p>
+          </div>
+
+          <div class="carousel-nav">
+            <button class="arrow" onclick="promoPrev()" aria-label="Précédent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg></button>
+            <div class="dots" id="promoDots"></div>
+            <button class="arrow" onclick="promoNext()" aria-label="Suivant"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></button>
+          </div>
+        </div>
+
+        <div class="shot-stage" id="shotStage">
+          <div class="float-tag tag-live"><span class="dot-live"></span> BACKTEST TERMINÉ</div>
+          <div class="float-tag tag-symbols">17 STRATÉGIES</div>
+          <div class="term-frame">
+            <div class="term-bar">
+              <span>strategielab.exe — créateur</span>
+              <span class="lights"><span></span><span></span><span></span></span>
+            </div>
+            <div class="fake-ui">
+              <div class="fu-eyebrow">Module 2</div>
+              <div class="fu-title">Créateur de stratégies</div>
+              <div class="fu-stats">
+                <div class="fu-stat"><div class="n">17</div><div class="l">Total</div></div>
+                <div class="fu-stat"><div class="n">4</div><div class="l">Actives</div></div>
+                <div class="fu-stat"><div class="n">6</div><div class="l">Testées</div></div>
+              </div>
+              <div class="fu-chart">
+                <svg viewBox="0 0 300 64" width="100%" height="100%" preserveAspectRatio="none">
+                  <polyline points="0,50 20,48 40,52 60,40 80,44 100,30 120,34 140,22 160,26 180,15 200,18 220,10 240,14 260,6 280,10 300,4"
+                    fill="none" stroke="#2dd4bf" stroke-width="2"/>
+                </svg>
+              </div>
+              <div class="fu-card">
+                <div class="fu-badges"><span class="fu-badge b1">TESTÉE</span><span class="fu-badge b2">v1.0</span></div>
+                <div class="fu-name">Scalping rapide London Gold</div>
+                <div class="fu-tags"><span class="up">▲ 1 BUY</span><span class="down">▼ 1 SELL</span><span>RR 1.8</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="promo-cta">
+        <a href="#" class="btn btn-hero">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3v13"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/></svg>
+          Télécharger Stratégie Lab
+        </a>
+        <a href="#" class="btn btn-outline-ghost">Voir comment ça marche</a>
+        <span class="cta-meta">WINDOWS 10/11 · 64-BIT</span>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  let idx = 0;
+  const slides = document.querySelectorAll('.slide');
+  const dotsEl = document.getElementById('promoDots');
+  dotsEl.innerHTML = Array.from(slides).map((_,i) => `<div class="dot-btn ${i===0?'active':''}" onclick="promoGo(${i})"></div>`).join('');
+  const dots = document.querySelectorAll('.dot-btn');
+  function render() {
+    slides.forEach((s,i) => s.classList.toggle('active', i===idx));
+    dots.forEach((d,i) => d.classList.toggle('active', i===idx));
+  }
+  function promoNext() { idx = (idx+1) % slides.length; render(); }
+  function promoPrev() { idx = (idx-1+slides.length) % slides.length; render(); }
+  function promoGo(i) { idx = i; render(); }
+  setInterval(promoNext, 4800);
+</script>
+</body>
+</html>
