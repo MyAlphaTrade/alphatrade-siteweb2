@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Maquette — Carrousel 3-en-1 (KB1000 / Stratégie Lab / App Mobile)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg:      #070d09;
+  --card:    #111a13;
+  --card2:   #161f18;
+  --border:  #1e2e22;
+  --green:   #00C896;
+  --green2:  #00a87d;
+  --purple:  #7B2FBE;
+  --purple2: #9B4FDE;
+  --gold:    #D4AF37;
+  --orange:  #F59E0B;
+  --text:    #e2e8f0;
+  --muted:   #64748b;
+  --muted2:  #4a5568;
+}
+html { font-size: 16px; }
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; padding: 70px 20px 40px; }
+a { color: inherit; text-decoration: none; }
+svg { display: block; }
+
+.flag {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500; background: #1a0f24; border-bottom: 1px solid var(--purple);
+  padding: 8px 20px; font-size: 12px; color: #c9a9e8; text-align: center;
+}
+.flag b { color: #fff; }
+
+/* ═══════════════════════════ Meta-carrousel (nouveau) ═══════════════════ */
+.meta-wrap { max-width: 1180px; margin: 0 auto; position: relative; }
+.meta-tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; }
+.meta-tab {
+  display: inline-flex; align-items: center; gap: 8px; padding: 9px 18px; border-radius: 30px;
+  background: var(--card2); border: 1px solid var(--border); color: var(--muted);
+  font-size: 13px; font-weight: 700; cursor: pointer; transition: all .2s;
+}
+.meta-tab .swatch { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.meta-tab[data-c="kb1000"] .swatch { background: var(--green); }
+.meta-tab[data-c="stratlab"] .swatch { background: var(--orange); }
+.meta-tab[data-c="mobile"] .swatch { background: #38bdf8; }
+.meta-tab:hover { color: var(--text); border-color: var(--muted2); }
+.meta-tab.active[data-c="kb1000"] { background: rgba(0,200,150,.12); border-color: rgba(0,200,150,.4); color: var(--green); }
+.meta-tab.active[data-c="stratlab"] { background: rgba(245,165,36,.12); border-color: rgba(245,165,36,.4); color: var(--orange); }
+.meta-tab.active[data-c="mobile"] { background: rgba(56,189,248,.12); border-color: rgba(56,189,248,.4); color: #38bdf8; }
+
+.meta-viewport { position: relative; overflow: hidden; }
+.meta-slide-outer { display: none; }
+.meta-slide-outer.active { display: block; }
+.meta-slide-outer.active.dir-right { animation: metaSlideInRight .45s cubic-bezier(.16,1,.3,1); }
+.meta-slide-outer.active.dir-left { animation: metaSlideInLeft .45s cubic-bezier(.16,1,.3,1); }
+/* "dir-right" = on avance (next) -> le nouveau contenu vient de la droite et glisse vers la gauche.
+   "dir-left" = on recule (prev) -> le nouveau contenu vient de la gauche et glisse vers la droite.
+   Horizontal dans les deux cas, jamais vertical -- demande de Louis le 24/07/2026. */
+@keyframes metaSlideInRight { from { opacity: 0; transform: translateX(46px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes metaSlideInLeft { from { opacity: 0; transform: translateX(-46px); } to { opacity: 1; transform: translateX(0); } }
+
+.meta-side-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 10;
+  width: 44px; height: 44px; border-radius: 50%; background: rgba(17,26,19,.85); backdrop-filter: blur(8px);
+  border: 1px solid var(--border); color: var(--text); display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all .2s; box-shadow: 0 10px 24px rgba(0,0,0,.4);
+}
+.meta-side-arrow:hover { border-color: var(--text); transform: translateY(-50%) scale(1.06); }
+.meta-side-arrow.left { left: -22px; }
+.meta-side-arrow.right { right: -22px; }
+.meta-side-arrow svg { width: 20px; height: 20px; }
+
+.meta-progress { display: flex; justify-content: center; gap: 6px; margin-top: 26px; }
+.meta-dot { width: 26px; height: 4px; border-radius: 3px; background: var(--border); cursor: pointer; transition: all .25s; overflow: hidden; position: relative; }
+.meta-dot.active { background: var(--muted2); }
+.meta-dot.active .fill { position: absolute; inset: 0; background: var(--text); animation: metaProgress 8s linear forwards; }
+@keyframes metaProgress { from { width: 0%; } to { width: 100%; } }
+
+@media (max-width: 900px) {
+  .meta-side-arrow { display: none; }
+}
+
+/* ═══════════════════════════ KB1000 (identique au site) ═════════════════ */
+#kb1000-promo { position: relative; overflow: hidden; }
+.aurora { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: .3; animation: kb1000Drift 26s ease-in-out infinite; }
+.blob-1 { width: 480px; height: 480px; background: var(--green); top: -160px; left: -100px; }
+.blob-2 { width: 420px; height: 420px; background: var(--purple); bottom: -150px; right: -90px; animation-duration: 30s; animation-delay: -6s; }
+.blob-3 { width: 300px; height: 300px; background: var(--gold); top: 35%; left: 55%; opacity: .1; animation-duration: 34s; animation-delay: -14s; }
+@keyframes kb1000Drift { 0%, 100% { transform: translate(0,0) scale(1); } 33% { transform: translate(40px,-30px) scale(1.08); } 66% { transform: translate(-30px,25px) scale(0.95); } }
+.top-badge-wrap { display: flex; justify-content: center; margin-bottom: 24px; position: relative; z-index: 1; }
+.top-badge { display: inline-flex; align-items: center; gap: 8px; padding: 7px 18px 7px 12px; border-radius: 30px; background: linear-gradient(135deg, rgba(0,200,150,.16), rgba(123,47,190,.16)); border: 1px solid rgba(0,200,150,.4); font-size: 12px; font-weight: 800; letter-spacing: .08em; color: var(--green); text-transform: uppercase; box-shadow: 0 0 24px rgba(0,200,150,.25); animation: kb1000BadgePulse 2.6s ease-in-out infinite; }
+.top-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px var(--green); animation: kb1000DotPulse 1.4s ease-in-out infinite; }
+@keyframes kb1000BadgePulse { 0%,100% { box-shadow: 0 0 18px rgba(0,200,150,.2); } 50% { box-shadow: 0 0 32px rgba(0,200,150,.4); } }
+@keyframes kb1000DotPulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .4; transform: scale(.7); } }
+.promo-card { position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; border-radius: 22px; padding: 2px; background: linear-gradient(120deg, rgba(0,200,150,.55), rgba(123,47,190,.4), rgba(0,200,150,.55)); background-size: 200% 200%; animation: kb1000BorderFlow 8s linear infinite; box-shadow: 0 40px 90px -24px rgba(0,0,0,.7), 0 0 70px -20px rgba(0,200,150,.2); }
+@keyframes kb1000BorderFlow { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+.promo-card-inner { position: relative; border-radius: 20px; overflow: hidden; text-align: left; background: radial-gradient(1200px 500px at 15% -10%, rgba(0,200,150,.10), transparent 55%), radial-gradient(900px 500px at 100% 110%, rgba(123,47,190,.12), transparent 55%), var(--card); padding: 48px 48px 40px; }
+/* Fond en fondu (blobs flous, opacite reduite, derive lente) A L'INTERIEUR de
+   la carte -- l'aurora existante (.aurora) est a l'exterieur de .promo-card
+   et ne casse pas l'aplat de couleur du contenu lui-meme. Demande de Louis
+   le 24/07/2026. */
+.promo-inner-aurora { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.promo-inner-blob { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .14; animation: promoInnerDrift 25s ease-in-out infinite; }
+.promo-inner-blob-1 { width: 360px; height: 360px; background: var(--green); top: -110px; right: -70px; }
+.promo-inner-blob-2 { width: 300px; height: 300px; background: var(--purple); bottom: -100px; left: -60px; animation-duration: 29s; animation-delay: -7s; }
+@keyframes promoInnerDrift { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-22px,20px) scale(1.08); } }
+.promo-noise { position: absolute; inset: 0; opacity: .025; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+.kb1000-promo-head { display: flex; align-items: center; gap: 24px; margin-bottom: 32px; position: relative; }
+.logo-halo { position: relative; flex-shrink: 0; width: 76px; height: 76px; display: flex; align-items: center; justify-content: center; }
+.logo-halo::before { content: ''; position: absolute; inset: -12px; border-radius: 50%; background: radial-gradient(circle, rgba(0,200,150,.5), transparent 70%); filter: blur(12px); animation: kb1000HaloPulse 3s ease-in-out infinite; }
+@keyframes kb1000HaloPulse { 0%,100% { opacity: .55; transform: scale(1); } 50% { opacity: 1; transform: scale(1.15); } }
+.logo-halo img { position: relative; width: 100%; height: 100%; object-fit: contain; animation: kb1000Floaty 4s ease-in-out infinite; filter: drop-shadow(0 6px 18px rgba(0,0,0,.5)); }
+@keyframes kb1000Floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+.promo-title { font-size: 38px; font-weight: 900; letter-spacing: -0.02em; line-height: 1.1; margin: 0 0 8px; color: #fff; }
+.promo-grad { background: linear-gradient(100deg, #fff 10%, var(--green) 55%, var(--green2) 90%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.kb1000-promo-body { display: flex; gap: 36px; align-items: center; flex-wrap: wrap; position: relative; }
+.feature-pill-row { display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
+.feature-pill { font-size: 11px; font-weight: 700; letter-spacing: .03em; color: var(--muted); background: var(--card2); border: 1px solid var(--border); padding: 5px 12px; border-radius: 20px; }
+.kb1000-carousel { position: relative; flex: 1 1 380px; min-width: 300px; }
+.kb1000-slide { display: none; animation: kb1000Fade .4s ease; }
+.kb1000-slide.active { display: block; }
+@keyframes kb1000Fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.slide-icon-wrap { width: 48px; height: 48px; border-radius: 13px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(0,200,150,.18), rgba(123,47,190,.18)); border: 1px solid rgba(0,200,150,.3); font-size: 22px; margin-bottom: 16px; box-shadow: 0 0 24px rgba(0,200,150,.15); }
+.slide-icon-wrap img { width: 28px; height: 28px; object-fit: contain; border-radius: 6px; }
+.kb1000-slide h3 { font-size: 21px; color: #fff; margin: 0 0 10px; font-weight: 800; }
+.kb1000-slide p { color: var(--muted); font-size: 14.5px; line-height: 1.7; margin: 0; }
+.kb1000-nav { display: flex; align-items: center; gap: 18px; margin-top: 26px; position: relative; }
+.kb1000-arrow { background: var(--card2); border: 1px solid var(--border); color: var(--text); width: 34px; height: 34px; border-radius: 50%; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; transition: all .2s; }
+.kb1000-arrow:hover { border-color: var(--green); color: var(--green); box-shadow: 0 0 16px rgba(0,200,150,.3); }
+.kb1000-dots { display: flex; gap: 8px; }
+.kb1000-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); cursor: pointer; transition: all .25s; }
+.kb1000-dot.active { width: 24px; border-radius: 5px; background: linear-gradient(90deg, var(--green), var(--green2)); box-shadow: 0 0 10px rgba(0,200,150,.5); }
+.shot-stage { flex: 1 1 420px; min-width: 300px; perspective: 1400px; position: relative; }
+.shot-glow { position: absolute; inset: -28px; background: radial-gradient(circle at 40% 30%, rgba(0,200,150,.28), transparent 65%); filter: blur(28px); z-index: 0; }
+.browser-frame { position: relative; z-index: 1; border-radius: 14px; overflow: hidden; background: #0c1410; border: 1px solid rgba(0,200,150,.25); box-shadow: 0 36px 64px -18px rgba(0,0,0,.75), 0 0 0 1px rgba(255,255,255,.02) inset; transform: rotateY(-9deg) rotateX(5deg); transform-style: preserve-3d; transition: transform .35s cubic-bezier(.16,1,.3,1); }
+.browser-bar { display: flex; align-items: center; gap: 6px; padding: 10px 14px; background: #0a100c; border-bottom: 1px solid rgba(255,255,255,.05); }
+.browser-bar span { width: 9px; height: 9px; border-radius: 50%; display: block; }
+.browser-bar span:nth-child(1) { background: #ff5f57; } .browser-bar span:nth-child(2) { background: #febc2e; } .browser-bar span:nth-child(3) { background: #28c840; }
+.browser-frame img { display: block; width: 100%; height: auto; }
+.float-chip { position: absolute; z-index: 2; display: flex; align-items: center; gap: 7px; padding: 8px 14px; background: rgba(17,26,19,.9); backdrop-filter: blur(10px); border: 1px solid var(--border); border-radius: 12px; font-size: 11.5px; font-weight: 700; box-shadow: 0 12px 30px rgba(0,0,0,.4); animation: kb1000ChipFloat 5s ease-in-out infinite; }
+.float-chip .dot-live { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); animation: kb1000DotPulse 1.2s ease-in-out infinite; }
+.chip-live { top: -14px; left: 20px; } .chip-symbols { bottom: -12px; right: 8px; color: var(--muted); animation-delay: -2.4s; }
+@keyframes kb1000ChipFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+.sparkle { position: absolute; z-index: 2; color: var(--green); opacity: .8; animation: kb1000Twinkle 2.4s ease-in-out infinite; pointer-events: none; }
+@keyframes kb1000Twinkle { 0%,100% { opacity: .15; transform: scale(.7) rotate(0deg); } 50% { opacity: .95; transform: scale(1.1) rotate(20deg); } }
+.kb1000-cta { margin-top: 32px; position: relative; display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+.btn-hero { position: relative; overflow: hidden; padding: 15px 28px; border-radius: 12px; font-weight: 800; font-size: 15px; color: #05130d; background: linear-gradient(135deg, var(--green), var(--green2)); animation: kb1000CtaGlow 2.4s ease-in-out infinite; display: inline-flex; align-items: center; }
+@keyframes kb1000CtaGlow { 0%,100% { box-shadow: 0 0 0 0 rgba(0,200,150,.45), 0 14px 34px -8px rgba(0,200,150,.5); } 50% { box-shadow: 0 0 0 10px rgba(0,200,150,0), 0 14px 34px -8px rgba(0,200,150,.7); } }
+.btn-hero::before { content: ''; position: absolute; top: 0; left: -60%; width: 40%; height: 100%; background: linear-gradient(120deg, transparent, rgba(255,255,255,.55), transparent); transform: skewX(-20deg); animation: kb1000Shine 3.2s ease-in-out infinite; }
+@keyframes kb1000Shine { 0% { left: -60%; } 45%,100% { left: 130%; } }
+.btn-outline-ghost { padding: 15px 24px; border-radius: 12px; font-weight: 700; font-size: 14px; color: var(--text); background: rgba(255,255,255,.03); border: 1px solid var(--border); transition: all .2s; }
+.btn-outline-ghost:hover { border-color: var(--green); color: var(--green); background: rgba(0,200,150,.06); }
+.cta-meta { font-size: 12px; color: var(--muted2); margin-left: 4px; }
+
+/* ═══════════════════════════ Stratégie Lab (identique au site) ══════════ */
+#stratlab-promo { position: relative; overflow: hidden; }
+.stratlab-grid-overlay { position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .5; background-image: linear-gradient(rgba(245,165,36,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(245,165,36,.05) 1px, transparent 1px); background-size: 34px 34px; mask-image: radial-gradient(ellipse 65% 55% at 50% 35%, #000 30%, transparent 78%); }
+.stratlab-glow { position: absolute; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(700px 420px at 18% 8%, rgba(245,165,36,.10), transparent 60%), radial-gradient(600px 420px at 85% 95%, rgba(45,212,191,.06), transparent 60%); }
+.stratlab-badge-wrap { display: flex; justify-content: center; margin-bottom: 24px; position: relative; z-index: 1; }
+.stratlab-badge { display: inline-flex; align-items: center; gap: 8px; padding: 7px 18px 7px 12px; border-radius: 6px; background: rgba(245,165,36,.08); border: 1px solid rgba(245,165,36,.35); font-size: 11px; font-weight: 800; letter-spacing: .1em; color: var(--orange); text-transform: uppercase; font-family: 'Consolas', 'SFMono-Regular', monospace; }
+.stratlab-badge .dot { width: 6px; height: 6px; background: var(--orange); box-shadow: 0 0 10px var(--orange); animation: stratlabDotPulse 1.4s ease-in-out infinite; }
+@keyframes stratlabDotPulse { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
+.stratlab-card { position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; border-radius: 14px; background: var(--card); border: 1px solid var(--border); box-shadow: 0 40px 100px -20px rgba(0,0,0,.85); overflow: hidden; }
+.stratlab-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--orange), #2dd4bf, transparent); background-size: 200% 100%; animation: stratlabScanline 5s linear infinite; }
+/* Fond en fondu (blobs flous, opacite reduite, derive lente) -- casse l'aplat
+   de couleur derriere le contenu, demande de Louis le 24/07/2026. */
+.stratlab-aurora { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.stratlab-blob { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .16; animation: stratlabDrift 24s ease-in-out infinite; }
+.stratlab-blob-1 { width: 380px; height: 380px; background: var(--orange); top: -120px; right: -80px; }
+.stratlab-blob-2 { width: 300px; height: 300px; background: #2dd4bf; bottom: -100px; left: -60px; animation-duration: 28s; animation-delay: -8s; }
+@keyframes stratlabDrift { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(26px,-20px) scale(1.08); } }
+@keyframes stratlabScanline { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+.stratlab-card-inner { position: relative; z-index: 1; padding: 48px 48px 40px; text-align: left; }
+.stratlab-ticker { position: relative; z-index: 1; height: 30px; overflow: hidden; background: var(--card2); border-bottom: 1px solid var(--border); display: flex; align-items: center; }
+.stratlab-ticker-track { display: flex; gap: 40px; white-space: nowrap; animation: stratlabTickerScroll 26s linear infinite; padding-left: 40px; }
+.stratlab-ticker-item { font-family: 'Consolas', monospace; font-size: 10.5px; color: var(--muted); letter-spacing: .04em; }
+.stratlab-ticker-item b { color: var(--orange); } .stratlab-ticker-item.up { color: #2dd4bf; }
+@keyframes stratlabTickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.stratlab-promo-head { display: flex; align-items: flex-start; gap: 22px; margin: 24px 0 32px; position: relative; }
+.stratlab-brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.stratlab-logo-mark { width: 60px; height: 60px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--orange), #b45309); color: #1a0f00; box-shadow: 0 10px 26px -6px rgba(245,165,36,.5); flex-shrink: 0; overflow: hidden; padding: 9px; }
+.stratlab-logo-mark svg { width: 28px; height: 28px; } .stratlab-logo-mark img { width: 100%; height: 100%; object-fit: contain; }
+.stratlab-wordmark { display: flex; flex-direction: column; line-height: 1.15; }
+.stratlab-wordmark .w1 { font-size: 13px; font-weight: 700; color: var(--muted); letter-spacing: .02em; }
+.stratlab-wordmark .w2 { font-size: 19px; font-weight: 900; color: var(--orange); letter-spacing: -0.01em; }
+.stratlab-eyebrow { font-family: 'Consolas', monospace; font-size: 11px; color: #2dd4bf; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 6px; }
+.stratlab-title { font-size: 37px; font-weight: 800; letter-spacing: -0.015em; line-height: 1.15; margin: 0 0 10px; color: #fff; }
+.stratlab-title em { font-style: normal; color: var(--orange); }
+.stratlab-lead { font-size: 16px; color: var(--muted); max-width: 600px; margin: 0; text-align: left; }
+.stratlab-lead strong { color: var(--orange); font-weight: 700; }
+.stratlab-body { display: flex; gap: 40px; align-items: center; flex-wrap: wrap; position: relative; }
+.stratlab-carousel { flex: 1 1 380px; min-width: 300px; }
+.stratlab-pill-row { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+.stratlab-pill { display: inline-flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: 700; letter-spacing: .03em; color: var(--muted); background: var(--card2); border: 1px solid var(--border); padding: 5px 11px 5px 8px; border-radius: 5px; }
+.stratlab-pill svg { width: 12px; height: 12px; color: var(--orange); }
+.stratlab-slide { display: none; animation: stratlabSlideIn .45s cubic-bezier(.16,1,.3,1); }
+.stratlab-slide.active { display: block; }
+@keyframes stratlabSlideIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.stratlab-slide-icon { width: 44px; height: 44px; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: var(--card2); border: 1px solid #78350f; color: var(--orange); margin-bottom: 14px; }
+.stratlab-slide-icon svg { width: 20px; height: 20px; }
+.stratlab-slide h3 { font-size: 20px; color: #fff; margin: 0 0 8px; font-weight: 800; letter-spacing: -0.01em; }
+.stratlab-slide p { color: var(--muted); font-size: 14px; line-height: 1.7; margin: 0; max-width: 460px; }
+.stratlab-nav { display: flex; align-items: center; gap: 14px; margin-top: 24px; }
+.stratlab-arrow { width: 32px; height: 32px; border-radius: 6px; background: var(--card2); border: 1px solid var(--border); color: var(--muted); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all .2s; }
+.stratlab-arrow svg { width: 14px; height: 14px; } .stratlab-arrow:hover { border-color: var(--orange); color: var(--orange); }
+.stratlab-dots { display: flex; gap: 6px; }
+.stratlab-dot { width: 5px; height: 5px; border-radius: 1px; background: var(--border); cursor: pointer; transition: all .25s; }
+.stratlab-dot.active { width: 20px; background: var(--orange); }
+.stratlab-shot-stage { flex: 1 1 420px; min-width: 300px; position: relative; }
+.stratlab-term { position: relative; z-index: 1; border-radius: 10px; overflow: hidden; background: #0d0906; border: 1px solid #78350f; box-shadow: 0 30px 60px -18px rgba(0,0,0,.8); }
+.stratlab-term-bar { display: flex; align-items: center; justify-content: space-between; padding: 9px 14px; background: var(--card2); border-bottom: 1px solid var(--border); font-family: 'Consolas', monospace; font-size: 10px; color: var(--muted2); letter-spacing: .04em; }
+.stratlab-term-bar .lights { display: flex; gap: 5px; } .stratlab-term-bar .lights span { width: 7px; height: 7px; border-radius: 50%; background: var(--muted2); }
+.stratlab-fake-ui { padding: 18px 20px; }
+.stratlab-fu-eyebrow { font-family: 'Consolas', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--orange); font-weight: 800; margin-bottom: 4px; }
+.stratlab-fu-title { font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 14px; }
+.stratlab-fu-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+.stratlab-fu-stat { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 10px; }
+.stratlab-fu-stat .n { font-family: 'Consolas', monospace; font-size: 17px; font-weight: 800; color: #fff; }
+.stratlab-fu-stat .l { font-size: 7.5px; color: var(--muted2); text-transform: uppercase; letter-spacing: .06em; margin-top: 3px; }
+.stratlab-fu-chart { height: 60px; margin-bottom: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; }
+.stratlab-fu-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 13px; }
+.stratlab-fu-badges { display: flex; gap: 6px; margin-bottom: 8px; }
+.stratlab-fu-badge { font-size: 8px; padding: 3px 7px; border-radius: 4px; font-weight: 700; letter-spacing: .02em; }
+.stratlab-fu-badge.b1 { background: rgba(45,212,191,.12); color: #2dd4bf; } .stratlab-fu-badge.b2 { background: rgba(255,255,255,.05); color: var(--muted); font-family: 'Consolas', monospace; }
+.stratlab-fu-name { font-size: 12.5px; font-weight: 800; color: #fff; margin-bottom: 6px; }
+.stratlab-fu-tags { display: flex; gap: 12px; font-size: 9px; color: var(--muted); font-family: 'Consolas', monospace; }
+.stratlab-fu-tags .up { color: #2dd4bf; } .stratlab-fu-tags .down { color: #e0654a; }
+.stratlab-tag { position: absolute; z-index: 2; display: flex; align-items: center; gap: 6px; padding: 6px 11px; background: var(--card2); border: 1px solid var(--border); border-radius: 5px; font-family: 'Consolas', monospace; font-size: 10px; font-weight: 700; color: var(--muted); box-shadow: 0 12px 30px rgba(0,0,0,.5); }
+.stratlab-tag .dot-live { width: 6px; height: 6px; background: #2dd4bf; box-shadow: 0 0 8px #2dd4bf; animation: stratlabDotPulse 1.2s ease-in-out infinite; }
+.stratlab-tag-live { top: -14px; left: 20px; } .stratlab-tag-count { bottom: -14px; right: 16px; }
+.stratlab-cta { display: flex; gap: 14px; margin-top: 34px; flex-wrap: wrap; align-items: center; position: relative; }
+.stratlab-btn-hero { display: inline-flex; align-items: center; gap: 8px; padding: 15px 28px; border-radius: 8px; font-weight: 800; font-size: 14.5px; color: #1a0f00; background: var(--orange); box-shadow: 0 14px 34px -10px rgba(245,165,36,.5); transition: transform .15s, box-shadow .15s; }
+.stratlab-btn-hero:hover { transform: translateY(-1px); box-shadow: 0 18px 40px -10px rgba(245,165,36,.65); }
+.stratlab-btn-hero svg { width: 15px; height: 15px; }
+.stratlab-btn-ghost { padding: 15px 24px; border-radius: 8px; font-weight: 700; font-size: 13.5px; color: var(--text); background: transparent; border: 1px solid var(--border); transition: all .2s; }
+.stratlab-btn-ghost:hover { border-color: var(--orange); color: var(--orange); }
+.stratlab-cta-meta { font-family: 'Consolas', monospace; font-size: 11px; color: var(--muted2); margin-left: 4px; }
+
+/* ═══════════════════════════ App Mobile (identique au site) ═════════════ */
+#mobileapp-promo { position: relative; overflow: hidden; }
+.mobileapp-radar-wrap { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.mobileapp-radar-ring { position: absolute; top: 10%; left: 75%; width: 120px; height: 120px; margin: -60px 0 0 -60px; border-radius: 50%; border: 1px solid rgba(56,189,248,.18); animation: mobileappRingExpand 6s ease-out infinite; }
+.mobileapp-radar-ring.r2 { animation-delay: -2s; } .mobileapp-radar-ring.r3 { animation-delay: -4s; }
+@keyframes mobileappRingExpand { 0% { width: 40px; height: 40px; margin: -20px 0 0 -20px; opacity: .7; } 100% { width: 460px; height: 460px; margin: -230px 0 0 -230px; opacity: 0; } }
+.mobileapp-glow { position: absolute; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(650px 460px at 80% 15%, rgba(56,189,248,.09), transparent 62%), radial-gradient(560px 440px at 12% 90%, rgba(129,140,248,.09), transparent 62%); }
+.mobileapp-badge-wrap { display: flex; justify-content: center; margin-bottom: 24px; position: relative; z-index: 1; }
+.mobileapp-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 20px; border-radius: 40px; background: linear-gradient(135deg, rgba(56,189,248,.16), rgba(129,140,248,.16)); border: 1px solid rgba(56,189,248,.35); font-size: 12.5px; font-weight: 700; color: #38bdf8; }
+.mobileapp-badge .pulse-dot { position: relative; width: 8px; height: 8px; border-radius: 50%; background: #38bdf8; }
+.mobileapp-badge .pulse-dot::after { content: ''; position: absolute; inset: -5px; border-radius: 50%; border: 1.5px solid #38bdf8; animation: mobileappPulseDot 1.8s ease-out infinite; }
+@keyframes mobileappPulseDot { 0% { transform: scale(.4); opacity: 1; } 100% { transform: scale(1.8); opacity: 0; } }
+.mobileapp-card { position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; border-radius: 32px; padding: 1px; background: linear-gradient(160deg, rgba(56,189,248,.4), rgba(129,140,248,.15), rgba(56,189,248,.15)); box-shadow: 0 40px 100px -20px rgba(0,0,0,.8), 0 0 90px -30px rgba(56,189,248,.28); }
+.mobileapp-card-inner { position: relative; z-index: 1; border-radius: 31px; overflow: hidden; text-align: left; background: radial-gradient(1000px 480px at 12% -10%, rgba(56,189,248,.08), transparent 55%), #10132a; padding: 48px 48px 40px; }
+/* Fond en fondu (blobs flous, opacite reduite, derive lente) -- casse l'aplat
+   de couleur derriere le contenu, demande de Louis le 24/07/2026. */
+.mobileapp-aurora { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.mobileapp-blob { position: absolute; border-radius: 50%; filter: blur(75px); opacity: .16; animation: mobileappDrift 26s ease-in-out infinite; }
+.mobileapp-blob-1 { width: 400px; height: 400px; background: #38bdf8; top: -130px; left: -90px; }
+.mobileapp-blob-2 { width: 320px; height: 320px; background: #818cf8; bottom: -110px; right: -70px; animation-duration: 30s; animation-delay: -9s; }
+@keyframes mobileappDrift { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-24px,22px) scale(1.08); } }
+.mobileapp-promo-head, .mobileapp-body, .mobileapp-cta, .mobileapp-badge-wrap { position: relative; z-index: 1; }
+.mobileapp-promo-head { display: flex; align-items: center; gap: 22px; margin-bottom: 32px; position: relative; }
+.mobileapp-logo-mark { flex-shrink: 0; width: 68px; height: 68px; border-radius: 20px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #38bdf8, #6366f1); box-shadow: 0 12px 30px -8px rgba(56,189,248,.5); overflow: hidden; padding: 12px; }
+.mobileapp-logo-mark img { width: 100%; height: 100%; object-fit: contain; }
+.mobileapp-wordmark { display: flex; flex-direction: column; line-height: 1.15; margin-top: 2px; }
+.mobileapp-wordmark .w1 { font-size: 12.5px; font-weight: 700; color: var(--muted); letter-spacing: .02em; }
+.mobileapp-wordmark .w2 { font-size: 18px; font-weight: 900; color: #38bdf8; letter-spacing: -0.01em; }
+.mobileapp-eyebrow { font-size: 12px; color: #818cf8; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; margin-bottom: 6px; }
+.mobileapp-title { font-size: 38px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.18; margin: 0 0 8px; color: #fff; }
+.mobileapp-grad { background: linear-gradient(100deg, #38bdf8 10%, #818cf8 90%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.mobileapp-lead { font-size: 16px; color: var(--muted); max-width: 580px; margin: 0; text-align: left; }
+.mobileapp-lead strong { color: #38bdf8; font-weight: 700; }
+.mobileapp-body { display: flex; gap: 40px; align-items: center; flex-wrap: wrap; position: relative; }
+.mobileapp-carousel { flex: 1 1 380px; min-width: 300px; }
+.mobileapp-pill-row { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+.mobileapp-pill { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; color: var(--muted); background: #161b3a; border: 1px solid #262d54; padding: 6px 13px 6px 9px; border-radius: 20px; }
+.mobileapp-pill svg { width: 12px; height: 12px; color: #38bdf8; }
+.mobileapp-slide { display: none; animation: mobileappSlideIn .5s cubic-bezier(.16,1,.3,1); }
+.mobileapp-slide.active { display: block; }
+@keyframes mobileappSlideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.mobileapp-slide-icon { width: 48px; height: 48px; border-radius: 15px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(56,189,248,.16), rgba(129,140,248,.16)); border: 1px solid rgba(56,189,248,.28); color: #38bdf8; margin-bottom: 16px; }
+.mobileapp-slide-icon svg { width: 22px; height: 22px; }
+.mobileapp-slide h3 { font-size: 21px; color: #fff; margin: 0 0 9px; font-weight: 800; letter-spacing: -0.01em; }
+.mobileapp-slide p { color: var(--muted); font-size: 14.5px; line-height: 1.7; margin: 0; max-width: 460px; }
+.mobileapp-nav { display: flex; align-items: center; gap: 14px; margin-top: 28px; }
+.mobileapp-arrow { width: 36px; height: 36px; border-radius: 50%; background: #161b3a; border: 1px solid #262d54; color: var(--muted); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all .2s; }
+.mobileapp-arrow svg { width: 15px; height: 15px; } .mobileapp-arrow:hover { border-color: #38bdf8; color: #38bdf8; box-shadow: 0 0 16px rgba(56,189,248,.3); }
+.mobileapp-dots { display: flex; gap: 7px; }
+.mobileapp-dot { width: 8px; height: 8px; border-radius: 50%; background: #262d54; cursor: pointer; transition: all .25s; }
+.mobileapp-dot.active { width: 22px; border-radius: 5px; background: linear-gradient(90deg, #38bdf8, #818cf8); }
+.mobileapp-shot-stage { flex: 0 0 auto; min-width: 240px; position: relative; display: flex; justify-content: center; padding: 16px 0; }
+.mobileapp-connect-ring { position: absolute; top: 50%; left: 50%; border-radius: 50%; border: 1px solid rgba(56,189,248,.3); pointer-events: none; }
+.mobileapp-connect-ring.c1 { width: 280px; height: 280px; margin: -140px 0 0 -140px; animation: mobileappRingExpand2 3.6s ease-out infinite; }
+.mobileapp-connect-ring.c2 { width: 280px; height: 280px; margin: -140px 0 0 -140px; animation: mobileappRingExpand2 3.6s ease-out infinite; animation-delay: -1.8s; }
+@keyframes mobileappRingExpand2 { 0% { transform: scale(.55); opacity: .8; } 100% { transform: scale(1); opacity: 0; } }
+.mobileapp-phone { position: relative; z-index: 1; width: 234px; border-radius: 40px; overflow: hidden; background: #0a0e17; border: 7px solid #1b2040; box-shadow: 0 36px 72px -18px rgba(0,0,0,.8), 0 0 55px -20px rgba(56,189,248,.32); }
+.mobileapp-notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 78px; height: 20px; background: #1b2040; border-radius: 0 0 15px 15px; z-index: 3; }
+.mobileapp-fake-ui { padding: 30px 15px 15px; }
+.mobileapp-fu-topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+.mobileapp-fu-brand { font-size: 10.5px; font-weight: 800; color: #38bdf8; letter-spacing: .04em; }
+.mobileapp-fu-mode { font-size: 7.5px; font-weight: 800; padding: 3px 8px; border-radius: 20px; background: rgba(56,189,248,.15); color: #38bdf8; letter-spacing: .04em; }
+.mobileapp-fu-balance { background: linear-gradient(135deg, rgba(56,189,248,.14), rgba(129,140,248,.06)); border: 1px solid #262d54; border-radius: 15px; padding: 14px; margin-bottom: 11px; }
+.mobileapp-fu-balance .l { font-size: 7.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.mobileapp-fu-balance .n { font-size: 19px; font-weight: 800; color: #fff; margin: 3px 0 5px; }
+.mobileapp-fu-balance .sub { font-size: 8.5px; color: #38bdf8; }
+.mobileapp-fu-row { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-bottom: 11px; }
+.mobileapp-fu-mini { background: #161b3a; border: 1px solid #262d54; border-radius: 11px; padding: 9px; }
+.mobileapp-fu-mini .l { font-size: 7px; color: var(--muted); text-transform: uppercase; }
+.mobileapp-fu-mini .n { font-size: 12px; font-weight: 800; color: #fff; margin-top: 2px; }
+.mobileapp-fu-btns { display: flex; gap: 7px; margin-bottom: 13px; }
+.mobileapp-fu-btn { flex: 1; text-align: center; padding: 9px; border-radius: 13px; font-size: 9.5px; font-weight: 800; }
+.mobileapp-fu-btn.stop { background: rgba(244,114,182,.14); color: #f472b6; border: 1px solid rgba(244,114,182,.3); }
+.mobileapp-fu-btn.start { background: rgba(56,189,248,.14); color: #38bdf8; border: 1px solid rgba(56,189,248,.3); }
+.mobileapp-fu-tabbar { display: flex; justify-content: space-around; padding-top: 9px; border-top: 1px solid #262d54; }
+.mobileapp-fu-tab { font-size: 6.5px; color: #454c78; text-align: center; }
+.mobileapp-fu-tab.active { color: #38bdf8; font-weight: 800; }
+.mobileapp-tag { position: absolute; z-index: 2; display: flex; align-items: center; gap: 6px; padding: 7px 13px; background: rgba(16,19,42,.92); backdrop-filter: blur(10px); border: 1px solid #262d54; border-radius: 30px; font-size: 10.5px; font-weight: 700; box-shadow: 0 12px 30px rgba(0,0,0,.4); }
+.mobileapp-tag .dot-live { width: 7px; height: 7px; border-radius: 50%; background: #38bdf8; box-shadow: 0 0 8px #38bdf8; animation: mobileappDotPulse 1.4s ease-in-out infinite; }
+@keyframes mobileappDotPulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+.mobileapp-tag-live { top: 2%; left: -2%; } .mobileapp-tag-symbols { bottom: 6%; right: -6%; color: var(--muted); }
+.mobileapp-cta { display: flex; gap: 16px; margin-top: 38px; flex-wrap: wrap; align-items: center; position: relative; }
+.mobileapp-btn-soon { display: inline-flex; align-items: center; gap: 9px; padding: 15px 26px; border-radius: 30px; font-weight: 800; font-size: 14px; color: var(--muted); background: #161b3a; border: 1px solid #262d54; cursor: not-allowed; }
+.mobileapp-btn-soon svg { width: 15px; height: 15px; }
+.mobileapp-btn-soon .soon-tag { font-size: 9.5px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: #38bdf8; background: rgba(56,189,248,.12); border: 1px solid rgba(56,189,248,.3); padding: 3px 9px; border-radius: 20px; }
+.mobileapp-btn-ghost { padding: 15px 24px; border-radius: 30px; font-weight: 700; font-size: 13.5px; color: var(--text); background: rgba(255,255,255,.03); border: 1px solid #262d54; transition: all .2s; }
+.mobileapp-btn-ghost:hover { border-color: #38bdf8; color: #38bdf8; background: rgba(56,189,248,.06); }
+.mobileapp-cta-meta { font-size: 12px; color: #454c78; margin-left: 4px; }
+
+@media (max-width: 700px) {
+  .promo-card-inner, .stratlab-card-inner, .mobileapp-card-inner { padding: 36px 22px 30px; }
+  .kb1000-promo-head, .stratlab-promo-head, .mobileapp-promo-head { flex-direction: column; text-align: center; }
+  .kb1000-cta, .stratlab-cta, .mobileapp-cta { justify-content: center; }
+  .float-chip, .stratlab-tag, .mobileapp-tag { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="flag">
+  🎨 <b>MAQUETTE — Carrousel 3-en-1</b> — les trois cartes déjà publiées (KB1000, Stratégie Lab, App Mobile) sont ici regroupées dans un seul carrousel : onglets colorés + flèches pour naviguer entre les trois. Chaque carte est reprise <b>telle quelle</b> (contenu, animations internes, tout identique). Aucun code live modifié.
+</div>
+
+<div class="meta-wrap">
+  <div class="meta-tabs" id="metaTabs">
+    <button class="meta-tab active" data-c="stratlab" onclick="metaGo(0)"><span class="swatch"></span> Stratégie Lab</button>
+    <button class="meta-tab" data-c="mobile" onclick="metaGo(1)"><span class="swatch"></span> App Mobile</button>
+    <button class="meta-tab" data-c="kb1000" onclick="metaGo(2)"><span class="swatch"></span> KB1000</button>
+  </div>
+
+  <div class="meta-viewport">
+    <button class="meta-side-arrow left" onclick="metaPrev()" aria-label="Précédent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg></button>
+    <button class="meta-side-arrow right" onclick="metaNext()" aria-label="Suivant"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></button>
+
+    <!-- ── Slide 1 : Stratégie Lab (reprise telle quelle) ─────────────────── -->
+    <div class="meta-slide-outer active" data-meta="0">
+      <section class="section section-center" id="stratlab-promo">
+        <div class="stratlab-grid-overlay"></div>
+        <div class="stratlab-glow"></div>
+        <div class="container">
+          <div class="stratlab-badge-wrap"><span class="stratlab-badge"><span class="dot"></span> Nouveau module · v1.0</span></div>
+          <div class="stratlab-card">
+            <div class="stratlab-ticker">
+              <div class="stratlab-ticker-track">
+                <span class="stratlab-ticker-item">XAUUSD <b>2 418,30</b></span>
+                <span class="stratlab-ticker-item up">WIN RATE 76,9%</span>
+                <span class="stratlab-ticker-item">BOOM1000 <b>9 812,4</b></span>
+                <span class="stratlab-ticker-item up">PROFIT FACTOR 2,15</span>
+                <span class="stratlab-ticker-item">CRASH1000 <b>14 220,1</b></span>
+                <span class="stratlab-ticker-item up">17 STRATÉGIES TESTÉES</span>
+                <span class="stratlab-ticker-item">VIX75 <b>301,88</b></span>
+                <span class="stratlab-ticker-item">XAUUSD <b>2 418,30</b></span>
+                <span class="stratlab-ticker-item up">WIN RATE 76,9%</span>
+                <span class="stratlab-ticker-item">BOOM1000 <b>9 812,4</b></span>
+                <span class="stratlab-ticker-item up">PROFIT FACTOR 2,15</span>
+                <span class="stratlab-ticker-item">CRASH1000 <b>14 220,1</b></span>
+                <span class="stratlab-ticker-item up">17 STRATÉGIES TESTÉES</span>
+                <span class="stratlab-ticker-item">VIX75 <b>301,88</b></span>
+              </div>
+            </div>
+            <div class="stratlab-card-inner">
+              <div class="stratlab-aurora"><div class="stratlab-blob stratlab-blob-1"></div><div class="stratlab-blob stratlab-blob-2"></div></div>
+              <div class="stratlab-promo-head">
+                <div class="stratlab-brand">
+                  <div class="stratlab-logo-mark"><img src="assets/logo_white.png" alt="AlphaTrade"></div>
+                  <div class="stratlab-wordmark"><span class="w1">AlphaTrade</span><span class="w2">Stratégie Lab</span></div>
+                </div>
+                <div>
+                  <div class="stratlab-eyebrow">Backtesting &amp; recherche de stratégies</div>
+                  <h2 class="stratlab-title">Éprouvez chaque idée<br><em>avant le premier trade</em></h2>
+                  <p class="stratlab-lead">Le laboratoire de recherche AlphaTrade — concevez, testez et validez vos stratégies sur des <strong>données historiques réelles</strong>, avant de les connecter à votre compte.</p>
+                </div>
+              </div>
+              <div class="stratlab-body">
+                <div class="stratlab-carousel">
+                  <div class="stratlab-pill-row">
+                    <span class="stratlab-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg> Données MT5 réelles</span>
+                    <span class="stratlab-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg> IA intégrée</span>
+                    <span class="stratlab-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l6 3"/></svg> Monte Carlo</span>
+                  </div>
+                  <div class="stratlab-slide active" data-slide="0">
+                    <div class="stratlab-slide-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><rect x="7" y="12" width="2.5" height="6"/><rect x="11.5" y="8" width="2.5" height="10"/><rect x="16" y="5" width="2.5" height="13"/></svg></div>
+                    <h3>Backtesting sur données réelles</h3>
+                    <p>Testez vos stratégies sur l'historique MT5 réel de chaque actif — XAUUSD, BOOM1000, CRASH1000, VIX75 — pas des données simulées. Résultats exportables en PDF, CSV ou TXT.</p>
+                  </div>
+                  <div class="stratlab-slide" data-slide="1">
+                    <div class="stratlab-slide-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg></div>
+                    <h3>Concevez avec l'IA</h3>
+                    <p>Décrivez votre idée en langage naturel et laissez l'IA construire la stratégie — ou importez un script Pine Script TradingView, elle en traduit la logique dans son propre langage.</p>
+                  </div>
+                  <div class="stratlab-slide" data-slide="2">
+                    <div class="stratlab-slide-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+                    <h3>Bibliothèque &amp; Monte Carlo</h3>
+                    <p>Démarrez depuis une bibliothèque de stratégies d'analyse technique prêtes à l'emploi, puis validez leur robustesse avec un bootstrap Monte Carlo avant de risquer un centime.</p>
+                  </div>
+                  <div class="stratlab-slide" data-slide="3">
+                    <div class="stratlab-slide-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 13a5 5 0 0 0 7.5.5l2-2a5 5 0 0 0-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.5-.5l-2 2a5 5 0 0 0 7 7l1.5-1.5"/></svg></div>
+                    <h3>Connecté à AlphaTrade</h3>
+                    <p>Une fois une stratégie validée, exportez-la directement comme signal vers AlphaTrade — sans ressaisie, sans copier-coller.</p>
+                  </div>
+                  <div class="stratlab-nav">
+                    <button class="stratlab-arrow" onclick="stratlabPrev()" aria-label="Précédent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg></button>
+                    <div class="stratlab-dots" id="stratlabDots"></div>
+                    <button class="stratlab-arrow" onclick="stratlabNext()" aria-label="Suivant"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></button>
+                  </div>
+                </div>
+                <div class="stratlab-shot-stage">
+                  <div class="stratlab-tag stratlab-tag-live"><span class="dot-live"></span> BACKTEST TERMINÉ</div>
+                  <div class="stratlab-tag stratlab-tag-count">17 STRATÉGIES</div>
+                  <div class="stratlab-term">
+                    <div class="stratlab-term-bar"><span>strategielab.exe — créateur</span><span class="lights"><span></span><span></span><span></span></span></div>
+                    <div class="stratlab-fake-ui">
+                      <div class="stratlab-fu-eyebrow">Module 2</div>
+                      <div class="stratlab-fu-title">Créateur de stratégies</div>
+                      <div class="stratlab-fu-stats">
+                        <div class="stratlab-fu-stat"><div class="n">17</div><div class="l">Total</div></div>
+                        <div class="stratlab-fu-stat"><div class="n">4</div><div class="l">Actives</div></div>
+                        <div class="stratlab-fu-stat"><div class="n">6</div><div class="l">Testées</div></div>
+                      </div>
+                      <div class="stratlab-fu-chart"><svg viewBox="0 0 300 60" width="100%" height="100%" preserveAspectRatio="none"><polyline points="0,48 20,46 40,50 60,38 80,42 100,28 120,32 140,20 160,24 180,14 200,17 220,9 240,13 260,5 280,9 300,3" fill="none" stroke="#2dd4bf" stroke-width="2"/></svg></div>
+                      <div class="stratlab-fu-card">
+                        <div class="stratlab-fu-badges"><span class="stratlab-fu-badge b1">TESTÉE</span><span class="stratlab-fu-badge b2">v1.0</span></div>
+                        <div class="stratlab-fu-name">Scalping rapide London Gold</div>
+                        <div class="stratlab-fu-tags"><span class="up">▲ 1 BUY</span><span class="down">▼ 1 SELL</span><span>RR 1.8</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="stratlab-cta">
+                <a href="telechargement.html" class="stratlab-btn-hero"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3v13"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/></svg> Télécharger Stratégie Lab</a>
+                <a href="#fonctionnalites" class="stratlab-btn-ghost">Voir comment ça marche</a>
+                <span class="stratlab-cta-meta">WINDOWS 10/11 · 64-BIT</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ── Slide 2 : App Mobile (reprise telle quelle) ────────────────────── -->
+    <div class="meta-slide-outer" data-meta="1">
+      <section class="section section-center" id="mobileapp-promo">
+        <div class="mobileapp-radar-wrap"><div class="mobileapp-radar-ring"></div><div class="mobileapp-radar-ring r2"></div><div class="mobileapp-radar-ring r3"></div></div>
+        <div class="mobileapp-glow"></div>
+        <div class="container">
+          <div class="mobileapp-badge-wrap"><span class="mobileapp-badge"><span class="pulse-dot"></span> Bientôt disponible</span></div>
+          <div class="mobileapp-card">
+            <div class="mobileapp-card-inner">
+              <div class="mobileapp-aurora"><div class="mobileapp-blob mobileapp-blob-1"></div><div class="mobileapp-blob mobileapp-blob-2"></div></div>
+              <div class="mobileapp-promo-head">
+                <div class="mobileapp-logo-mark"><img src="assets/logo_white.png" alt="AlphaTrade"></div>
+                <div class="mobileapp-wordmark"><span class="w1">AlphaTrade</span><span class="w2">Application Mobile</span></div>
+              </div>
+              <div style="margin-bottom:32px;position:relative;z-index:1">
+                <div class="mobileapp-eyebrow">Application compagnon iOS &amp; Android</div>
+                <h2 class="mobileapp-title">Votre compte, <span class="mobileapp-grad">à portée de main</span></h2>
+                <p class="mobileapp-lead">Suivez AlphaTrade en <strong>temps réel</strong> depuis votre téléphone — solde, positions, mode, et les contrôles essentiels, où que vous soyez.</p>
+              </div>
+              <div class="mobileapp-body">
+                <div class="mobileapp-carousel">
+                  <div class="mobileapp-pill-row">
+                    <span class="mobileapp-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M9 18h6"/></svg> iOS &amp; Android</span>
+                    <span class="mobileapp-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg> Temps réel</span>
+                    <span class="mobileapp-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg> Sécurisé</span>
+                  </div>
+                  <div class="mobileapp-slide active" data-slide="0">
+                    <div class="mobileapp-slide-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg></div>
+                    <h3>Tableau de bord en direct</h3>
+                    <p>Solde, équité, positions ouvertes et mode (Simulation, Observation, Réel) synchronisés en direct depuis votre PC — d'un coup d'œil, où que vous soyez.</p>
+                  </div>
+                  <div class="mobileapp-slide" data-slide="1">
+                    <div class="mobileapp-slide-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l6-3.5-6-3.5Z" fill="currentColor" stroke="none"/></svg></div>
+                    <h3>Démarrer / Arrêter à distance</h3>
+                    <p>Contrôlez le moteur depuis votre téléphone, avec une confirmation avant chaque action — jamais d'exécution accidentelle.</p>
+                  </div>
+                  <div class="mobileapp-slide" data-slide="2">
+                    <div class="mobileapp-slide-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v4H4zM4 12h10v4H4zM4 20h13"/></svg></div>
+                    <h3>Trades &amp; historique</h3>
+                    <p>Consultez vos positions ouvertes et vos dernières clôtures, avec le détail de chaque trade — sans avoir besoin d'être devant votre PC.</p>
+                  </div>
+                  <div class="mobileapp-slide" data-slide="3">
+                    <div class="mobileapp-slide-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg></div>
+                    <h3>La sécurité d'abord</h3>
+                    <p>Le passage en mode Réel reste une action strictement locale sur le PC — jamais déclenchable à distance depuis le téléphone.</p>
+                  </div>
+                  <div class="mobileapp-nav">
+                    <button class="mobileapp-arrow" onclick="mobileappPrev()" aria-label="Précédent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg></button>
+                    <div class="mobileapp-dots" id="mobileappDots"></div>
+                    <button class="mobileapp-arrow" onclick="mobileappNext()" aria-label="Suivant"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></button>
+                  </div>
+                </div>
+                <div class="mobileapp-shot-stage">
+                  <div class="mobileapp-connect-ring c1"></div>
+                  <div class="mobileapp-connect-ring c2"></div>
+                  <div class="mobileapp-tag mobileapp-tag-live"><span class="dot-live"></span> Connecté</div>
+                  <div class="mobileapp-tag mobileapp-tag-symbols">XAUUSD</div>
+                  <div class="mobileapp-phone">
+                    <div class="mobileapp-notch"></div>
+                    <div class="mobileapp-fake-ui">
+                      <div class="mobileapp-fu-topbar"><span class="mobileapp-fu-brand">AlphaTrade</span><span class="mobileapp-fu-mode">RÉEL</span></div>
+                      <div class="mobileapp-fu-balance"><div class="l">Solde</div><div class="n">3 899,59 $</div><div class="sub">Équité 3 912,10 $</div></div>
+                      <div class="mobileapp-fu-row">
+                        <div class="mobileapp-fu-mini"><div class="l">Positions</div><div class="n">0</div></div>
+                        <div class="mobileapp-fu-mini"><div class="l">Flottant</div><div class="n">0,00 $</div></div>
+                      </div>
+                      <div class="mobileapp-fu-btns"><div class="mobileapp-fu-btn stop">Arrêter</div><div class="mobileapp-fu-btn start">Démarrer</div></div>
+                      <div class="mobileapp-fu-tabbar">
+                        <div class="mobileapp-fu-tab active">Tableau</div><div class="mobileapp-fu-tab">Trades</div><div class="mobileapp-fu-tab">Paramètres</div><div class="mobileapp-fu-tab">Compte</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mobileapp-cta">
+                <span class="mobileapp-btn-soon" title="Publication sur les stores en préparation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3v13"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/></svg> Télécharger l'app <span class="soon-tag">Bientôt</span></span>
+                <a href="#faq" class="mobileapp-btn-ghost">Comment ça marchera ?</a>
+                <span class="mobileapp-cta-meta">iOS &amp; Android · Publication en préparation</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ── Slide 3 : KB1000 (reprise telle quelle) ─────────────────────────── -->
+    <div class="meta-slide-outer" data-meta="2">
+      <section class="section section-center" id="kb1000-promo">
+        <div class="aurora"><div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div></div>
+        <div class="container">
+          <div class="top-badge-wrap"><span class="top-badge"><span class="dot"></span> Nouveau · Disponible maintenant</span></div>
+          <div class="promo-card">
+            <div class="promo-card-inner">
+              <div class="promo-noise"></div>
+              <div class="promo-inner-aurora"><div class="promo-inner-blob promo-inner-blob-1"></div><div class="promo-inner-blob promo-inner-blob-2"></div></div>
+              <div class="kb1000-promo-head">
+                <div class="logo-halo"><img src="assets/kb1000-logo.png" alt="KB1000"></div>
+                <div>
+                  <h2 class="promo-title">KB1000 est <span class="promo-grad">arrivé</span></h2>
+                  <p class="lead" style="margin:0;text-align:left">Un moteur IA dédié aux indices synthétiques Deriv — livré comme une application séparée, incluse automatiquement avec le forfait <strong style="color:var(--green)">Basique</strong>.</p>
+                </div>
+              </div>
+              <div class="kb1000-promo-body">
+                <div class="kb1000-carousel">
+                  <div class="feature-pill-row">
+                    <span class="feature-pill">🧠 Smart Money</span>
+                    <span class="feature-pill">📈 24/7</span>
+                    <span class="feature-pill">🎯 Fibonacci</span>
+                  </div>
+                  <div class="kb1000-slide active" data-slide="0">
+                    <div class="slide-icon-wrap">🧠</div>
+                    <h3>Structure, zones &amp; Smart Money</h3>
+                    <p>KB1000 analyse la structure du marché en cascade multi-timeframe (D1→M1), détecte les zones de liquidité et les concepts Smart Money (FVG, BOS, CHOCH) pour repérer les points d'entrée à haute probabilité.</p>
+                  </div>
+                  <div class="kb1000-slide" data-slide="1">
+                    <div class="slide-icon-wrap">📈</div>
+                    <h3>Pensé pour les indices synthétiques</h3>
+                    <p>Contrairement à AlphaTrade AI (Or/XAUUSD), KB1000 est calibré spécifiquement pour BOOM1000 et CRASH1000 — des marchés qui tournent 24h/24, 7j/7, sans les contraintes de session du Forex classique.</p>
+                  </div>
+                  <div class="kb1000-slide" data-slide="2">
+                    <div class="slide-icon-wrap">🎯</div>
+                    <h3>Confirmations &amp; Fibonacci</h3>
+                    <p>Chaque setup est validé par plusieurs confirmations (EMA/RSI/MACD/Momentum) et des niveaux de Fibonacci, avant toute prise de position — même logique de rigueur que le moteur principal.</p>
+                  </div>
+                  <div class="kb1000-slide" data-slide="3">
+                    <div class="slide-icon-wrap"><img src="assets/kb1000-icon.png" alt=""></div>
+                    <h3>Une application à part, incluse avec Basique</h3>
+                    <p>KB1000 est livré comme un téléchargement dédié, séparé de l'app AlphaTrade principale — inclus automatiquement pour les clients du forfait Basique.</p>
+                  </div>
+                  <div class="kb1000-nav">
+                    <button class="kb1000-arrow" onclick="kb1000Prev()" aria-label="Précédent">‹</button>
+                    <div class="kb1000-dots" id="kb1000Dots"></div>
+                    <button class="kb1000-arrow" onclick="kb1000Next()" aria-label="Suivant">›</button>
+                  </div>
+                </div>
+                <div class="shot-stage" id="kb1000ShotStage">
+                  <div class="shot-glow"></div>
+                  <div class="sparkle" style="top:-6%; left:8%; font-size:18px; animation-delay:0s;">✦</div>
+                  <div class="sparkle" style="top:14%; right:-4%; font-size:12px; animation-delay:-1.1s;">✦</div>
+                  <div class="sparkle" style="bottom:6%; left:-3%; font-size:14px; animation-delay:-1.8s;">✦</div>
+                  <div class="float-chip chip-live"><span class="dot-live"></span> Moteur actif</div>
+                  <div class="float-chip chip-symbols">BOOM1000 · CRASH1000</div>
+                  <div class="browser-frame">
+                    <div class="browser-bar"><span></span><span></span><span></span></div>
+                    <img src="assets/kb1000-dashboard.png" alt="Tableau de bord KB1000">
+                  </div>
+                </div>
+              </div>
+              <div class="kb1000-cta">
+                <a href="telechargement.html" class="btn-hero">⬇ Télécharger KB1000</a>
+                <a href="tarifs.html" class="btn-outline-ghost">Voir le forfait Basique</a>
+                <span class="cta-meta">Windows 10/11 · 64-bit · Inclus avec Basique</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="meta-progress" id="metaProgress"></div>
+</div>
+
+<script>
+// ═══ Meta-carrousel (niveau produit) ═══
+let metaIndex = 0;
+const metaSlides = document.querySelectorAll('.meta-slide-outer');
+const metaTabs = document.querySelectorAll('.meta-tab');
+const progressEl = document.getElementById('metaProgress');
+progressEl.innerHTML = Array.from(metaSlides).map((_, i) => `<div class="meta-dot ${i === 0 ? 'active' : ''}" onclick="metaGo(${i})"><span class="fill"></span></div>`).join('');
+const progressDots = document.querySelectorAll('.meta-dot');
+let metaTimer;
+// direction du glissement horizontal : "right" = le nouveau contenu entre par la
+// droite (on avance), "left" = il entre par la gauche (on recule) -- jamais de
+// glissement vertical, peu importe le sens du changement (demande de Louis,
+// 24/07/2026). Pour un saut direct (clic sur un onglet non adjacent), on
+// determine le sens par la position relative des index (cyclique sur 3 elements).
+function metaRender(direction) {
+  metaSlides.forEach((s, i) => {
+    const isActive = i === metaIndex;
+    s.classList.toggle('active', isActive);
+    s.classList.remove('dir-right', 'dir-left');
+    if (isActive && direction) s.classList.add(direction === 1 ? 'dir-right' : 'dir-left');
+  });
+  metaTabs.forEach((t, i) => t.classList.toggle('active', i === metaIndex));
+  progressDots.forEach((d, i) => d.classList.toggle('active', i === metaIndex));
+}
+function metaResetTimer() { clearInterval(metaTimer); metaTimer = setInterval(metaNext, 8000); }
+function metaNext() { metaIndex = (metaIndex + 1) % metaSlides.length; metaRender(1); metaResetTimer(); }
+function metaPrev() { metaIndex = (metaIndex - 1 + metaSlides.length) % metaSlides.length; metaRender(-1); metaResetTimer(); }
+function metaGo(i) {
+  const n = metaSlides.length;
+  const forwardDist = (i - metaIndex + n) % n;
+  const backwardDist = (metaIndex - i + n) % n;
+  const direction = forwardDist <= backwardDist ? 1 : -1;
+  metaIndex = i;
+  metaRender(direction);
+  metaResetTimer();
+}
+metaRender(1);
+metaResetTimer();
+
+// ═══ Carrousel interne KB1000 (identique au site) ═══
+let kb1000Index = 0, kb1000Slides, kb1000Dots;
+function kb1000Render() { kb1000Slides.forEach((s, i) => s.classList.toggle('active', i === kb1000Index)); kb1000Dots.forEach((d, i) => d.classList.toggle('active', i === kb1000Index)); }
+function kb1000Next() { kb1000Index = (kb1000Index + 1) % kb1000Slides.length; kb1000Render(); }
+function kb1000Prev() { kb1000Index = (kb1000Index - 1 + kb1000Slides.length) % kb1000Slides.length; kb1000Render(); }
+function kb1000GoTo(i) { kb1000Index = i; kb1000Render(); }
+
+// ═══ Carrousel interne Stratégie Lab (identique au site) ═══
+let stratlabIndex = 0, stratlabSlides, stratlabDots;
+function stratlabRender() { stratlabSlides.forEach((s, i) => s.classList.toggle('active', i === stratlabIndex)); stratlabDots.forEach((d, i) => d.classList.toggle('active', i === stratlabIndex)); }
+function stratlabNext() { stratlabIndex = (stratlabIndex + 1) % stratlabSlides.length; stratlabRender(); }
+function stratlabPrev() { stratlabIndex = (stratlabIndex - 1 + stratlabSlides.length) % stratlabSlides.length; stratlabRender(); }
+function stratlabGoTo(i) { stratlabIndex = i; stratlabRender(); }
+
+// ═══ Carrousel interne App Mobile (identique au site) ═══
+let mobileappIndex = 0, mobileappSlides, mobileappDots;
+function mobileappRender() { mobileappSlides.forEach((s, i) => s.classList.toggle('active', i === mobileappIndex)); mobileappDots.forEach((d, i) => d.classList.toggle('active', i === mobileappIndex)); }
+function mobileappNext() { mobileappIndex = (mobileappIndex + 1) % mobileappSlides.length; mobileappRender(); }
+function mobileappPrev() { mobileappIndex = (mobileappIndex - 1 + mobileappSlides.length) % mobileappSlides.length; mobileappRender(); }
+function mobileappGoTo(i) { mobileappIndex = i; mobileappRender(); }
+
+window.addEventListener('DOMContentLoaded', () => {
+  kb1000Slides = document.querySelectorAll('.kb1000-slide');
+  document.getElementById('kb1000Dots').innerHTML = Array.from(kb1000Slides).map((_, i) => `<div class="kb1000-dot ${i === 0 ? 'active' : ''}" onclick="kb1000GoTo(${i})"></div>`).join('');
+  kb1000Dots = document.querySelectorAll('.kb1000-dot');
+  setInterval(kb1000Next, 5000);
+
+  stratlabSlides = document.querySelectorAll('.stratlab-slide');
+  document.getElementById('stratlabDots').innerHTML = Array.from(stratlabSlides).map((_, i) => `<div class="stratlab-dot ${i === 0 ? 'active' : ''}" onclick="stratlabGoTo(${i})"></div>`).join('');
+  stratlabDots = document.querySelectorAll('.stratlab-dot');
+  setInterval(stratlabNext, 5200);
+
+  mobileappSlides = document.querySelectorAll('.mobileapp-slide');
+  document.getElementById('mobileappDots').innerHTML = Array.from(mobileappSlides).map((_, i) => `<div class="mobileapp-dot ${i === 0 ? 'active' : ''}" onclick="mobileappGoTo(${i})"></div>`).join('');
+  mobileappDots = document.querySelectorAll('.mobileapp-dot');
+  setInterval(mobileappNext, 5400);
+
+  const stage = document.getElementById('kb1000ShotStage');
+  const frame = stage?.querySelector('.browser-frame');
+  if (stage && frame) {
+    stage.addEventListener('mousemove', (e) => {
+      const r = stage.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      frame.style.transform = `rotateY(${-9 + x * 14}deg) rotateX(${5 - y * 10}deg)`;
+    });
+    stage.addEventListener('mouseleave', () => { frame.style.transform = ''; });
+  }
+});
+</script>
+</body>
+</html>

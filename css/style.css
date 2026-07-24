@@ -363,6 +363,15 @@ section[id] { scroll-margin-top: 84px; }
 }
 .promo-noise { position: absolute; inset: 0; opacity: .025; pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+/* Fond en fondu (blobs flous, opacite reduite, derive lente) A L'INTERIEUR de
+   la carte -- l'aurora existante (.aurora) est a l'exterieur de .promo-card
+   et ne casse pas l'aplat de couleur du contenu lui-meme. Demande de Louis
+   le 24/07/2026. */
+.promo-inner-aurora { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.promo-inner-blob { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .14; animation: promoInnerDrift 25s ease-in-out infinite; }
+.promo-inner-blob-1 { width: 360px; height: 360px; background: var(--green); top: -110px; right: -70px; }
+.promo-inner-blob-2 { width: 300px; height: 300px; background: var(--purple); bottom: -100px; left: -60px; animation-duration: 29s; animation-delay: -7s; }
+@keyframes promoInnerDrift { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-22px,20px) scale(1.08); } }
 
 .kb1000-promo-head { display: flex; align-items: center; gap: 24px; margin-bottom: 32px; position: relative; }
 .logo-halo { position: relative; flex-shrink: 0; width: 76px; height: 76px; display: flex; align-items: center; justify-content: center; }
@@ -374,7 +383,7 @@ section[id] { scroll-margin-top: 84px; }
 @keyframes kb1000HaloPulse { 0%,100% { opacity: .55; transform: scale(1); } 50% { opacity: 1; transform: scale(1.15); } }
 .logo-halo img { position: relative; width: 100%; height: 100%; object-fit: contain; animation: kb1000Floaty 4s ease-in-out infinite; filter: drop-shadow(0 6px 18px rgba(0,0,0,.5)); }
 @keyframes kb1000Floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
-.promo-title { font-size: 34px; font-weight: 900; letter-spacing: -0.02em; line-height: 1.1; margin: 0 0 8px; color: #fff; }
+.promo-title { font-size: 38px; font-weight: 900; letter-spacing: -0.02em; line-height: 1.1; margin: 0 0 8px; color: #fff; }
 .promo-grad {
   background: linear-gradient(100deg, #fff 10%, var(--green) 55%, var(--green2) 90%);
   -webkit-background-clip: text; background-clip: text; color: transparent;
@@ -398,8 +407,8 @@ section[id] { scroll-margin-top: 84px; }
   font-size: 22px; margin-bottom: 16px; box-shadow: 0 0 24px rgba(0,200,150,.15);
 }
 .slide-icon-wrap img { width: 28px; height: 28px; object-fit: contain; border-radius: 6px; }
-.kb1000-slide h3 { font-size: 19px; color: #fff; margin: 0 0 10px; font-weight: 800; }
-.kb1000-slide p { color: var(--muted); font-size: 13.5px; line-height: 1.7; margin: 0; }
+.kb1000-slide h3 { font-size: 21px; color: #fff; margin: 0 0 10px; font-weight: 800; }
+.kb1000-slide p { color: var(--muted); font-size: 14.5px; line-height: 1.7; margin: 0; }
 .kb1000-nav { display: flex; align-items: center; gap: 18px; margin-top: 26px; position: relative; }
 .kb1000-arrow {
   background: var(--card2, #161f18); border: 1px solid var(--border); color: var(--text); width: 34px; height: 34px;
@@ -521,7 +530,14 @@ section[id] { scroll-margin-top: 84px; }
   background-size: 200% 100%; animation: stratlabScanline 5s linear infinite;
 }
 @keyframes stratlabScanline { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-.stratlab-card-inner { position: relative; padding: 48px 48px 40px; text-align: left; }
+.stratlab-card-inner { position: relative; z-index: 1; padding: 48px 48px 40px; text-align: left; }
+/* Fond en fondu (blobs flous, opacite reduite, derive lente) -- casse l'aplat
+   de couleur derriere le contenu, demande de Louis le 24/07/2026. */
+.stratlab-aurora { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.stratlab-blob { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .16; animation: stratlabDrift 24s ease-in-out infinite; }
+.stratlab-blob-1 { width: 380px; height: 380px; background: var(--orange); top: -120px; right: -80px; }
+.stratlab-blob-2 { width: 300px; height: 300px; background: #2dd4bf; bottom: -100px; left: -60px; animation-duration: 28s; animation-delay: -8s; }
+@keyframes stratlabDrift { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(26px,-20px) scale(1.08); } }
 
 .stratlab-ticker { position: relative; z-index: 1; height: 30px; overflow: hidden; background: var(--card2); border-bottom: 1px solid var(--border); display: flex; align-items: center; }
 .stratlab-ticker-track { display: flex; gap: 40px; white-space: nowrap; animation: stratlabTickerScroll 26s linear infinite; padding-left: 40px; }
@@ -544,9 +560,9 @@ section[id] { scroll-margin-top: 84px; }
 .stratlab-wordmark .w2 { font-size: 19px; font-weight: 900; color: var(--orange); letter-spacing: -0.01em; }
 
 .stratlab-eyebrow { font-family: 'Consolas', monospace; font-size: 11px; color: #2dd4bf; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 6px; }
-.stratlab-title { font-size: 32px; font-weight: 800; letter-spacing: -0.015em; line-height: 1.15; margin: 0 0 10px; color: #fff; }
+.stratlab-title { font-size: 37px; font-weight: 800; letter-spacing: -0.015em; line-height: 1.15; margin: 0 0 10px; color: #fff; }
 .stratlab-title em { font-style: normal; color: var(--orange); }
-.stratlab-lead { font-size: 14.5px; color: var(--muted); max-width: 600px; margin: 0; text-align: left; }
+.stratlab-lead { font-size: 16px; color: var(--muted); max-width: 600px; margin: 0; text-align: left; }
 .stratlab-lead strong { color: var(--orange); font-weight: 700; }
 
 .stratlab-body { display: flex; gap: 40px; align-items: center; flex-wrap: wrap; position: relative; }
@@ -567,8 +583,8 @@ section[id] { scroll-margin-top: 84px; }
   background: var(--card2); border: 1px solid #78350f; color: var(--orange); margin-bottom: 14px;
 }
 .stratlab-slide-icon svg { width: 20px; height: 20px; }
-.stratlab-slide h3 { font-size: 18px; color: #fff; margin: 0 0 8px; font-weight: 800; letter-spacing: -0.01em; }
-.stratlab-slide p { color: var(--muted); font-size: 13px; line-height: 1.7; margin: 0; max-width: 460px; }
+.stratlab-slide h3 { font-size: 20px; color: #fff; margin: 0 0 8px; font-weight: 800; letter-spacing: -0.01em; }
+.stratlab-slide p { color: var(--muted); font-size: 14px; line-height: 1.7; margin: 0; max-width: 460px; }
 
 .stratlab-nav { display: flex; align-items: center; gap: 14px; margin-top: 24px; }
 .stratlab-arrow {
@@ -684,10 +700,17 @@ section[id] { scroll-margin-top: 84px; }
   box-shadow: 0 40px 100px -20px rgba(0,0,0,.8), 0 0 90px -30px rgba(56,189,248,.28);
 }
 .mobileapp-card-inner {
-  position: relative; border-radius: 31px; overflow: hidden; text-align: left;
+  position: relative; z-index: 1; border-radius: 31px; overflow: hidden; text-align: left;
   background: radial-gradient(1000px 480px at 12% -10%, rgba(56,189,248,.08), transparent 55%), #10132a;
   padding: 48px 48px 40px;
 }
+/* Fond en fondu (blobs flous, opacite reduite, derive lente) -- casse l'aplat
+   de couleur derriere le contenu, demande de Louis le 24/07/2026. */
+.mobileapp-aurora { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.mobileapp-blob { position: absolute; border-radius: 50%; filter: blur(75px); opacity: .16; animation: mobileappDrift 26s ease-in-out infinite; }
+.mobileapp-blob-1 { width: 400px; height: 400px; background: #38bdf8; top: -130px; left: -90px; }
+.mobileapp-blob-2 { width: 320px; height: 320px; background: #818cf8; bottom: -110px; right: -70px; animation-duration: 30s; animation-delay: -9s; }
+@keyframes mobileappDrift { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-24px,22px) scale(1.08); } }
 
 .mobileapp-promo-head { display: flex; align-items: center; gap: 22px; margin-bottom: 32px; position: relative; }
 .mobileapp-logo-mark {
@@ -701,9 +724,9 @@ section[id] { scroll-margin-top: 84px; }
 .mobileapp-wordmark .w2 { font-size: 18px; font-weight: 900; color: #38bdf8; letter-spacing: -0.01em; }
 
 .mobileapp-eyebrow { font-size: 12px; color: #818cf8; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; margin-bottom: 6px; }
-.mobileapp-title { font-size: 33px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.18; margin: 0 0 8px; color: #fff; }
+.mobileapp-title { font-size: 38px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.18; margin: 0 0 8px; color: #fff; }
 .mobileapp-grad { background: linear-gradient(100deg, #38bdf8 10%, #818cf8 90%); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.mobileapp-lead { font-size: 14.5px; color: var(--muted); max-width: 580px; margin: 0; text-align: left; }
+.mobileapp-lead { font-size: 16px; color: var(--muted); max-width: 580px; margin: 0; text-align: left; }
 .mobileapp-lead strong { color: #38bdf8; font-weight: 700; }
 
 .mobileapp-body { display: flex; gap: 40px; align-items: center; flex-wrap: wrap; position: relative; }
@@ -725,8 +748,8 @@ section[id] { scroll-margin-top: 84px; }
   color: #38bdf8; margin-bottom: 16px;
 }
 .mobileapp-slide-icon svg { width: 22px; height: 22px; }
-.mobileapp-slide h3 { font-size: 19px; color: #fff; margin: 0 0 9px; font-weight: 800; letter-spacing: -0.01em; }
-.mobileapp-slide p { color: var(--muted); font-size: 13.5px; line-height: 1.7; margin: 0; max-width: 460px; }
+.mobileapp-slide h3 { font-size: 21px; color: #fff; margin: 0 0 9px; font-weight: 800; letter-spacing: -0.01em; }
+.mobileapp-slide p { color: var(--muted); font-size: 14.5px; line-height: 1.7; margin: 0; max-width: 460px; }
 
 .mobileapp-nav { display: flex; align-items: center; gap: 14px; margin-top: 28px; }
 .mobileapp-arrow {
@@ -802,6 +825,58 @@ section[id] { scroll-margin-top: 84px; }
   .mobileapp-title { font-size: 27px; text-align: center; }
   .mobileapp-cta { justify-content: center; }
   .mobileapp-tag { display: none; }
+}
+
+/* ── Méta-carrousel : regroupe les 3 annonces (Stratégie Lab / App Mobile /
+   KB1000) dans un seul emplacement au lieu de 3 sections empilées (demande
+   de Louis, 24/07/2026). Chaque carte est reprise telle quelle en interne.
+   Validé via Maquette_Promo_Carousel3en1.html. ─────────────────────────── */
+#promo-carousel { position: relative; }
+.meta-wrap { max-width: 1180px; margin: 0 auto; position: relative; }
+.meta-tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; }
+.meta-tab {
+  display: inline-flex; align-items: center; gap: 8px; padding: 9px 18px; border-radius: 30px;
+  background: var(--card2); border: 1px solid var(--border); color: var(--muted);
+  font-size: 13px; font-weight: 700; cursor: pointer; transition: all .2s; font-family: inherit;
+}
+.meta-tab .swatch { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.meta-tab[data-c="kb1000"] .swatch { background: var(--green); }
+.meta-tab[data-c="stratlab"] .swatch { background: var(--orange); }
+.meta-tab[data-c="mobile"] .swatch { background: #38bdf8; }
+.meta-tab:hover { color: var(--text); border-color: var(--muted2); }
+.meta-tab.active[data-c="kb1000"] { background: rgba(0,200,150,.12); border-color: rgba(0,200,150,.4); color: var(--green); }
+.meta-tab.active[data-c="stratlab"] { background: rgba(245,165,36,.12); border-color: rgba(245,165,36,.4); color: var(--orange); }
+.meta-tab.active[data-c="mobile"] { background: rgba(56,189,248,.12); border-color: rgba(56,189,248,.4); color: #38bdf8; }
+
+.meta-viewport { position: relative; overflow: hidden; }
+.meta-slide-outer { display: none; }
+.meta-slide-outer.active { display: block; }
+.meta-slide-outer.active.dir-right { animation: metaSlideInRight .45s cubic-bezier(.16,1,.3,1); }
+.meta-slide-outer.active.dir-left { animation: metaSlideInLeft .45s cubic-bezier(.16,1,.3,1); }
+/* "dir-right" = on avance -> le nouveau contenu vient de la droite. "dir-left"
+   = on recule -> il vient de la gauche. Toujours horizontal, jamais vertical. */
+@keyframes metaSlideInRight { from { opacity: 0; transform: translateX(46px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes metaSlideInLeft { from { opacity: 0; transform: translateX(-46px); } to { opacity: 1; transform: translateX(0); } }
+
+.meta-side-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 10;
+  width: 44px; height: 44px; border-radius: 50%; background: rgba(17,26,19,.85); backdrop-filter: blur(8px);
+  border: 1px solid var(--border); color: var(--text); display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all .2s; box-shadow: 0 10px 24px rgba(0,0,0,.4);
+}
+.meta-side-arrow:hover { border-color: var(--text); transform: translateY(-50%) scale(1.06); }
+.meta-side-arrow.left { left: -22px; }
+.meta-side-arrow.right { right: -22px; }
+.meta-side-arrow svg { width: 20px; height: 20px; display: block; }
+
+.meta-progress { display: flex; justify-content: center; gap: 6px; margin-top: 26px; }
+.meta-dot { width: 26px; height: 4px; border-radius: 3px; background: var(--border); cursor: pointer; transition: all .25s; overflow: hidden; position: relative; }
+.meta-dot.active { background: var(--muted2); }
+.meta-dot.active .fill { position: absolute; inset: 0; background: var(--text); animation: metaProgress 8s linear forwards; }
+@keyframes metaProgress { from { width: 0%; } to { width: 100%; } }
+
+@media (max-width: 900px) {
+  .meta-side-arrow { display: none; }
 }
 
 .pricing-badge {

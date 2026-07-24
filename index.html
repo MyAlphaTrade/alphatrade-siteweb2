@@ -28,132 +28,282 @@
   <div class="nav-cta"></div>
 </nav>
 
-<!-- ANNONCE STRATÉGIE LAB (disponible) — placée le 23/07/2026 (demande de Louis) :
-     plus récente que KB1000 donc au-dessus, et "en entête avant même le titre"
-     donc avant le hero. Identité visuelle "labo technique" volontairement
-     différente de KB1000 (ambre/teal, ticker de données, fenêtre terminal,
-     icônes SVG) pour que les deux annonces ne se ressemblent pas. Voir
-     Maquette_Promo_StrategieLab.html pour la validation d'origine. -->
-<section class="section section-center" id="stratlab-promo">
-  <div class="stratlab-grid-overlay"></div>
-  <div class="stratlab-glow"></div>
-  <div class="container">
-    <div class="stratlab-badge-wrap reveal">
-      <span class="stratlab-badge"><span class="dot"></span> Nouveau module · v1.0</span>
+<!-- MÉTA-CARROUSEL : regroupe les 3 annonces (Stratégie Lab / App Mobile /
+     KB1000) dans un seul emplacement en tête de site, avant même le hero
+     (demande de Louis, 24/07/2026 — remplace les 3 sections auparavant
+     empilées). Onglets colorés + flèches pour naviguer, glissement toujours
+     horizontal. Chaque carte est reprise telle quelle en interne (même
+     ticker/radar/carrousel de fonctionnalités qu'avant), avec juste un fond
+     en fondu (blobs, opacité réduite) ajouté derrière le contenu et des
+     textes agrandis. Voir Maquette_Promo_Carousel3en1.html pour la
+     validation d'origine. -->
+<section class="section section-center" id="promo-carousel">
+  <div class="meta-wrap">
+    <div class="meta-tabs" id="metaTabs">
+      <button class="meta-tab active" data-c="stratlab" onclick="metaGo(0)"><span class="swatch"></span> Stratégie Lab</button>
+      <button class="meta-tab" data-c="mobile" onclick="metaGo(1)"><span class="swatch"></span> App Mobile</button>
+      <button class="meta-tab" data-c="kb1000" onclick="metaGo(2)"><span class="swatch"></span> KB1000</button>
     </div>
 
-    <div class="stratlab-card reveal">
-      <div class="stratlab-ticker">
-        <div class="stratlab-ticker-track">
-          <span class="stratlab-ticker-item">XAUUSD <b>2 418,30</b></span>
-          <span class="stratlab-ticker-item up">WIN RATE 76,9%</span>
-          <span class="stratlab-ticker-item">BOOM1000 <b>9 812,4</b></span>
-          <span class="stratlab-ticker-item up">PROFIT FACTOR 2,15</span>
-          <span class="stratlab-ticker-item">CRASH1000 <b>14 220,1</b></span>
-          <span class="stratlab-ticker-item up">17 STRATÉGIES TESTÉES</span>
-          <span class="stratlab-ticker-item">VIX75 <b>301,88</b></span>
-          <span class="stratlab-ticker-item">XAUUSD <b>2 418,30</b></span>
-          <span class="stratlab-ticker-item up">WIN RATE 76,9%</span>
-          <span class="stratlab-ticker-item">BOOM1000 <b>9 812,4</b></span>
-          <span class="stratlab-ticker-item up">PROFIT FACTOR 2,15</span>
-          <span class="stratlab-ticker-item">CRASH1000 <b>14 220,1</b></span>
-          <span class="stratlab-ticker-item up">17 STRATÉGIES TESTÉES</span>
-          <span class="stratlab-ticker-item">VIX75 <b>301,88</b></span>
+    <div class="meta-viewport">
+      <button class="meta-side-arrow left" onclick="metaPrev()" aria-label="Précédent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg></button>
+      <button class="meta-side-arrow right" onclick="metaNext()" aria-label="Suivant"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></button>
+
+      <!-- Slide 1 : Stratégie Lab -->
+      <div class="meta-slide-outer active" data-meta="0">
+        <div class="stratlab-grid-overlay"></div>
+        <div class="stratlab-glow"></div>
+        <div class="stratlab-badge-wrap"><span class="stratlab-badge"><span class="dot"></span> Nouveau module · v1.0</span></div>
+        <div class="stratlab-card">
+          <div class="stratlab-ticker">
+            <div class="stratlab-ticker-track">
+              <span class="stratlab-ticker-item">XAUUSD <b>2 418,30</b></span>
+              <span class="stratlab-ticker-item up">WIN RATE 76,9%</span>
+              <span class="stratlab-ticker-item">BOOM1000 <b>9 812,4</b></span>
+              <span class="stratlab-ticker-item up">PROFIT FACTOR 2,15</span>
+              <span class="stratlab-ticker-item">CRASH1000 <b>14 220,1</b></span>
+              <span class="stratlab-ticker-item up">17 STRATÉGIES TESTÉES</span>
+              <span class="stratlab-ticker-item">VIX75 <b>301,88</b></span>
+              <span class="stratlab-ticker-item">XAUUSD <b>2 418,30</b></span>
+              <span class="stratlab-ticker-item up">WIN RATE 76,9%</span>
+              <span class="stratlab-ticker-item">BOOM1000 <b>9 812,4</b></span>
+              <span class="stratlab-ticker-item up">PROFIT FACTOR 2,15</span>
+              <span class="stratlab-ticker-item">CRASH1000 <b>14 220,1</b></span>
+              <span class="stratlab-ticker-item up">17 STRATÉGIES TESTÉES</span>
+              <span class="stratlab-ticker-item">VIX75 <b>301,88</b></span>
+            </div>
+          </div>
+          <div class="stratlab-card-inner">
+            <div class="stratlab-aurora"><div class="stratlab-blob stratlab-blob-1"></div><div class="stratlab-blob stratlab-blob-2"></div></div>
+            <div class="stratlab-promo-head">
+              <div class="stratlab-brand">
+                <div class="stratlab-logo-mark"><img src="assets/logo_white.png" alt="AlphaTrade"></div>
+                <div class="stratlab-wordmark"><span class="w1">AlphaTrade</span><span class="w2">Stratégie Lab</span></div>
+              </div>
+              <div>
+                <div class="stratlab-eyebrow">Backtesting &amp; recherche de stratégies</div>
+                <h2 class="stratlab-title">Éprouvez chaque idée<br><em>avant le premier trade</em></h2>
+                <p class="stratlab-lead">Le laboratoire de recherche AlphaTrade — concevez, testez et validez vos stratégies sur des <strong>données historiques réelles</strong>, avant de les connecter à votre compte.</p>
+              </div>
+            </div>
+            <div class="stratlab-body">
+              <div class="stratlab-carousel">
+                <div class="stratlab-pill-row">
+                  <span class="stratlab-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg> Données MT5 réelles</span>
+                  <span class="stratlab-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg> IA intégrée</span>
+                  <span class="stratlab-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l6 3"/></svg> Monte Carlo</span>
+                </div>
+                <div class="stratlab-slide active" data-slide="0">
+                  <div class="stratlab-slide-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><rect x="7" y="12" width="2.5" height="6"/><rect x="11.5" y="8" width="2.5" height="10"/><rect x="16" y="5" width="2.5" height="13"/></svg></div>
+                  <h3>Backtesting sur données réelles</h3>
+                  <p>Testez vos stratégies sur l'historique MT5 réel de chaque actif — XAUUSD, BOOM1000, CRASH1000, VIX75 — pas des données simulées. Résultats exportables en PDF, CSV ou TXT.</p>
+                </div>
+                <div class="stratlab-slide" data-slide="1">
+                  <div class="stratlab-slide-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg></div>
+                  <h3>Concevez avec l'IA</h3>
+                  <p>Décrivez votre idée en langage naturel et laissez l'IA construire la stratégie — ou importez un script Pine Script TradingView, elle en traduit la logique dans son propre langage.</p>
+                </div>
+                <div class="stratlab-slide" data-slide="2">
+                  <div class="stratlab-slide-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+                  <h3>Bibliothèque &amp; Monte Carlo</h3>
+                  <p>Démarrez depuis une bibliothèque de stratégies d'analyse technique prêtes à l'emploi, puis validez leur robustesse avec un bootstrap Monte Carlo avant de risquer un centime.</p>
+                </div>
+                <div class="stratlab-slide" data-slide="3">
+                  <div class="stratlab-slide-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 13a5 5 0 0 0 7.5.5l2-2a5 5 0 0 0-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.5-.5l-2 2a5 5 0 0 0 7 7l1.5-1.5"/></svg></div>
+                  <h3>Connecté à AlphaTrade</h3>
+                  <p>Une fois une stratégie validée, exportez-la directement comme signal vers AlphaTrade — sans ressaisie, sans copier-coller.</p>
+                </div>
+                <div class="stratlab-nav">
+                  <button class="stratlab-arrow" onclick="stratlabPrev()" aria-label="Précédent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg></button>
+                  <div class="stratlab-dots" id="stratlabDots"></div>
+                  <button class="stratlab-arrow" onclick="stratlabNext()" aria-label="Suivant"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></button>
+                </div>
+              </div>
+              <div class="stratlab-shot-stage">
+                <div class="stratlab-tag stratlab-tag-live"><span class="dot-live"></span> BACKTEST TERMINÉ</div>
+                <div class="stratlab-tag stratlab-tag-count">17 STRATÉGIES</div>
+                <div class="stratlab-term">
+                  <div class="stratlab-term-bar"><span>strategielab.exe — créateur</span><span class="lights"><span></span><span></span><span></span></span></div>
+                  <div class="stratlab-fake-ui">
+                    <div class="stratlab-fu-eyebrow">Module 2</div>
+                    <div class="stratlab-fu-title">Créateur de stratégies</div>
+                    <div class="stratlab-fu-stats">
+                      <div class="stratlab-fu-stat"><div class="n">17</div><div class="l">Total</div></div>
+                      <div class="stratlab-fu-stat"><div class="n">4</div><div class="l">Actives</div></div>
+                      <div class="stratlab-fu-stat"><div class="n">6</div><div class="l">Testées</div></div>
+                    </div>
+                    <div class="stratlab-fu-chart"><svg viewBox="0 0 300 60" width="100%" height="100%" preserveAspectRatio="none"><polyline points="0,48 20,46 40,50 60,38 80,42 100,28 120,32 140,20 160,24 180,14 200,17 220,9 240,13 260,5 280,9 300,3" fill="none" stroke="#2dd4bf" stroke-width="2"/></svg></div>
+                    <div class="stratlab-fu-card">
+                      <div class="stratlab-fu-badges"><span class="stratlab-fu-badge b1">TESTÉE</span><span class="stratlab-fu-badge b2">v1.0</span></div>
+                      <div class="stratlab-fu-name">Scalping rapide London Gold</div>
+                      <div class="stratlab-fu-tags"><span class="up">▲ 1 BUY</span><span class="down">▼ 1 SELL</span><span>RR 1.8</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="stratlab-cta">
+              <a href="telechargement.html" class="stratlab-btn-hero"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3v13"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/></svg> Télécharger Stratégie Lab</a>
+              <a href="#fonctionnalites" class="stratlab-btn-ghost">Voir comment ça marche</a>
+              <span class="stratlab-cta-meta">WINDOWS 10/11 · 64-BIT</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="stratlab-card-inner">
-        <div class="stratlab-promo-head">
-          <div class="stratlab-brand">
-            <div class="stratlab-logo-mark">
-              <img src="assets/logo_white.png" alt="AlphaTrade">
+      <!-- Slide 2 : App Mobile -->
+      <div class="meta-slide-outer" data-meta="1">
+        <div class="mobileapp-radar-wrap"><div class="mobileapp-radar-ring"></div><div class="mobileapp-radar-ring r2"></div><div class="mobileapp-radar-ring r3"></div></div>
+        <div class="mobileapp-glow"></div>
+        <div class="mobileapp-badge-wrap"><span class="mobileapp-badge"><span class="pulse-dot"></span> Bientôt disponible</span></div>
+        <div class="mobileapp-card">
+          <div class="mobileapp-card-inner">
+            <div class="mobileapp-aurora"><div class="mobileapp-blob mobileapp-blob-1"></div><div class="mobileapp-blob mobileapp-blob-2"></div></div>
+            <div class="mobileapp-promo-head">
+              <div class="mobileapp-logo-mark"><img src="assets/logo_white.png" alt="AlphaTrade"></div>
+              <div class="mobileapp-wordmark"><span class="w1">AlphaTrade</span><span class="w2">Application Mobile</span></div>
             </div>
-            <div class="stratlab-wordmark"><span class="w1">AlphaTrade</span><span class="w2">Stratégie Lab</span></div>
-          </div>
-          <div>
-            <div class="stratlab-eyebrow">Backtesting &amp; recherche de stratégies</div>
-            <h2 class="stratlab-title">Éprouvez chaque idée<br><em>avant le premier trade</em></h2>
-            <p class="stratlab-lead">Le laboratoire de recherche AlphaTrade — concevez, testez et validez vos stratégies sur des <strong>données historiques réelles</strong>, avant de les connecter à votre compte.</p>
-          </div>
-        </div>
-
-        <div class="stratlab-body">
-          <div class="stratlab-carousel">
-            <div class="stratlab-pill-row">
-              <span class="stratlab-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg> Données MT5 réelles</span>
-              <span class="stratlab-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg> IA intégrée</span>
-              <span class="stratlab-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l6 3"/></svg> Monte Carlo</span>
+            <div style="margin-bottom:32px;position:relative;z-index:1">
+              <div class="mobileapp-eyebrow">Application compagnon iOS &amp; Android</div>
+              <h2 class="mobileapp-title">Votre compte, <span class="mobileapp-grad">à portée de main</span></h2>
+              <p class="mobileapp-lead">Suivez AlphaTrade en <strong>temps réel</strong> depuis votre téléphone — solde, positions, mode, et les contrôles essentiels, où que vous soyez.</p>
             </div>
-
-            <div class="stratlab-slide active" data-slide="0">
-              <div class="stratlab-slide-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><rect x="7" y="12" width="2.5" height="6"/><rect x="11.5" y="8" width="2.5" height="10"/><rect x="16" y="5" width="2.5" height="13"/></svg></div>
-              <h3>Backtesting sur données réelles</h3>
-              <p>Testez vos stratégies sur l'historique MT5 réel de chaque actif — XAUUSD, BOOM1000, CRASH1000, VIX75 — pas des données simulées. Résultats exportables en PDF, CSV ou TXT.</p>
-            </div>
-            <div class="stratlab-slide" data-slide="1">
-              <div class="stratlab-slide-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg></div>
-              <h3>Concevez avec l'IA</h3>
-              <p>Décrivez votre idée en langage naturel et laissez l'IA construire la stratégie — ou importez un script Pine Script TradingView, elle en traduit la logique dans son propre langage.</p>
-            </div>
-            <div class="stratlab-slide" data-slide="2">
-              <div class="stratlab-slide-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
-              <h3>Bibliothèque &amp; Monte Carlo</h3>
-              <p>Démarrez depuis une bibliothèque de stratégies d'analyse technique prêtes à l'emploi, puis validez leur robustesse avec un bootstrap Monte Carlo avant de risquer un centime.</p>
-            </div>
-            <div class="stratlab-slide" data-slide="3">
-              <div class="stratlab-slide-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 13a5 5 0 0 0 7.5.5l2-2a5 5 0 0 0-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.5-.5l-2 2a5 5 0 0 0 7 7l1.5-1.5"/></svg></div>
-              <h3>Connecté à AlphaTrade</h3>
-              <p>Une fois une stratégie validée, exportez-la directement comme signal vers AlphaTrade — sans ressaisie, sans copier-coller.</p>
-            </div>
-
-            <div class="stratlab-nav">
-              <button class="stratlab-arrow" onclick="stratlabPrev()" aria-label="Précédent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg></button>
-              <div class="stratlab-dots" id="stratlabDots"></div>
-              <button class="stratlab-arrow" onclick="stratlabNext()" aria-label="Suivant"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></button>
-            </div>
-          </div>
-
-          <div class="stratlab-shot-stage">
-            <div class="stratlab-tag stratlab-tag-live"><span class="dot-live"></span> BACKTEST TERMINÉ</div>
-            <div class="stratlab-tag stratlab-tag-count">17 STRATÉGIES</div>
-            <div class="stratlab-term">
-              <div class="stratlab-term-bar">
-                <span>strategielab.exe — créateur</span>
-                <span class="lights"><span></span><span></span><span></span></span>
+            <div class="mobileapp-body">
+              <div class="mobileapp-carousel">
+                <div class="mobileapp-pill-row">
+                  <span class="mobileapp-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M9 18h6"/></svg> iOS &amp; Android</span>
+                  <span class="mobileapp-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg> Temps réel</span>
+                  <span class="mobileapp-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg> Sécurisé</span>
+                </div>
+                <div class="mobileapp-slide active" data-slide="0">
+                  <div class="mobileapp-slide-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg></div>
+                  <h3>Tableau de bord en direct</h3>
+                  <p>Solde, équité, positions ouvertes et mode (Simulation, Observation, Réel) synchronisés en direct depuis votre PC — d'un coup d'œil, où que vous soyez.</p>
+                </div>
+                <div class="mobileapp-slide" data-slide="1">
+                  <div class="mobileapp-slide-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l6-3.5-6-3.5Z" fill="currentColor" stroke="none"/></svg></div>
+                  <h3>Démarrer / Arrêter à distance</h3>
+                  <p>Contrôlez le moteur depuis votre téléphone, avec une confirmation avant chaque action — jamais d'exécution accidentelle.</p>
+                </div>
+                <div class="mobileapp-slide" data-slide="2">
+                  <div class="mobileapp-slide-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v4H4zM4 12h10v4H4zM4 20h13"/></svg></div>
+                  <h3>Trades &amp; historique</h3>
+                  <p>Consultez vos positions ouvertes et vos dernières clôtures, avec le détail de chaque trade — sans avoir besoin d'être devant votre PC.</p>
+                </div>
+                <div class="mobileapp-slide" data-slide="3">
+                  <div class="mobileapp-slide-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg></div>
+                  <h3>La sécurité d'abord</h3>
+                  <p>Le passage en mode Réel reste une action strictement locale sur le PC — jamais déclenchable à distance depuis le téléphone.</p>
+                </div>
+                <div class="mobileapp-nav">
+                  <button class="mobileapp-arrow" onclick="mobileappPrev()" aria-label="Précédent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg></button>
+                  <div class="mobileapp-dots" id="mobileappDots"></div>
+                  <button class="mobileapp-arrow" onclick="mobileappNext()" aria-label="Suivant"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></button>
+                </div>
               </div>
-              <div class="stratlab-fake-ui">
-                <div class="stratlab-fu-eyebrow">Module 2</div>
-                <div class="stratlab-fu-title">Créateur de stratégies</div>
-                <div class="stratlab-fu-stats">
-                  <div class="stratlab-fu-stat"><div class="n">17</div><div class="l">Total</div></div>
-                  <div class="stratlab-fu-stat"><div class="n">4</div><div class="l">Actives</div></div>
-                  <div class="stratlab-fu-stat"><div class="n">6</div><div class="l">Testées</div></div>
-                </div>
-                <div class="stratlab-fu-chart">
-                  <svg viewBox="0 0 300 60" width="100%" height="100%" preserveAspectRatio="none">
-                    <polyline points="0,48 20,46 40,50 60,38 80,42 100,28 120,32 140,20 160,24 180,14 200,17 220,9 240,13 260,5 280,9 300,3" fill="none" stroke="#2dd4bf" stroke-width="2"/>
-                  </svg>
-                </div>
-                <div class="stratlab-fu-card">
-                  <div class="stratlab-fu-badges"><span class="stratlab-fu-badge b1">TESTÉE</span><span class="stratlab-fu-badge b2">v1.0</span></div>
-                  <div class="stratlab-fu-name">Scalping rapide London Gold</div>
-                  <div class="stratlab-fu-tags"><span class="up">▲ 1 BUY</span><span class="down">▼ 1 SELL</span><span>RR 1.8</span></div>
+              <div class="mobileapp-shot-stage">
+                <div class="mobileapp-connect-ring c1"></div>
+                <div class="mobileapp-connect-ring c2"></div>
+                <div class="mobileapp-tag mobileapp-tag-live"><span class="dot-live"></span> Connecté</div>
+                <div class="mobileapp-tag mobileapp-tag-symbols">XAUUSD</div>
+                <div class="mobileapp-phone">
+                  <div class="mobileapp-notch"></div>
+                  <div class="mobileapp-fake-ui">
+                    <div class="mobileapp-fu-topbar"><span class="mobileapp-fu-brand">AlphaTrade</span><span class="mobileapp-fu-mode">RÉEL</span></div>
+                    <div class="mobileapp-fu-balance"><div class="l">Solde</div><div class="n">3 899,59 $</div><div class="sub">Équité 3 912,10 $</div></div>
+                    <div class="mobileapp-fu-row">
+                      <div class="mobileapp-fu-mini"><div class="l">Positions</div><div class="n">0</div></div>
+                      <div class="mobileapp-fu-mini"><div class="l">Flottant</div><div class="n">0,00 $</div></div>
+                    </div>
+                    <div class="mobileapp-fu-btns"><div class="mobileapp-fu-btn stop">Arrêter</div><div class="mobileapp-fu-btn start">Démarrer</div></div>
+                    <div class="mobileapp-fu-tabbar">
+                      <div class="mobileapp-fu-tab active">Tableau</div><div class="mobileapp-fu-tab">Trades</div><div class="mobileapp-fu-tab">Paramètres</div><div class="mobileapp-fu-tab">Compte</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+            <div class="mobileapp-cta">
+              <span class="mobileapp-btn-soon" title="Publication sur les stores en préparation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3v13"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/></svg> Télécharger l'app <span class="soon-tag">Bientôt</span></span>
+              <a href="#faq" class="mobileapp-btn-ghost">Comment ça marchera ?</a>
+              <span class="mobileapp-cta-meta">iOS &amp; Android · Publication en préparation</span>
+            </div>
           </div>
         </div>
+      </div>
 
-        <div class="stratlab-cta">
-          <a href="telechargement.html" class="stratlab-btn-hero">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3v13"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/></svg>
-            Télécharger Stratégie Lab
-          </a>
-          <a href="#fonctionnalites" class="stratlab-btn-ghost">Voir comment ça marche</a>
-          <span class="stratlab-cta-meta">WINDOWS 10/11 · 64-BIT</span>
+      <!-- Slide 3 : KB1000 -->
+      <div class="meta-slide-outer" data-meta="2">
+        <div class="aurora"><div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div></div>
+        <div class="top-badge-wrap"><span class="top-badge"><span class="dot"></span> Nouveau · Disponible maintenant</span></div>
+        <div class="promo-card">
+          <div class="promo-card-inner">
+            <div class="promo-noise"></div>
+            <div class="promo-inner-aurora"><div class="promo-inner-blob promo-inner-blob-1"></div><div class="promo-inner-blob promo-inner-blob-2"></div></div>
+            <div class="kb1000-promo-head">
+              <div class="logo-halo"><img src="assets/kb1000-logo.png" alt="KB1000"></div>
+              <div>
+                <h2 class="promo-title">KB1000 est <span class="promo-grad">arrivé</span></h2>
+                <p class="lead" style="margin:0;text-align:left">Un moteur IA dédié aux indices synthétiques Deriv — livré comme une application séparée, incluse automatiquement avec le forfait <strong style="color:var(--green)">Basique</strong>.</p>
+              </div>
+            </div>
+            <div class="kb1000-promo-body">
+              <div class="kb1000-carousel">
+                <div class="feature-pill-row">
+                  <span class="feature-pill">🧠 Smart Money</span>
+                  <span class="feature-pill">📈 24/7</span>
+                  <span class="feature-pill">🎯 Fibonacci</span>
+                </div>
+                <div class="kb1000-slide active" data-slide="0">
+                  <div class="slide-icon-wrap">🧠</div>
+                  <h3>Structure, zones &amp; Smart Money</h3>
+                  <p>KB1000 analyse la structure du marché en cascade multi-timeframe (D1→M1), détecte les zones de liquidité et les concepts Smart Money (FVG, BOS, CHOCH) pour repérer les points d'entrée à haute probabilité.</p>
+                </div>
+                <div class="kb1000-slide" data-slide="1">
+                  <div class="slide-icon-wrap">📈</div>
+                  <h3>Pensé pour les indices synthétiques</h3>
+                  <p>Contrairement à AlphaTrade AI (Or/XAUUSD), KB1000 est calibré spécifiquement pour BOOM1000 et CRASH1000 — des marchés qui tournent 24h/24, 7j/7, sans les contraintes de session du Forex classique.</p>
+                </div>
+                <div class="kb1000-slide" data-slide="2">
+                  <div class="slide-icon-wrap">🎯</div>
+                  <h3>Confirmations &amp; Fibonacci</h3>
+                  <p>Chaque setup est validé par plusieurs confirmations (EMA/RSI/MACD/Momentum) et des niveaux de Fibonacci, avant toute prise de position — même logique de rigueur que le moteur principal.</p>
+                </div>
+                <div class="kb1000-slide" data-slide="3">
+                  <div class="slide-icon-wrap"><img src="assets/kb1000-icon.png" alt=""></div>
+                  <h3>Une application à part, incluse avec Basique</h3>
+                  <p>KB1000 est livré comme un téléchargement dédié, séparé de l'app AlphaTrade principale — inclus automatiquement pour les clients du forfait Basique.</p>
+                </div>
+                <div class="kb1000-nav">
+                  <button class="kb1000-arrow" onclick="kb1000Prev()" aria-label="Précédent">‹</button>
+                  <div class="kb1000-dots" id="kb1000Dots"></div>
+                  <button class="kb1000-arrow" onclick="kb1000Next()" aria-label="Suivant">›</button>
+                </div>
+              </div>
+              <div class="shot-stage" id="kb1000ShotStage">
+                <div class="shot-glow"></div>
+                <div class="sparkle" style="top:-6%; left:8%; font-size:18px; animation-delay:0s;">✦</div>
+                <div class="sparkle" style="top:14%; right:-4%; font-size:12px; animation-delay:-1.1s;">✦</div>
+                <div class="sparkle" style="bottom:6%; left:-3%; font-size:14px; animation-delay:-1.8s;">✦</div>
+                <div class="float-chip chip-live"><span class="dot-live"></span> Moteur actif</div>
+                <div class="float-chip chip-symbols">BOOM1000 · CRASH1000</div>
+                <div class="browser-frame">
+                  <div class="browser-bar"><span></span><span></span><span></span></div>
+                  <img src="assets/kb1000-dashboard.png" alt="Tableau de bord KB1000">
+                </div>
+              </div>
+            </div>
+            <div class="kb1000-cta">
+              <a href="telechargement.html" class="btn-hero">⬇ Télécharger KB1000</a>
+              <a href="tarifs.html" class="btn-outline-ghost">Voir le forfait Basique</a>
+              <span class="cta-meta">Windows 10/11 · 64-bit · Inclus avec Basique</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
+    <div class="meta-progress" id="metaProgress"></div>
   </div>
 </section>
 
@@ -172,201 +322,6 @@
       <div class="hero-stat"><div class="hero-stat-value">MT5</div><div class="hero-stat-label">MetaTrader 5</div></div>
       <div class="hero-stat"><div class="hero-stat-value">24/7</div><div class="hero-stat-label">Trading continu</div></div>
       <div class="hero-stat"><div class="hero-stat-value">100%</div><div class="hero-stat-label">Automatique</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ANNONCE KB1000 (disponible) — repositionnée à l'entrée du site le 18/07/2026,
-     juste après le hero. Refonte "effets" du 18/07/2026 (demande de Louis) : bordure
-     dégradée animée, halo sur le logo, mockup navigateur + tilt 3D au survol de la
-     capture, badges flottants, bouton CTA à reflet animé. Voir Maquette_Promo_KB1000_v2.html
-     pour la validation d'origine. -->
-<section class="section section-center" id="kb1000-promo">
-  <div class="aurora"><div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div></div>
-  <div class="container">
-    <div class="top-badge-wrap reveal"><span class="top-badge"><span class="dot"></span> Nouveau · Disponible maintenant</span></div>
-
-    <div class="promo-card reveal">
-      <div class="promo-card-inner">
-        <div class="promo-noise"></div>
-
-        <div class="kb1000-promo-head">
-          <div class="logo-halo"><img src="assets/kb1000-logo.png" alt="KB1000"></div>
-          <div>
-            <h2 class="promo-title">KB1000 est <span class="promo-grad">arrivé</span></h2>
-            <p class="lead" style="margin:0;text-align:left">Un moteur IA dédié aux indices synthétiques Deriv — livré comme une application séparée, incluse automatiquement avec le forfait <strong style="color:var(--green)">Basique</strong>.</p>
-          </div>
-        </div>
-
-        <div class="kb1000-promo-body">
-          <div class="kb1000-carousel">
-            <div class="feature-pill-row">
-              <span class="feature-pill">🧠 Smart Money</span>
-              <span class="feature-pill">📈 24/7</span>
-              <span class="feature-pill">🎯 Fibonacci</span>
-            </div>
-
-            <div class="kb1000-slide active" data-slide="0">
-              <div class="slide-icon-wrap">🧠</div>
-              <h3>Structure, zones &amp; Smart Money</h3>
-              <p>KB1000 analyse la structure du marché en cascade multi-timeframe (D1→M1), détecte les zones de liquidité et les concepts Smart Money (FVG, BOS, CHOCH) pour repérer les points d'entrée à haute probabilité.</p>
-            </div>
-            <div class="kb1000-slide" data-slide="1">
-              <div class="slide-icon-wrap">📈</div>
-              <h3>Pensé pour les indices synthétiques</h3>
-              <p>Contrairement à AlphaTrade AI (Or/XAUUSD), KB1000 est calibré spécifiquement pour BOOM1000 et CRASH1000 — des marchés qui tournent 24h/24, 7j/7, sans les contraintes de session du Forex classique.</p>
-            </div>
-            <div class="kb1000-slide" data-slide="2">
-              <div class="slide-icon-wrap">🎯</div>
-              <h3>Confirmations &amp; Fibonacci</h3>
-              <p>Chaque setup est validé par plusieurs confirmations (EMA/RSI/MACD/Momentum) et des niveaux de Fibonacci, avant toute prise de position — même logique de rigueur que le moteur principal.</p>
-            </div>
-            <div class="kb1000-slide" data-slide="3">
-              <div class="slide-icon-wrap"><img src="assets/kb1000-icon.png" alt=""></div>
-              <h3>Une application à part, incluse avec Basique</h3>
-              <p>KB1000 est livré comme un téléchargement dédié, séparé de l'app AlphaTrade principale — inclus automatiquement pour les clients du forfait Basique.</p>
-            </div>
-
-            <div class="kb1000-nav">
-              <button class="kb1000-arrow" onclick="kb1000Prev()" aria-label="Précédent">‹</button>
-              <div class="kb1000-dots" id="kb1000Dots"></div>
-              <button class="kb1000-arrow" onclick="kb1000Next()" aria-label="Suivant">›</button>
-            </div>
-          </div>
-
-          <div class="shot-stage" id="kb1000ShotStage">
-            <div class="shot-glow"></div>
-            <div class="sparkle" style="top:-6%; left:8%; font-size:18px; animation-delay:0s;">✦</div>
-            <div class="sparkle" style="top:14%; right:-4%; font-size:12px; animation-delay:-1.1s;">✦</div>
-            <div class="sparkle" style="bottom:6%; left:-3%; font-size:14px; animation-delay:-1.8s;">✦</div>
-            <div class="float-chip chip-live"><span class="dot-live"></span> Moteur actif</div>
-            <div class="float-chip chip-symbols">BOOM1000 · CRASH1000</div>
-            <div class="browser-frame">
-              <div class="browser-bar"><span></span><span></span><span></span></div>
-              <img src="assets/kb1000-dashboard.png" alt="Tableau de bord KB1000">
-            </div>
-          </div>
-        </div>
-
-        <div class="kb1000-cta">
-          <a href="telechargement.html" class="btn btn-hero">⬇ Télécharger KB1000</a>
-          <a href="tarifs.html" class="btn btn-outline-ghost">Voir le forfait Basique</a>
-          <span class="cta-meta">Windows 10/11 · 64-bit · Inclus avec Basique</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ANNONCE APP MOBILE (bientôt disponible) — placée le 23/07/2026 (demande
-     de Louis). Identité "signal/connexion" (bleu/violet, anneaux radar) --
-     volontairement différente de Stratégie Lab (ambre) et KB1000
-     (vert/violet). Pas encore publiée sur les stores (comptes développeur
-     Apple/Google à créer par Louis) -> bouton de téléchargement désactivé
-     avec badge "Bientôt". Voir Maquette_Promo_AppMobile.html. -->
-<section class="section section-center" id="mobileapp-promo">
-  <div class="mobileapp-radar-wrap">
-    <div class="mobileapp-radar-ring"></div>
-    <div class="mobileapp-radar-ring r2"></div>
-    <div class="mobileapp-radar-ring r3"></div>
-  </div>
-  <div class="mobileapp-glow"></div>
-  <div class="container">
-    <div class="mobileapp-badge-wrap reveal">
-      <span class="mobileapp-badge"><span class="pulse-dot"></span> Bientôt disponible</span>
-    </div>
-
-    <div class="mobileapp-card reveal">
-      <div class="mobileapp-card-inner">
-        <div class="mobileapp-promo-head">
-          <div class="mobileapp-logo-mark"><img src="assets/logo_white.png" alt="AlphaTrade"></div>
-          <div>
-            <div class="mobileapp-wordmark"><span class="w1">AlphaTrade</span><span class="w2">Application Mobile</span></div>
-          </div>
-        </div>
-        <div style="margin-bottom:32px">
-          <div class="mobileapp-eyebrow">Application compagnon iOS &amp; Android</div>
-          <h2 class="mobileapp-title">Votre compte, <span class="mobileapp-grad">à portée de main</span></h2>
-          <p class="mobileapp-lead">Suivez AlphaTrade en <strong>temps réel</strong> depuis votre téléphone — solde, positions, mode, et les contrôles essentiels, où que vous soyez.</p>
-        </div>
-
-        <div class="mobileapp-body">
-          <div class="mobileapp-carousel">
-            <div class="mobileapp-pill-row">
-              <span class="mobileapp-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M9 18h6"/></svg> iOS &amp; Android</span>
-              <span class="mobileapp-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg> Temps réel</span>
-              <span class="mobileapp-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg> Sécurisé</span>
-            </div>
-
-            <div class="mobileapp-slide active" data-slide="0">
-              <div class="mobileapp-slide-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg></div>
-              <h3>Tableau de bord en direct</h3>
-              <p>Solde, équité, positions ouvertes et mode (Simulation, Observation, Réel) synchronisés en direct depuis votre PC — d'un coup d'œil, où que vous soyez.</p>
-            </div>
-            <div class="mobileapp-slide" data-slide="1">
-              <div class="mobileapp-slide-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l6-3.5-6-3.5Z" fill="currentColor" stroke="none"/></svg></div>
-              <h3>Démarrer / Arrêter à distance</h3>
-              <p>Contrôlez le moteur depuis votre téléphone, avec une confirmation avant chaque action — jamais d'exécution accidentelle.</p>
-            </div>
-            <div class="mobileapp-slide" data-slide="2">
-              <div class="mobileapp-slide-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v4H4zM4 12h10v4H4zM4 20h13"/></svg></div>
-              <h3>Trades &amp; historique</h3>
-              <p>Consultez vos positions ouvertes et vos dernières clôtures, avec le détail de chaque trade — sans avoir besoin d'être devant votre PC.</p>
-            </div>
-            <div class="mobileapp-slide" data-slide="3">
-              <div class="mobileapp-slide-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg></div>
-              <h3>La sécurité d'abord</h3>
-              <p>Le passage en mode Réel reste une action strictement locale sur le PC — jamais déclenchable à distance depuis le téléphone.</p>
-            </div>
-
-            <div class="mobileapp-nav">
-              <button class="mobileapp-arrow" onclick="mobileappPrev()" aria-label="Précédent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg></button>
-              <div class="mobileapp-dots" id="mobileappDots"></div>
-              <button class="mobileapp-arrow" onclick="mobileappNext()" aria-label="Suivant"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></button>
-            </div>
-          </div>
-
-          <div class="mobileapp-shot-stage">
-            <div class="mobileapp-connect-ring c1"></div>
-            <div class="mobileapp-connect-ring c2"></div>
-            <div class="mobileapp-tag mobileapp-tag-live"><span class="dot-live"></span> Connecté</div>
-            <div class="mobileapp-tag mobileapp-tag-symbols">XAUUSD</div>
-            <div class="mobileapp-phone">
-              <div class="mobileapp-notch"></div>
-              <div class="mobileapp-fake-ui">
-                <div class="mobileapp-fu-topbar"><span class="mobileapp-fu-brand">AlphaTrade</span><span class="mobileapp-fu-mode">RÉEL</span></div>
-                <div class="mobileapp-fu-balance">
-                  <div class="l">Solde</div><div class="n">3 899,59 $</div><div class="sub">Équité 3 912,10 $</div>
-                </div>
-                <div class="mobileapp-fu-row">
-                  <div class="mobileapp-fu-mini"><div class="l">Positions</div><div class="n">0</div></div>
-                  <div class="mobileapp-fu-mini"><div class="l">Flottant</div><div class="n">0,00 $</div></div>
-                </div>
-                <div class="mobileapp-fu-btns">
-                  <div class="mobileapp-fu-btn stop">Arrêter</div>
-                  <div class="mobileapp-fu-btn start">Démarrer</div>
-                </div>
-                <div class="mobileapp-fu-tabbar">
-                  <div class="mobileapp-fu-tab active">Tableau</div>
-                  <div class="mobileapp-fu-tab">Trades</div>
-                  <div class="mobileapp-fu-tab">Paramètres</div>
-                  <div class="mobileapp-fu-tab">Compte</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="mobileapp-cta">
-          <span class="mobileapp-btn-soon" title="Publication sur les stores en préparation">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3v13"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/></svg>
-            Télécharger l'app
-            <span class="soon-tag">Bientôt</span>
-          </span>
-          <a href="#faq" class="mobileapp-btn-ghost">Comment ça marchera ?</a>
-          <span class="mobileapp-cta-meta">iOS &amp; Android · Publication en préparation</span>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -718,13 +673,67 @@ function kb1000Render() {
 function kb1000Next() { kb1000Index = (kb1000Index + 1) % kb1000Slides.length; kb1000Render(); }
 function kb1000Prev() { kb1000Index = (kb1000Index - 1 + kb1000Slides.length) % kb1000Slides.length; kb1000Render(); }
 function kb1000GoTo(i) { kb1000Index = i; kb1000Render(); }
+
+// Carrousel promo Stratégie Lab — ajouté le 23/07/2026
+let stratlabIndex = 0;
+let stratlabSlides, stratlabDots;
+function stratlabRender() {
+  stratlabSlides.forEach((s, i) => s.classList.toggle('active', i === stratlabIndex));
+  stratlabDots.forEach((d, i) => d.classList.toggle('active', i === stratlabIndex));
+}
+function stratlabNext() { stratlabIndex = (stratlabIndex + 1) % stratlabSlides.length; stratlabRender(); }
+function stratlabPrev() { stratlabIndex = (stratlabIndex - 1 + stratlabSlides.length) % stratlabSlides.length; stratlabRender(); }
+function stratlabGoTo(i) { stratlabIndex = i; stratlabRender(); }
+
+// Carrousel promo App Mobile — ajouté le 23/07/2026
+let mobileappIndex = 0;
+let mobileappSlides, mobileappDots;
+function mobileappRender() {
+  mobileappSlides.forEach((s, i) => s.classList.toggle('active', i === mobileappIndex));
+  mobileappDots.forEach((d, i) => d.classList.toggle('active', i === mobileappIndex));
+}
+function mobileappNext() { mobileappIndex = (mobileappIndex + 1) % mobileappSlides.length; mobileappRender(); }
+function mobileappPrev() { mobileappIndex = (mobileappIndex - 1 + mobileappSlides.length) % mobileappSlides.length; mobileappRender(); }
+function mobileappGoTo(i) { mobileappIndex = i; mobileappRender(); }
+
+// Méta-carrousel (niveau produit) — regroupe les 3 annonces, ajouté le
+// 24/07/2026. Glissement toujours horizontal (jamais vertical) : "dir-right"
+// quand on avance (nouveau contenu vient de la droite), "dir-left" quand on
+// recule (vient de la gauche) — y compris pour un saut direct sur un onglet
+// non adjacent, calculé par le plus court chemin cyclique sur les 3 cartes.
+let metaIndex = 0;
+let metaSlides, metaTabs, metaProgressDots, metaTimer;
+function metaRender(direction) {
+  metaSlides.forEach((s, i) => {
+    const isActive = i === metaIndex;
+    s.classList.toggle('active', isActive);
+    s.classList.remove('dir-right', 'dir-left');
+    if (isActive && direction) s.classList.add(direction === 1 ? 'dir-right' : 'dir-left');
+  });
+  metaTabs.forEach((t, i) => t.classList.toggle('active', i === metaIndex));
+  metaProgressDots.forEach((d, i) => d.classList.toggle('active', i === metaIndex));
+}
+function metaResetTimer() { clearInterval(metaTimer); metaTimer = setInterval(metaNext, 8000); }
+function metaNext() { metaIndex = (metaIndex + 1) % metaSlides.length; metaRender(1); metaResetTimer(); }
+function metaPrev() { metaIndex = (metaIndex - 1 + metaSlides.length) % metaSlides.length; metaRender(-1); metaResetTimer(); }
+function metaGo(i) {
+  const n = metaSlides.length;
+  const forwardDist = (i - metaIndex + n) % n;
+  const backwardDist = (metaIndex - i + n) % n;
+  const direction = forwardDist <= backwardDist ? 1 : -1;
+  metaIndex = i;
+  metaRender(direction);
+  metaResetTimer();
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   kb1000Slides = document.querySelectorAll('.kb1000-slide');
-  const dotsEl = document.getElementById('kb1000Dots');
-  if (!kb1000Slides.length || !dotsEl) return;
-  dotsEl.innerHTML = Array.from(kb1000Slides).map((_, i) => `<div class="kb1000-dot ${i === 0 ? 'active' : ''}" onclick="kb1000GoTo(${i})"></div>`).join('');
-  kb1000Dots = document.querySelectorAll('.kb1000-dot');
-  setInterval(kb1000Next, 5000);
+  const kb1000DotsEl = document.getElementById('kb1000Dots');
+  if (kb1000Slides.length && kb1000DotsEl) {
+    kb1000DotsEl.innerHTML = Array.from(kb1000Slides).map((_, i) => `<div class="kb1000-dot ${i === 0 ? 'active' : ''}" onclick="kb1000GoTo(${i})"></div>`).join('');
+    kb1000Dots = document.querySelectorAll('.kb1000-dot');
+    setInterval(kb1000Next, 5000);
+  }
 
   // Tilt 3D léger au survol du mockup, suit la souris (refonte "effets" du 18/07/2026)
   const stage = document.getElementById('kb1000ShotStage');
@@ -738,46 +747,31 @@ window.addEventListener('DOMContentLoaded', () => {
     });
     stage.addEventListener('mouseleave', () => { frame.style.transform = ''; });
   }
-});
-</script>
-<script>
-// Carrousel promo Stratégie Lab — ajouté le 23/07/2026
-let stratlabIndex = 0;
-let stratlabSlides, stratlabDots;
-function stratlabRender() {
-  stratlabSlides.forEach((s, i) => s.classList.toggle('active', i === stratlabIndex));
-  stratlabDots.forEach((d, i) => d.classList.toggle('active', i === stratlabIndex));
-}
-function stratlabNext() { stratlabIndex = (stratlabIndex + 1) % stratlabSlides.length; stratlabRender(); }
-function stratlabPrev() { stratlabIndex = (stratlabIndex - 1 + stratlabSlides.length) % stratlabSlides.length; stratlabRender(); }
-function stratlabGoTo(i) { stratlabIndex = i; stratlabRender(); }
-window.addEventListener('DOMContentLoaded', () => {
+
   stratlabSlides = document.querySelectorAll('.stratlab-slide');
-  const dotsEl = document.getElementById('stratlabDots');
-  if (!stratlabSlides.length || !dotsEl) return;
-  dotsEl.innerHTML = Array.from(stratlabSlides).map((_, i) => `<div class="stratlab-dot ${i === 0 ? 'active' : ''}" onclick="stratlabGoTo(${i})"></div>`).join('');
-  stratlabDots = document.querySelectorAll('.stratlab-dot');
-  setInterval(stratlabNext, 5200);
-});
-</script>
-<script>
-// Carrousel promo App Mobile — ajouté le 23/07/2026
-let mobileappIndex = 0;
-let mobileappSlides, mobileappDots;
-function mobileappRender() {
-  mobileappSlides.forEach((s, i) => s.classList.toggle('active', i === mobileappIndex));
-  mobileappDots.forEach((d, i) => d.classList.toggle('active', i === mobileappIndex));
-}
-function mobileappNext() { mobileappIndex = (mobileappIndex + 1) % mobileappSlides.length; mobileappRender(); }
-function mobileappPrev() { mobileappIndex = (mobileappIndex - 1 + mobileappSlides.length) % mobileappSlides.length; mobileappRender(); }
-function mobileappGoTo(i) { mobileappIndex = i; mobileappRender(); }
-window.addEventListener('DOMContentLoaded', () => {
+  const stratlabDotsEl = document.getElementById('stratlabDots');
+  if (stratlabSlides.length && stratlabDotsEl) {
+    stratlabDotsEl.innerHTML = Array.from(stratlabSlides).map((_, i) => `<div class="stratlab-dot ${i === 0 ? 'active' : ''}" onclick="stratlabGoTo(${i})"></div>`).join('');
+    stratlabDots = document.querySelectorAll('.stratlab-dot');
+    setInterval(stratlabNext, 5200);
+  }
+
   mobileappSlides = document.querySelectorAll('.mobileapp-slide');
-  const dotsEl = document.getElementById('mobileappDots');
-  if (!mobileappSlides.length || !dotsEl) return;
-  dotsEl.innerHTML = Array.from(mobileappSlides).map((_, i) => `<div class="mobileapp-dot ${i === 0 ? 'active' : ''}" onclick="mobileappGoTo(${i})"></div>`).join('');
-  mobileappDots = document.querySelectorAll('.mobileapp-dot');
-  setInterval(mobileappNext, 5400);
+  const mobileappDotsEl = document.getElementById('mobileappDots');
+  if (mobileappSlides.length && mobileappDotsEl) {
+    mobileappDotsEl.innerHTML = Array.from(mobileappSlides).map((_, i) => `<div class="mobileapp-dot ${i === 0 ? 'active' : ''}" onclick="mobileappGoTo(${i})"></div>`).join('');
+    mobileappDots = document.querySelectorAll('.mobileapp-dot');
+    setInterval(mobileappNext, 5400);
+  }
+
+  metaSlides = document.querySelectorAll('.meta-slide-outer');
+  metaTabs = document.querySelectorAll('.meta-tab');
+  const metaProgressEl = document.getElementById('metaProgress');
+  if (metaSlides.length && metaProgressEl) {
+    metaProgressEl.innerHTML = Array.from(metaSlides).map((_, i) => `<div class="meta-dot ${i === 0 ? 'active' : ''}" onclick="metaGo(${i})"><span class="fill"></span></div>`).join('');
+    metaProgressDots = document.querySelectorAll('.meta-dot');
+    metaResetTimer();
+  }
 });
 </script>
 <script src="js/nav.js"></script>
