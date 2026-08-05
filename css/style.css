@@ -254,6 +254,16 @@ section[id] { scroll-margin-top: 84px; }
 @media (max-width: 900px)  { .pricing-grid-5 { grid-template-columns: repeat(2, 1fr); max-width: 640px; } }
 @media (max-width: 600px)  { .pricing-grid-5 { grid-template-columns: 1fr; max-width: 420px; } }
 
+/* 05/08/2026 -- 6e forfait (AlphaTrade Global) : 3 par ligne x 2 rangées plutôt
+   que 5+1 (incohérence visuelle déjà corrigée ailleurs sur demande de Louis --
+   jamais une rangée pleine au-dessus d'une rangée quasi-vide). */
+.pricing-grid-6 {
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 980px;
+}
+@media (max-width: 900px)  { .pricing-grid-6 { grid-template-columns: repeat(2, 1fr); max-width: 640px; } }
+@media (max-width: 600px)  { .pricing-grid-6 { grid-template-columns: 1fr; max-width: 420px; } }
+
 .basique-card {
   border-color: rgba(34,197,94,0.3);
   background: linear-gradient(160deg, #0e1a12 0%, #0a1a0f 100%);

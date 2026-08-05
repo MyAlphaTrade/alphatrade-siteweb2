@@ -44,7 +44,8 @@
       </div>
 
       <div class="pricing-grid pricing-grid-5 reveal" id="pricingGrid">
-        <!-- Reconstruit entièrement par applyForfaitsToPage() depuis /public/forfaits (nom, badge, prix, capital, fonctionnalités, disponibilité) -->
+        <!-- Reconstruit entièrement par applyForfaitsToPage() depuis /public/forfaits (nom, badge, prix, capital, fonctionnalités, disponibilité).
+             La classe pricing-grid-N (N = nombre de forfaits reçus) est appliquée dynamiquement pour garder une grille cohérente. -->
       </div>
 
       <!-- Paiements -->
@@ -220,6 +221,10 @@ function applyForfaitsToPage() {
   if (!grid) return;
   const plans = Object.entries(forfaitsData).sort((a, b) => (a[1].price_monthly || 0) - (b[1].price_monthly || 0));
   if (!plans.length) return;
+  // 05/08/2026 -- grille dynamique selon le nombre réel de forfaits (5 aujourd'hui,
+  // 6 avec AlphaTrade Global) : évite une rangée pleine au-dessus d'une rangée
+  // quasi-vide (voir .pricing-grid-6 dans style.css).
+  grid.className = 'pricing-grid reveal pricing-grid-' + plans.length;
   grid.innerHTML = plans.map(([key, f]) => {
     const available = f.available !== false;
     const features = f.features || [];
@@ -241,8 +246,8 @@ function applyForfaitsToPage() {
         <div class="plan-period">${available ? PERIODS[billing] : 'En attente de lancement'}</div>
         <div class="plan-capital"><strong>Capital minimum : ${Number(f.capital_min || 0).toLocaleString('fr-FR')} $</strong></div>
         <ul class="plan-features">
-          <li class="active"><span class="check">✓</span> Lot max : ${f.lot_max}</li>
-          <li class="active"><span class="check">✓</span> Max ${f.max_positions} position${f.max_positions > 1 ? 's' : ''} simultanée${f.max_positions > 1 ? 's' : ''}</li>
+          ${f.lot_max > 0 ? `<li class="active"><span class="check">✓</span> Lot max : ${f.lot_max}</li>` : ''}
+          ${f.max_positions > 0 ? `<li class="active"><span class="check">✓</span> Max ${f.max_positions} position${f.max_positions > 1 ? 's' : ''} simultanée${f.max_positions > 1 ? 's' : ''}</li>` : ''}
           ${featuresHtml}
         </ul>
         ${ctaHtml}

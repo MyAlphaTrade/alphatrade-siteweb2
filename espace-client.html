@@ -87,6 +87,21 @@
           <div class="system-req">Windows 10 / 11 · 64-bit · MetaTrader 5 (Deriv) requis</div>
         </div>
       </div>
+
+      <!-- AlphaTrade Global — visible uniquement pour les clients du forfait Global (voir
+           renderPlan()). Produit à part entière, jamais mélangé au téléchargement AlphaTrade
+           Gold ci-dessus (05/08/2026). -->
+      <div id="downloadSectionATGlobal" style="display:none;margin-top:20px">
+        <div class="download-card">
+          <div style="font-size:52px;margin-bottom:16px">
+            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </div>
+          <h2>Télécharger AlphaTrade Global</h2>
+          <p>Application entièrement automatisée, incluse dans votre forfait Global.</p>
+          <a href="telechargement.html" class="btn btn-primary btn-lg">Télécharger AlphaTrade Global</a>
+          <div class="system-req">Windows 10 / 11 · 64-bit · MetaTrader 5 requis</div>
+        </div>
+      </div>
     </div>
 
     <!-- DROITE -->
@@ -252,7 +267,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   } catch { renderNoPlan(); }
 });
 
-const PLAN_LABELS = { basique: 'Basique', starter: 'Starter', pro: 'Pro', elite: 'Elite', premium: 'Premium' };
+const PLAN_LABELS = { basique: 'Basique', starter: 'Starter', pro: 'Pro', elite: 'Elite', premium: 'Premium', global: 'Global' };
 
 function renderPlan(p) {
   const key = p.plan_key || 'starter';
@@ -267,9 +282,12 @@ function renderPlan(p) {
     const exp = new Date(p.expires_at);
     document.getElementById('statStatus').innerHTML  = '<span class="badge badge-green">Actif</span>';
     document.getElementById('statExpires').textContent = exp.toLocaleDateString('fr-FR');
-    document.getElementById('downloadSection').style.display = 'block';
+    // AlphaTrade Global est un produit à part : ses clients ne voient pas le
+    // téléchargement AlphaTrade Gold générique, seulement leur section dédiée.
+    document.getElementById('downloadSection').style.display = key === 'global' ? 'none' : 'block';
     document.getElementById('downloadLocked').style.display  = 'none';
     document.getElementById('downloadSectionKB1000').style.display = key === 'basique' ? 'block' : 'none';
+    document.getElementById('downloadSectionATGlobal').style.display = key === 'global' ? 'block' : 'none';
     const b = document.getElementById('planBanner');
     b.style.display = 'block';
     b.style.background = 'rgba(0,200,150,0.06)';
@@ -281,6 +299,7 @@ function renderPlan(p) {
     document.getElementById('downloadSection').style.display = 'none';
     document.getElementById('downloadLocked').style.display  = 'block';
     document.getElementById('downloadSectionKB1000').style.display = 'none';
+    document.getElementById('downloadSectionATGlobal').style.display = 'none';
     const b = document.getElementById('planBanner');
     b.style.display = 'block';
     b.style.background = 'rgba(212,175,55,0.06)';
@@ -393,6 +412,8 @@ function renderNoPlan() {
   document.getElementById('statStatus').innerHTML = '<span class="badge badge-red">Inactif</span>';
   document.getElementById('downloadSection').style.display = 'none';
   document.getElementById('downloadLocked').style.display  = 'block';
+  document.getElementById('downloadSectionKB1000').style.display = 'none';
+  document.getElementById('downloadSectionATGlobal').style.display = 'none';
 }
 
 async function loadReleaseInfo() {
