@@ -224,7 +224,18 @@ function applyForfaitsToPage() {
   // 05/08/2026 -- grille dynamique selon le nombre réel de forfaits (5 aujourd'hui,
   // 6 avec AlphaTrade Global) : évite une rangée pleine au-dessus d'une rangée
   // quasi-vide (voir .pricing-grid-6 dans style.css).
-  grid.className = 'pricing-grid reveal pricing-grid-' + plans.length;
+  // Fix (05/08/2026, trouvé par Louis en direct : "je vois trois cartes après
+  // ça disparaît") : `grid.className = '...'` écrasait TOUTE la liste de
+  // classes, y compris `visible` — ajoutée une seule fois par l'observer de
+  // scroll-reveal (js/bg.js) et jamais réappliquée si l'élément ne quitte pas
+  // le viewport. Le premier rendu (cache localStorage) gardait `visible` et
+  // s'affichait ; le second rendu (après le vrai fetch, ou le refresh toutes
+  // les 60s) écrasait le className et rendait la grille invisible pour de
+  // bon (opacity:0, voir .reveal dans style.css) sans jamais la retoucher.
+  // classList.remove/add ne touche que la classe pricing-grid-N, jamais les
+  // autres.
+  grid.classList.remove(...[...grid.classList].filter(c => /^pricing-grid-\d+$/.test(c)));
+  grid.classList.add('pricing-grid-' + plans.length);
   grid.innerHTML = plans.map(([key, f]) => {
     const available = f.available !== false;
     const features = f.features || [];
