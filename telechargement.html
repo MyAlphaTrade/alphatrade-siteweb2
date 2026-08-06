@@ -15,6 +15,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Téléchargement — AlphaTrade</title>
 <link rel="stylesheet" href="css/style.css">
+<style>
+/* Sélecteur d'application unifié (remplace les 3 blocs séparés AlphaTrade/KB1000/Global) */
+.app-select-wrap { max-width: 460px; margin: 0 auto 32px; text-align: left; }
+.app-select-label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: .6px; }
+.app-select {
+  width: 100%; padding: 14px 16px; background: var(--input, #0f1a11); border: 1px solid var(--border);
+  border-radius: 10px; color: var(--text); font-size: 15px; font-weight: 600; outline: none;
+  cursor: pointer; appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%2364748b' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 16px center; padding-right: 40px;
+  transition: border-color .2s;
+}
+.app-select:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(0,200,150,0.1); }
+.app-select option { background: var(--card); color: var(--text); }
+.plan-pill { display: inline-block; font-size: 10.5px; font-weight: 700; letter-spacing: .3px; padding: 2px 9px; border-radius: 20px; margin-left: 8px; vertical-align: middle; }
+.plan-pill.pp-any     { background: rgba(0,200,150,.12); color: var(--green); }
+.plan-pill.pp-basique { background: rgba(56,189,248,.14); color: #38bdf8; }
+.plan-pill.pp-global  { background: rgba(123,47,190,.14); color: #9B4FDE; }
+</style>
 </head>
 <body>
 
@@ -31,73 +50,21 @@
   <section class="section section-center">
     <div class="container" style="max-width:860px">
       <div class="section-label reveal">Téléchargement</div>
-      <h2 class="reveal">Télécharger AlphaTrade</h2>
-      <p class="lead reveal">Compatible Windows 10 et Windows 11 (64-bit)</p>
+      <h2 class="reveal" id="pageTitle">Télécharger AlphaTrade</h2>
+      <p class="lead reveal" id="pageLead">Compatible Windows 10 et Windows 11 (64-bit)</p>
 
-      <!-- Boutons de téléchargement par OS -->
-      <div class="reveal" style="margin-bottom:32px">
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:16px;max-width:900px;margin:0 auto">
-
-          <!-- Windows 64-bit -->
-          <div id="btn-win64" class="os-btn-card" onclick="handleDownload('win64')">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:10px">
-              <path d="M3 5.5L11 4v7H3V5.5Z" fill="var(--green)" opacity=".9"/>
-              <path d="M13 3.7L21 2.5V11h-8V3.7Z" fill="var(--green)"/>
-              <path d="M3 12h8v6.5L3 17.2V12Z" fill="var(--green)" opacity=".8"/>
-              <path d="M13 12h8v7.5L13 20.3V12Z" fill="var(--green)" opacity=".7"/>
-            </svg>
-            <div style="font-weight:700;font-size:15px;margin-bottom:4px">Windows 64-bit</div>
-            <div style="font-size:12px;color:var(--muted)">Windows 10 / 11</div>
-            <div class="os-badge">Recommandé</div>
-          </div>
-
-          <!-- Windows 32-bit -->
-          <div id="btn-win32" class="os-btn-card os-btn-disabled">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:10px">
-              <path d="M3 5.5L11 4v7H3V5.5Z" fill="var(--muted)" opacity=".7"/>
-              <path d="M13 3.7L21 2.5V11h-8V3.7Z" fill="var(--muted)" opacity=".7"/>
-              <path d="M3 12h8v6.5L3 17.2V12Z" fill="var(--muted)" opacity=".6"/>
-              <path d="M13 12h8v7.5L13 20.3V12Z" fill="var(--muted)" opacity=".5"/>
-            </svg>
-            <div style="font-weight:700;font-size:15px;margin-bottom:4px">Windows 32-bit</div>
-            <div style="font-size:12px;color:var(--muted)">Windows 8 / 9 / 10</div>
-            <span class="os-badge" style="background:rgba(128,128,128,0.2);color:var(--muted)">Bientôt</span>
-          </div>
-
-          <!-- Mac Intel -->
-          <div id="btn-mac-intel" class="os-btn-card" onclick="handleDownload('mac-intel')">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="var(--green)" style="margin-bottom:10px">
-              <path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.54 9.103 1.519 12.09 1.013 1.459 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/>
-            </svg>
-            <div style="font-weight:700;font-size:15px;margin-bottom:4px">Mac Intel</div>
-            <div style="font-size:12px;color:var(--muted)">macOS 12+</div>
-            <div class="os-badge os-badge-new" id="badge-mac-intel">Nouveau</div>
-          </div>
-
-          <!-- Mac Apple Silicon -->
-          <div id="btn-mac-arm" class="os-btn-card" onclick="handleDownload('mac-arm')">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="var(--green)" style="margin-bottom:10px">
-              <path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.54 9.103 1.519 12.09 1.013 1.459 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/>
-            </svg>
-            <div style="font-weight:700;font-size:15px;margin-bottom:4px">Mac Apple Silicon</div>
-            <div style="font-size:12px;color:var(--muted)">M1 / M2 / M3</div>
-            <div class="os-badge os-badge-new" id="badge-mac-arm">Nouveau</div>
-          </div>
-
-          <!-- Application Mobile — Premium uniquement -->
-          <div class="os-btn-card os-btn-disabled" style="border-color:rgba(212,175,55,0.3);background:rgba(212,175,55,0.04)">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" style="margin-bottom:10px;opacity:.7">
-              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
-              <line x1="12" y1="18" x2="12" y2="18" stroke-linecap="round" stroke-width="2.5"/>
-            </svg>
-            <div style="font-weight:700;font-size:15px;margin-bottom:4px;color:var(--gold)">Application Mobile</div>
-            <div style="font-size:12px;color:var(--muted)">iOS &amp; Android</div>
-            <div class="os-badge os-badge-soon" style="background:rgba(212,175,55,0.15);color:var(--gold);border-color:rgba(212,175,55,0.3)">Bientôt · Premium</div>
-          </div>
-        </div>
+      <!-- Sélecteur d'application -->
+      <div class="app-select-wrap reveal">
+        <label class="app-select-label" for="appSelect">Application à télécharger</label>
+        <select id="appSelect" class="app-select" onchange="onAppChange(this.value)"></select>
       </div>
 
-      <!-- Zone dynamique selon statut -->
+      <!-- Cartes OS — disponibilité recalculée selon l'app choisie -->
+      <div class="reveal" style="margin-bottom:32px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:16px;max-width:900px;margin:0 auto" id="osGrid"></div>
+      </div>
+
+      <!-- Zone dynamique unique (connexion requise / forfait expiré / mauvais forfait / prêt) -->
       <div id="mainZone" class="reveal"></div>
 
       <!-- Prérequis -->
@@ -150,7 +117,7 @@
           <div style="display:flex;flex-direction:column;gap:10px">
             <div style="display:flex;gap:14px;align-items:center;padding:14px;background:var(--bg);border-radius:8px;border:1px solid var(--border)">
               <div style="width:28px;height:28px;background:linear-gradient(135deg,var(--green),var(--green2));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#07100b;flex-shrink:0">1</div>
-              <div style="font-size:14px">Téléchargez le fichier <strong>AlphaTrade Setup.exe</strong> ci-dessus</div>
+              <div style="font-size:14px">Téléchargez le fichier d'installation ci-dessus</div>
             </div>
             <div style="display:flex;gap:14px;align-items:center;padding:14px;background:var(--bg);border-radius:8px;border:1px solid var(--border)">
               <div style="width:28px;height:28px;background:linear-gradient(135deg,var(--green),var(--green2));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#07100b;flex-shrink:0">2</div>
@@ -158,7 +125,7 @@
             </div>
             <div style="display:flex;gap:14px;align-items:center;padding:14px;background:var(--bg);border-radius:8px;border:1px solid var(--border)">
               <div style="width:28px;height:28px;background:linear-gradient(135deg,var(--green),var(--green2));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#07100b;flex-shrink:0">3</div>
-              <div style="font-size:14px">Lancez <strong>AlphaTrade</strong> depuis le raccourci sur le bureau</div>
+              <div style="font-size:14px">Lancez l'application depuis le raccourci sur le bureau</div>
             </div>
             <div style="display:flex;gap:14px;align-items:center;padding:14px;background:var(--bg);border-radius:8px;border:1px solid var(--border)">
               <div style="width:28px;height:28px;background:linear-gradient(135deg,var(--green),var(--green2));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#07100b;flex-shrink:0">4</div>
@@ -166,31 +133,6 @@
             </div>
           </div>
         </div>
-      </div>
-
-      <!-- KB1000 — application séparée, incluse uniquement dans le forfait Basique.
-           Zone indépendante de mainZone : ne modifie jamais la logique/l'état AlphaTrade
-           ci-dessus, seulement affichée en plus sur la même page. -->
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:32px;margin-top:32px;text-align:center" class="reveal">
-        <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:6px">
-          <img src="assets/kb1000-icon.png" alt="KB1000" style="width:28px;height:28px;border-radius:7px;object-fit:contain">
-          <h3 style="font-size:18px;font-weight:800;margin:0">KB1000 — BOOM1000 / CRASH1000</h3>
-        </div>
-        <p style="color:var(--muted);font-size:13px;margin-bottom:20px">Application dédiée aux indices synthétiques Deriv, incluse dans le forfait <strong>Basique</strong> uniquement.</p>
-        <div id="kb1000Zone"></div>
-      </div>
-
-      <!-- AlphaTrade Global — application séparée, incluse uniquement dans le forfait Global.
-           Zone indépendante de mainZone/kb1000Zone. Le téléchargement ne devient réellement
-           actif qu'une fois le forfait "global" marqué disponible depuis l'Admin (voir
-           checkAtGlobalAvailability ci-dessous) -- avant ça, seul un message "bientôt" s'affiche,
-           jamais de bouton menant vers une release qui n'existe pas encore (05/08/2026). -->
-      <div id="atglobalCard" style="display:none;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:32px;margin-top:32px;text-align:center" class="reveal">
-        <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:6px">
-          <h3 style="font-size:18px;font-weight:800;margin:0">AlphaTrade Global <span id="atglobalVersionBadge" style="font-size:12px;font-weight:700;color:var(--muted);vertical-align:middle"></span></h3>
-        </div>
-        <p style="color:var(--muted);font-size:13px;margin-bottom:20px">Application entièrement automatisée, incluse dans le forfait <strong>Global</strong> uniquement.</p>
-        <div id="atglobalZone"></div>
       </div>
 
       <p style="color:var(--muted2);font-size:12px;margin-top:28px;line-height:1.9" class="reveal">
@@ -286,308 +228,272 @@ function closeModal() {
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 </script>
 <script>
-let userPlanActive = false;
+// ══════════════════════════════════════════════════════════════════════════
+// Téléchargement unifié — un seul sélecteur d'application au lieu de 3 blocs
+// dupliqués (AlphaTrade / KB1000 / AlphaTrade Global). Remplace l'ancienne
+// version qui gérait 3 zones indépendantes (mainZone/kb1000Zone/atglobalZone)
+// avec 3 copies quasi identiques de la logique d'auth + de récupération
+// GitHub Releases. Basé sur la maquette validée le 2026-08-06
+// (Maquette_Telechargement_Unifie.html), avec la vraie logique d'auth/plan/
+// disponibilité en place de l'état de démo simulé.
+//
+// Règles métier préservées à l'identique de l'ancienne version :
+// - AlphaTrade (principal) : accessible à tout forfait actif SAUF Basique et
+//   Global (qui ont leur propre application dédiée).
+// - KB1000 : réservé au forfait Basique.
+// - AlphaTrade Global : réservé au forfait Global, ET son option n'apparaît
+//   dans le sélecteur que si l'Admin a marqué le forfait "global" disponible
+//   (${API}/public/forfaits) — jamais un bouton vers une release qui n'existe
+//   pas encore. Même interrupteur que celui déjà utilisé sur tarifs.html.
+// ══════════════════════════════════════════════════════════════════════════
 
-function disableDownloadButtons() {
-  document.querySelectorAll('#btn-win64, #btn-mac-intel, #btn-mac-arm').forEach(el => {
-    el.classList.add('os-btn-disabled');
-    el.style.cursor = 'not-allowed';
-    el.style.opacity = '0.45';
-    el.onclick = (e) => {
-      e.preventDefault();
-      notify('Forfait actif requis pour télécharger.', 'red');
-      setTimeout(() => { window.location.href = 'tarifs.html'; }, 1500);
-    };
-  });
+const APPS = {
+  alphatrade: {
+    key: 'alphatrade', name: 'AlphaTrade', size: '~183 MB',
+    lead: 'Compatible Windows 10 et Windows 11 (64-bit) · macOS 12+',
+    supportedOS: ['win64', 'mac-intel', 'mac-arm'],
+    requiredPlan: null, // tout forfait actif, hors basique/global
+    planPillClass: 'pp-any', planPillLabel: 'Tous forfaits',
+    repo: 'alphatrade-releases',
+    urls: {
+      win64:       'https://github.com/MyAlphaTrade/alphatrade-releases/releases/latest/download/AlphaTrade-Setup-4.0.2.exe',
+      'mac-intel': 'https://github.com/MyAlphaTrade/alphatrade-releases/releases/latest/download/AlphaTrade-4.0.2.dmg',
+      'mac-arm':   'https://github.com/MyAlphaTrade/alphatrade-releases/releases/latest/download/AlphaTrade-4.0.2-arm64.dmg',
+    },
+  },
+  kb1000: {
+    key: 'kb1000', name: 'KB1000', size: '~150 MB',
+    lead: 'Application dédiée aux indices synthétiques Deriv (BOOM1000 / CRASH1000)',
+    supportedOS: ['win64'],
+    requiredPlan: 'basique',
+    planPillClass: 'pp-basique', planPillLabel: 'Forfait Basique',
+    repo: 'kb1000-releases',
+    urls: { win64: 'https://github.com/MyAlphaTrade/kb1000-releases/releases/latest/download/KB1000-Setup-1.0.0.exe' },
+  },
+  global: {
+    key: 'global', name: 'AlphaTrade Global', size: '~80 MB',
+    lead: 'Application entièrement automatisée, multi-actifs (Or, Forex, Crypto)',
+    supportedOS: ['win64'],
+    requiredPlan: 'global',
+    planPillClass: 'pp-global', planPillLabel: 'Forfait Global',
+    repo: 'alphatrade-global-releases',
+    urls: { win64: 'https://github.com/MyAlphaTrade/alphatrade-global-releases/releases/latest/download/AlphaTrade-Global-Setup-1.0.0.exe' },
+  },
+};
+
+const OS_DEFS = [
+  { key: 'win64', label: 'Windows 64-bit', sub: 'Windows 10 / 11', badge: 'Recommandé', icon: 'win' },
+  { key: 'mac-intel', label: 'Mac Intel', sub: 'macOS 12+', badge: null, icon: 'mac' },
+  { key: 'mac-arm', label: 'Mac Apple Silicon', sub: 'M1 / M2 / M3', badge: null, icon: 'mac' },
+];
+
+const ICONS = {
+  win: `<svg width="36" height="36" viewBox="0 0 24 24" fill="none" style="margin-bottom:10px"><path d="M3 5.5L11 4v7H3V5.5Z" fill="var(--green)" opacity=".9"/><path d="M13 3.7L21 2.5V11h-8V3.7Z" fill="var(--green)"/><path d="M3 12h8v6.5L3 17.2V12Z" fill="var(--green)" opacity=".8"/><path d="M13 12h8v7.5L13 20.3V12Z" fill="var(--green)" opacity=".7"/></svg>`,
+  mac: `<svg width="36" height="36" viewBox="0 0 24 24" fill="var(--green)" style="margin-bottom:10px"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.54 9.103 1.519 12.09 1.013 1.459 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>`,
+};
+
+// Badge "Nouveau" (uniquement pertinent pour AlphaTrade, seule app multi-OS)
+const NOUVEAU_RELEASES = { 'mac-intel': { date: '2026-07-04', days: 30 }, 'mac-arm': { date: '2026-07-04', days: 30 } };
+function isNew(dateStr, days) { return (Date.now() - new Date(dateStr).getTime()) < days * 86400000; }
+
+let currentApp = 'alphatrade';
+let currentOS = 'win64';
+let globalAvailable = false;
+let auth = { checked: false, loggedIn: false, active: false, plan_key: null, expires_at: null };
+
+function appOptionsHtml() {
+  const keys = ['alphatrade', 'kb1000'].concat(globalAvailable ? ['global'] : []);
+  return keys.map(k => `<option value="${k}" ${k === currentApp ? 'selected' : ''}>${APPS[k].name}</option>`).join('');
 }
 
-window.addEventListener('DOMContentLoaded', async () => {
+function rebuildAppSelect() {
+  const sel = document.getElementById('appSelect');
+  sel.innerHTML = appOptionsHtml();
+  sel.value = currentApp;
+}
+
+function onAppChange(appKey) {
+  currentApp = appKey;
+  const app = APPS[appKey];
+  if (!app.supportedOS.includes(currentOS)) currentOS = app.supportedOS[0];
+  renderAll();
+}
+
+function selectOS(osKey) {
+  const app = APPS[currentApp];
+  if (!app.supportedOS.includes(osKey)) return;
+  currentOS = osKey;
+  renderAll();
+}
+
+function renderOSGrid() {
+  const app = APPS[currentApp];
+  const grid = document.getElementById('osGrid');
+  grid.innerHTML = OS_DEFS.map(os => {
+    const supported = app.supportedOS.includes(os.key);
+    const active = supported && os.key === currentOS;
+    const isNouveau = NOUVEAU_RELEASES[os.key] && isNew(NOUVEAU_RELEASES[os.key].date, NOUVEAU_RELEASES[os.key].days);
+    return `
+    <div class="os-btn-card ${supported ? '' : 'os-btn-disabled'}" style="${active ? 'border-color:var(--green);box-shadow:0 0 24px var(--glow-green,rgba(0,200,150,.15))' : ''}"
+      onclick="selectOS('${os.key}')" title="${supported ? '' : 'Non disponible sur cet OS pour ' + app.name}">
+      ${ICONS[os.icon]}
+      <div style="font-weight:700;font-size:15px;margin-bottom:4px">${os.label}</div>
+      <div style="font-size:12px;color:var(--muted)">${os.sub}</div>
+      ${supported
+        ? (isNouveau ? '<div class="os-badge os-badge-new">Nouveau</div>' : (os.badge ? `<div class="os-badge">${os.badge}</div>` : ''))
+        : `<span class="os-badge os-badge-soon" style="background:rgba(128,128,128,0.2);color:var(--muted)">Non disponible</span>`}
+    </div>`;
+  }).join('') + `
+    <div class="os-btn-card os-btn-disabled" style="border-color:rgba(212,175,55,0.3);background:rgba(212,175,55,0.04)">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" style="margin-bottom:10px;opacity:.7"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12" y2="18" stroke-linecap="round" stroke-width="2.5"/></svg>
+      <div style="font-weight:700;font-size:15px;margin-bottom:4px;color:var(--gold)">Application Mobile</div>
+      <div style="font-size:12px;color:var(--muted)">iOS &amp; Android</div>
+      <div class="os-badge os-badge-soon" style="background:rgba(212,175,55,0.15);color:var(--gold);border-color:rgba(212,175,55,0.3)">Bientôt · Premium</div>
+    </div>`;
+}
+
+function renderHeader() {
+  const app = APPS[currentApp];
+  document.getElementById('pageTitle').textContent = 'Télécharger ' + app.name;
+  document.getElementById('pageLead').innerHTML = app.lead + `<span class="plan-pill ${app.planPillClass}">${app.planPillLabel}</span>`;
+}
+
+function card(html, warn) {
+  return `<div style="background:${warn ? 'rgba(212,175,55,0.06)' : 'var(--card)'};border:1px solid ${warn ? 'rgba(212,175,55,0.25)' : 'var(--border)'};border-radius:12px;padding:40px;text-align:center">${html}</div>`;
+}
+
+function renderZone() {
+  const app = APPS[currentApp];
   const zone = document.getElementById('mainZone');
-  const token = getToken();
-  if (!token) {
-    disableDownloadButtons();
-    zone.innerHTML = `<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:44px;text-align:center">
+  const osLabel = OS_DEFS.find(o => o.key === currentOS)?.label || 'Windows 64-bit';
+
+  if (!auth.loggedIn) {
+    zone.innerHTML = card(`
       <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:18px"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
       <h3 style="margin-bottom:10px;font-size:20px">Connexion requise</h3>
-      <p style="color:var(--muted);font-size:15px;margin-bottom:28px">Vous devez être connecté et avoir un forfait actif pour télécharger AlphaTrade.</p>
+      <p style="color:var(--muted);font-size:15px;margin-bottom:28px">Vous devez être connecté et avoir un forfait actif pour télécharger ${app.name}.</p>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
         <a href="connexion.html" class="btn btn-primary">Se connecter</a>
         <a href="inscription.html" class="btn btn-outline">Créer un compte</a>
-      </div></div>`;
-    renderKB1000Zone('no-token');
-    renderAtGlobalZone('no-token');
+      </div>`);
     return;
   }
-  try {
-    const data = await apiGet('/auth/verify', token);
-    if (data.valid) {
-      userPlanActive = true;
-      const exp = new Date(data.plan.expires_at).toLocaleDateString('fr-FR');
-      zone.innerHTML = `<div class="download-card">
-        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:20px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        <h2>Votre téléchargement est prêt</h2>
-        <p>Forfait <strong>${(data.plan.plan_key||'starter').toUpperCase()}</strong> actif · Valable jusqu'au ${exp}</p>
-        <a id="downloadBtnMain" href="#" class="btn btn-primary btn-lg" onclick="startDownload();return false">${DOWNLOAD_LABEL}</a>
-        <div class="system-req">Windows 10/11 · 64-bit · ~183 MB</div>
-      </div>`;
-      renderKB1000Zone(data.plan.plan_key === 'basique' ? 'basique-active' : 'other-plan', data.plan);
-      renderAtGlobalZone(data.plan.plan_key === 'global' ? 'global-active' : 'other-plan', data.plan);
-    } else {
-      disableDownloadButtons();
-      zone.innerHTML = `<div style="background:rgba(212,175,55,0.06);border:1px solid rgba(212,175,55,0.25);border-radius:12px;padding:36px;text-align:center">
-        <div style="font-size:44px;margin-bottom:16px">⚠️</div>
-        <h3 style="margin-bottom:8px;color:var(--gold)">Forfait expiré</h3>
-        <p style="color:var(--muted);font-size:14px;margin-bottom:22px">Votre abonnement a expiré. Renouvelez pour accéder au téléchargement.</p>
-        <a href="tarifs.html" class="btn btn-primary">Renouveler mon forfait →</a>
-      </div>`;
-      renderKB1000Zone('expired');
-      renderAtGlobalZone('expired');
-    }
-  } catch {
-    disableDownloadButtons();
-    zone.innerHTML = `<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:36px;text-align:center">
-      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-linecap="round" style="margin-bottom:16px"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-      <h3 style="margin-bottom:8px">Forfait requis</h3>
-      <p style="color:var(--muted);font-size:14px;margin-bottom:22px">Activez un forfait pour débloquer le téléchargement.</p>
-      <a href="tarifs.html" class="btn btn-primary">Choisir un forfait →</a>
-    </div>`;
-    renderKB1000Zone('error');
-    renderAtGlobalZone('error');
+
+  if (!auth.active) {
+    zone.innerHTML = card(`
+      <div style="font-size:44px;margin-bottom:16px">⚠️</div>
+      <h3 style="margin-bottom:8px;color:var(--gold)">Forfait expiré</h3>
+      <p style="color:var(--muted);font-size:14px;margin-bottom:22px">Votre abonnement a expiré. Renouvelez pour accéder au téléchargement de ${app.name}.</p>
+      <a href="tarifs.html" class="btn btn-primary">Renouveler mon forfait →</a>`, true);
+    return;
   }
-});
 
-let DOWNLOAD_URL          = 'https://github.com/MyAlphaTrade/alphatrade-releases/releases/latest/download/AlphaTrade-Setup-4.0.2.exe';
-let DOWNLOAD_URL_MAC_INTEL = 'https://github.com/MyAlphaTrade/alphatrade-releases/releases/latest/download/AlphaTrade-4.0.2.dmg';
-let DOWNLOAD_URL_MAC_ARM   = 'https://github.com/MyAlphaTrade/alphatrade-releases/releases/latest/download/AlphaTrade-4.0.2-arm64.dmg';
-let DOWNLOAD_SIZE  = '~183 MB';
-let DOWNLOAD_LABEL = 'Télécharger AlphaTrade';
+  const planOk = app.requiredPlan ? auth.plan_key === app.requiredPlan : (auth.plan_key !== 'basique' && auth.plan_key !== 'global');
+  if (!planOk) {
+    const label = app.planPillLabel.replace('Forfait ', '');
+    zone.innerHTML = card(`
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-linecap="round" style="margin-bottom:16px"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      <h3 style="margin-bottom:8px">Réservé au forfait ${label}</h3>
+      <p style="color:var(--muted);font-size:14px;margin-bottom:22px">${app.name} fait partie du forfait <strong>${label}</strong> — votre forfait actuel (${(auth.plan_key||'—').toUpperCase()}) ne l'inclut pas.</p>
+      <a href="tarifs.html" class="btn btn-primary">Voir le forfait ${label} →</a>`, true);
+    return;
+  }
 
-// Badge "Nouveau" : date de mise en ligne + durée d'affichage
-const NOUVEAU_RELEASES = {
-  'mac-intel': { date: '2026-07-04', days: 30 },
-  'mac-arm':   { date: '2026-07-04', days: 30 },
-};
-
-function isNew(dateStr, days) {
-  return (Date.now() - new Date(dateStr).getTime()) < days * 86400000;
+  const exp = auth.expires_at ? new Date(auth.expires_at).toLocaleDateString('fr-FR') : '—';
+  zone.innerHTML = `<div class="download-card">
+    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:20px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    <h2 id="downloadTitle">Votre téléchargement est prêt</h2>
+    <p>Forfait <strong>${(auth.plan_key||'—').toUpperCase()}</strong> actif · Valable jusqu'au ${exp}</p>
+    <a id="downloadBtnMain" href="#" class="btn btn-primary btn-lg" onclick="startDownload();return false">Télécharger ${app.name}</a>
+    <div class="system-req" id="mainSystemReq">${osLabel} · ${app.size} · Valable jusqu'au ${exp}</div>
+  </div>`;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  Object.entries(NOUVEAU_RELEASES).forEach(([key, { date, days }]) => {
-    if (!isNew(date, days)) {
-      const el = document.getElementById('badge-' + key);
-      if (el) el.style.display = 'none';
-    }
-  });
-});
-
-async function loadReleaseInfo() {
-  try {
-    const res = await fetch('https://api.github.com/repos/MyAlphaTrade/alphatrade-releases/releases/latest');
-    const data = await res.json();
-    const assets = data.assets || [];
-
-    const tag = data.tag_name || '';
-    if (tag) {
-      DOWNLOAD_LABEL = 'Télécharger AlphaTrade ' + tag;
-      const btn = document.getElementById('downloadBtnMain');
-      if (btn) btn.textContent = DOWNLOAD_LABEL;
-    }
-    const exeAsset = assets.find(a => a.name.endsWith('.exe'));
-    if (exeAsset) {
-      DOWNLOAD_URL = exeAsset.browser_download_url;
-      DOWNLOAD_SIZE = Math.round(exeAsset.size / 1024 / 1024) + ' MB';
-      document.querySelectorAll('.system-req').forEach(el => {
-        el.textContent = el.textContent.replace(/~?\d+ MB/, DOWNLOAD_SIZE);
-      });
-    }
-
-    const armAsset = assets.find(a => a.name.endsWith('-arm64.dmg'));
-    if (armAsset) DOWNLOAD_URL_MAC_ARM = armAsset.browser_download_url;
-
-    const intelAsset = assets.find(a => a.name.endsWith('.dmg') && !a.name.endsWith('-arm64.dmg'));
-    if (intelAsset) DOWNLOAD_URL_MAC_INTEL = intelAsset.browser_download_url;
-  } catch {}
+function renderAll() {
+  rebuildAppSelect();
+  renderHeader();
+  renderOSGrid();
+  renderZone();
 }
-loadReleaseInfo();
 
 function startDownload() {
-  notify('Téléchargement en cours...', 'green');
-  window.location.href = DOWNLOAD_URL;
-}
-
-function handleDownload(os) {
-  const token = getToken();
-  if (!token) {
-    notify('Vous devez être connecté pour télécharger.', 'red');
-    setTimeout(() => { window.location.href = 'connexion.html'; }, 1200);
-    return;
-  }
-  if (!userPlanActive) {
-    notify('Forfait actif requis pour télécharger.', 'red');
-    setTimeout(() => { window.location.href = 'tarifs.html'; }, 1500);
-    return;
-  }
-  const urls = {
-    win64:       DOWNLOAD_URL,
-    'mac-intel': DOWNLOAD_URL_MAC_INTEL,
-    'mac-arm':   DOWNLOAD_URL_MAC_ARM,
-  };
-  const labels = {
-    win64:       'Windows 64-bit',
-    'mac-intel': 'Mac Intel',
-    'mac-arm':   'Mac Apple Silicon',
-  };
-  const url = urls[os];
+  const app = APPS[currentApp];
+  const url = app.urls[currentOS];
   if (!url) return;
-  notify('Téléchargement ' + labels[os] + ' en cours...', 'green');
+  const osLabel = OS_DEFS.find(o => o.key === currentOS)?.label || currentOS;
+  notify('Téléchargement ' + app.name + ' (' + osLabel + ') en cours...', 'green');
   setTimeout(() => { window.location.href = url; }, 600);
 }
 
-// ── KB1000 — zone indépendante, réservée au forfait Basique (voir renderKB1000Zone
-// appelé depuis les 4 branches de la vérification de session ci-dessus). N'affecte
-// jamais mainZone/userPlanActive/DOWNLOAD_URL (AlphaTrade) au-dessus. ──────────────
-let DOWNLOAD_URL_KB1000  = 'https://github.com/MyAlphaTrade/kb1000-releases/releases/latest/download/KB1000-Setup-1.0.0.exe';
-let DOWNLOAD_SIZE_KB1000 = '~150 MB';
-let DOWNLOAD_LABEL_KB1000 = 'Télécharger KB1000';
-
-async function loadKB1000ReleaseInfo() {
-  try {
-    const res = await fetch('https://api.github.com/repos/MyAlphaTrade/kb1000-releases/releases/latest');
-    const data = await res.json();
-    const assets = data.assets || [];
-    const tag = data.tag_name || '';
-    if (tag) {
-      DOWNLOAD_LABEL_KB1000 = 'Télécharger KB1000 ' + tag;
-      const btn = document.getElementById('downloadBtnKB1000');
-      if (btn) btn.textContent = DOWNLOAD_LABEL_KB1000;
-    }
-    const exeAsset = assets.find(a => a.name.endsWith('.exe'));
-    if (exeAsset) {
-      DOWNLOAD_URL_KB1000 = exeAsset.browser_download_url;
-      DOWNLOAD_SIZE_KB1000 = Math.round(exeAsset.size / 1024 / 1024) + ' MB';
-      const req = document.getElementById('kb1000-system-req');
-      if (req) req.textContent = req.textContent.replace(/~?\d+ MB/, DOWNLOAD_SIZE_KB1000);
-    }
-  } catch {}
-}
-loadKB1000ReleaseInfo();
-
-function startDownloadKB1000() {
-  notify('Téléchargement KB1000 en cours...', 'green');
-  window.location.href = DOWNLOAD_URL_KB1000;
-}
-
-function renderKB1000Zone(state, plan) {
-  const zone = document.getElementById('kb1000Zone');
-  if (!zone) return;
-  if (state === 'basique-active') {
-    const exp = plan && plan.expires_at ? new Date(plan.expires_at).toLocaleDateString('fr-FR') : '—';
-    zone.innerHTML = `
-      <a id="downloadBtnKB1000" href="#" class="btn btn-primary btn-lg" onclick="startDownloadKB1000();return false">${DOWNLOAD_LABEL_KB1000}</a>
-      <div class="system-req" id="kb1000-system-req" style="margin-top:10px">Windows 10/11 · 64-bit · ${DOWNLOAD_SIZE_KB1000} · Valable jusqu'au ${exp}</div>`;
-    return;
-  }
-  const messages = {
-    'no-token':    { title: 'Connexion requise', text: 'Connectez-vous avec un compte Basique actif pour télécharger KB1000.', cta: 'Se connecter', href: 'connexion.html' },
-    'other-plan':  { title: 'Réservé au forfait Basique', text: 'KB1000 fait partie du forfait Basique — votre forfait actuel ne l\'inclut pas.', cta: 'Voir le forfait Basique →', href: 'tarifs.html' },
-    'expired':     { title: 'Forfait Basique requis', text: 'Votre forfait est expiré ou inactif. Activez le forfait Basique pour télécharger KB1000.', cta: 'Choisir le forfait Basique →', href: 'tarifs.html' },
-    'error':       { title: 'Forfait Basique requis', text: 'Activez le forfait Basique pour débloquer le téléchargement de KB1000.', cta: 'Choisir le forfait Basique →', href: 'tarifs.html' },
-  };
-  const m = messages[state] || messages.error;
-  zone.innerHTML = `
-    <h4 style="font-size:14px;font-weight:700;margin:0 0 6px">${m.title}</h4>
-    <p style="color:var(--muted);font-size:13px;margin-bottom:16px">${m.text}</p>
-    <a href="${m.href}" class="btn btn-outline">${m.cta}</a>`;
-}
-
-// ── AlphaTrade Global — zone indépendante, réservée au forfait Global (voir
-// renderAtGlobalZone appelé depuis les 4 branches de la vérification de session
-// ci-dessus). N'affecte jamais mainZone/kb1000Zone. Contrairement à KB1000, la
-// carte entière reste masquée (display:none, voir #atglobalCard) tant que le
-// forfait "global" n'est pas marqué disponible depuis l'Admin (Forfaits) --
-// c'est le même interrupteur qui contrôle déjà la carte tarifaire sur
-// tarifs.html (05/08/2026, demande explicite de Louis : le téléchargement ne
-// doit être possible que dans cette zone, une fois réellement déployé). ──────
-const ATGLOBAL_VERSION = '1.0.0';
-let DOWNLOAD_URL_ATGLOBAL  = 'https://github.com/MyAlphaTrade/alphatrade-global-releases/releases/latest/download/AlphaTrade-Global-Setup-1.0.0.exe';
-let DOWNLOAD_SIZE_ATGLOBAL = '~150 MB';
-let DOWNLOAD_LABEL_ATGLOBAL = 'Télécharger AlphaTrade Global';
-let atGlobalAvailable = false;
-
-async function checkAtGlobalAvailability() {
+// ── Disponibilité réelle du forfait Global (même interrupteur Admin que tarifs.html) ──
+async function checkGlobalAvailability() {
   try {
     const r = await fetch(`${API}/public/forfaits`, { signal: AbortSignal.timeout(5000) });
     if (r.ok) {
       const d = await r.json();
       const f = d.forfaits && d.forfaits.global;
-      atGlobalAvailable = !!(f && f.available !== false);
+      globalAvailable = !!(f && f.available !== false);
     }
   } catch (_) {}
-  const card = document.getElementById('atglobalCard');
-  if (card) card.style.display = atGlobalAvailable ? '' : 'none';
 }
 
-async function loadAtGlobalReleaseInfo() {
+// ── Récupération réelle de la dernière release GitHub, par app ──
+async function loadReleaseInfo(app) {
   try {
-    const res = await fetch('https://api.github.com/repos/MyAlphaTrade/alphatrade-global-releases/releases/latest');
+    const res = await fetch(`https://api.github.com/repos/MyAlphaTrade/${app.repo}/releases/latest`);
     if (!res.ok) return;
     const data = await res.json();
     const assets = data.assets || [];
     const tag = data.tag_name || '';
-    if (tag) {
-      DOWNLOAD_LABEL_ATGLOBAL = 'Télécharger AlphaTrade Global ' + tag;
-      const btn = document.getElementById('downloadBtnATGlobal');
-      if (btn) btn.textContent = DOWNLOAD_LABEL_ATGLOBAL;
-      const badge = document.getElementById('atglobalVersionBadge');
-      if (badge) badge.textContent = tag;
+    if (tag) app.tag = tag;
+
+    if (app.key === 'alphatrade') {
+      const exeAsset = assets.find(a => a.name.endsWith('.exe'));
+      if (exeAsset) { app.urls.win64 = exeAsset.browser_download_url; app.size = Math.round(exeAsset.size / 1024 / 1024) + ' MB'; }
+      const armAsset = assets.find(a => a.name.endsWith('-arm64.dmg'));
+      if (armAsset) app.urls['mac-arm'] = armAsset.browser_download_url;
+      const intelAsset = assets.find(a => a.name.endsWith('.dmg') && !a.name.endsWith('-arm64.dmg'));
+      if (intelAsset) app.urls['mac-intel'] = intelAsset.browser_download_url;
+    } else {
+      const exeAsset = assets.find(a => a.name.endsWith('.exe'));
+      if (exeAsset) { app.urls.win64 = exeAsset.browser_download_url; app.size = Math.round(exeAsset.size / 1024 / 1024) + ' MB'; }
     }
-    const exeAsset = assets.find(a => a.name.endsWith('.exe'));
-    if (exeAsset) {
-      DOWNLOAD_URL_ATGLOBAL = exeAsset.browser_download_url;
-      DOWNLOAD_SIZE_ATGLOBAL = Math.round(exeAsset.size / 1024 / 1024) + ' MB';
-      const req = document.getElementById('atglobal-system-req');
-      if (req) req.textContent = req.textContent.replace(/~?\d+ MB/, DOWNLOAD_SIZE_ATGLOBAL);
-    }
+    if (app.key === currentApp) renderZone(); // met à jour la taille/tag affichés si l'app est déjà à l'écran
   } catch (_) {}
 }
 
-function startDownloadATGlobal() {
-  notify('Téléchargement AlphaTrade Global en cours...', 'green');
-  window.location.href = DOWNLOAD_URL_ATGLOBAL;
-}
-
-function renderAtGlobalZone(state, plan) {
-  const zone = document.getElementById('atglobalZone');
-  if (!zone) return;
-  const badge = document.getElementById('atglobalVersionBadge');
-  if (badge && !badge.textContent) badge.textContent = 'v' + ATGLOBAL_VERSION;
-  if (state === 'global-active') {
-    const exp = plan && plan.expires_at ? new Date(plan.expires_at).toLocaleDateString('fr-FR') : '—';
-    zone.innerHTML = `
-      <a id="downloadBtnATGlobal" href="#" class="btn btn-primary btn-lg" onclick="startDownloadATGlobal();return false">${DOWNLOAD_LABEL_ATGLOBAL}</a>
-      <div class="system-req" id="atglobal-system-req" style="margin-top:10px">Windows 10/11 · 64-bit · ${DOWNLOAD_SIZE_ATGLOBAL} · Valable jusqu'au ${exp}</div>`;
+async function checkAuthAndRender() {
+  const token = getToken();
+  if (!token) {
+    auth = { checked: true, loggedIn: false, active: false, plan_key: null, expires_at: null };
+    renderAll();
     return;
   }
-  const messages = {
-    'no-token':    { title: 'Connexion requise', text: 'Connectez-vous avec un compte Global actif pour télécharger AlphaTrade Global.', cta: 'Se connecter', href: 'connexion.html' },
-    'other-plan':  { title: 'Réservé au forfait Global', text: 'AlphaTrade Global fait partie du forfait Global — votre forfait actuel ne l\'inclut pas.', cta: 'Voir le forfait Global →', href: 'tarifs.html' },
-    'expired':     { title: 'Forfait Global requis', text: 'Votre forfait est expiré ou inactif. Activez le forfait Global pour télécharger AlphaTrade Global.', cta: 'Choisir le forfait Global →', href: 'tarifs.html' },
-    'error':       { title: 'Forfait Global requis', text: 'Activez le forfait Global pour débloquer le téléchargement.', cta: 'Choisir le forfait Global →', href: 'tarifs.html' },
-  };
-  const m = messages[state] || messages.error;
-  zone.innerHTML = `
-    <h4 style="font-size:14px;font-weight:700;margin:0 0 6px">${m.title}</h4>
-    <p style="color:var(--muted);font-size:13px;margin-bottom:16px">${m.text}</p>
-    <a href="${m.href}" class="btn btn-outline">${m.cta}</a>`;
+  try {
+    const data = await apiGet('/auth/verify', token);
+    if (data.valid) {
+      auth = { checked: true, loggedIn: true, active: true, plan_key: data.plan.plan_key || 'starter', expires_at: data.plan.expires_at };
+      // Présélectionne l'app correspondant au forfait réel du client, plutôt
+      // que de toujours partir sur AlphaTrade et lui montrer "réservé à X".
+      if (auth.plan_key === 'basique') currentApp = 'kb1000';
+      else if (auth.plan_key === 'global' && globalAvailable) currentApp = 'global';
+    } else {
+      auth = { checked: true, loggedIn: true, active: false, plan_key: null, expires_at: null };
+    }
+  } catch {
+    auth = { checked: true, loggedIn: true, active: false, plan_key: null, expires_at: null };
+  }
+  renderAll();
 }
 
-checkAtGlobalAvailability();
-loadAtGlobalReleaseInfo();
-
+(async function init() {
+  await checkGlobalAvailability();
+  renderAll(); // premier rendu immédiat (état "non connecté" par défaut) pendant que l'auth se vérifie
+  Object.values(APPS).forEach(loadReleaseInfo); // récupération des vraies releases en arrière-plan
+  await checkAuthAndRender();
+})();
 </script>
 <script src="js/nav.js"></script>
 <script src="js/bg.js"></script>
 </body>
 </html>
-
