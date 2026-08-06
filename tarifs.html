@@ -240,9 +240,13 @@ function applyForfaitsToPage() {
     const available = f.available !== false;
     const features = f.features || [];
     const price = billing === 'weekly' ? f.price_weekly : f.price_monthly;
+    // 05/08/2026 -- couleur de badge choisissable depuis l'Admin (demande de
+    // Louis) -- sans badge_color défini, comportement d'origine inchangé
+    // (dégradé vert fixe, voir .pricing-badge dans style.css).
+    const badgeColorStyle = f.badge_color ? ` style="background:${escapeHtml(f.badge_color)}"` : '';
     const badgeHtml = !available
       ? `<div class="pricing-badge unavailable-badge">BIENTÔT DISPONIBLE</div>`
-      : (f.badge ? `<div class="pricing-badge">${escapeHtml(f.badge)}</div>` : '');
+      : (f.badge ? `<div class="pricing-badge"${badgeColorStyle}>${escapeHtml(f.badge)}</div>` : '');
     const featuresHtml = features.map(feat =>
       `<li class="${feat.active ? 'active' : ''}"><span class="${feat.active ? 'check' : 'cross'}">${feat.active ? '✓' : '✗'}</span> ${escapeHtml(feat.text)}</li>`
     ).join('');
