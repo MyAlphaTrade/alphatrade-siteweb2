@@ -284,10 +284,14 @@ function renderPlan(p) {
     document.getElementById('statExpires').textContent = exp.toLocaleDateString('fr-FR');
     // AlphaTrade Global est un produit à part : ses clients ne voient pas le
     // téléchargement AlphaTrade Gold générique, seulement leur section dédiée.
-    document.getElementById('downloadSection').style.display = key === 'global' ? 'none' : 'block';
+    // 06/08/2026 -- un admin (p.is_admin) doit voir TOUTES les sections,
+    // quel que soit son plan_key littéral en base (même bug que déjà noté
+    // pour applyPlanParamsToEngine, ici côté site : les verrous de forfait
+    // ne doivent jamais s'appliquer à un compte admin).
+    document.getElementById('downloadSection').style.display = (key === 'global' && !p.is_admin) ? 'none' : 'block';
     document.getElementById('downloadLocked').style.display  = 'none';
-    document.getElementById('downloadSectionKB1000').style.display = key === 'basique' ? 'block' : 'none';
-    document.getElementById('downloadSectionATGlobal').style.display = key === 'global' ? 'block' : 'none';
+    document.getElementById('downloadSectionKB1000').style.display = (key === 'basique' || p.is_admin) ? 'block' : 'none';
+    document.getElementById('downloadSectionATGlobal').style.display = (key === 'global' || p.is_admin) ? 'block' : 'none';
     const b = document.getElementById('planBanner');
     b.style.display = 'block';
     b.style.background = 'rgba(0,200,150,0.06)';

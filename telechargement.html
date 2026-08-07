@@ -299,10 +299,13 @@ function isNew(dateStr, days) { return (Date.now() - new Date(dateStr).getTime()
 let currentApp = 'alphatrade';
 let currentOS = 'win64';
 let globalAvailable = false;
-let auth = { checked: false, loggedIn: false, active: false, plan_key: null, expires_at: null };
+let auth = { checked: false, loggedIn: false, active: false, plan_key: null, expires_at: null, is_admin: false };
 
 function appOptionsHtml() {
-  const keys = ['alphatrade', 'kb1000'].concat(globalAvailable ? ['global'] : []);
+  // 06/08/2026 -- un admin voit "Global" dans le selecteur meme si
+  // l'interrupteur "disponible publiquement" est encore a false (il doit
+  // pouvoir tester/telecharger avant la sortie publique).
+  const keys = ['alphatrade', 'kb1000'].concat((globalAvailable || auth.is_admin) ? ['global'] : []);
   return keys.map(k => `<option value="${k}" ${k === currentApp ? 'selected' : ''}>${APPS[k].name}</option>`).join('');
 }
 
@@ -388,7 +391,10 @@ function renderZone() {
     return;
   }
 
-  const planOk = app.requiredPlan ? auth.plan_key === app.requiredPlan : (auth.plan_key !== 'basique' && auth.plan_key !== 'global');
+  // 06/08/2026 -- un admin (auth.is_admin) doit pouvoir tout telecharger,
+  // quel que soit son plan_key litteral en base (meme bug que deja note
+  // pour applyPlanParamsToEngine, ici cote site).
+  const planOk = auth.is_admin || (app.requiredPlan ? auth.plan_key === app.requiredPlan : (auth.plan_key !== 'basique' && auth.plan_key !== 'global'));
   if (!planOk) {
     const label = app.planPillLabel.replace('Forfait ', '');
     zone.innerHTML = card(`
@@ -465,23 +471,23 @@ async function loadReleaseInfo(app) {
 async function checkAuthAndRender() {
   const token = getToken();
   if (!token) {
-    auth = { checked: true, loggedIn: false, active: false, plan_key: null, expires_at: null };
+    auth = { checked: true, loggedIn: false, active: false, plan_key: null, expires_at: null, is_admin: false };
     renderAll();
     return;
   }
   try {
     const data = await apiGet('/auth/verify', token);
     if (data.valid) {
-      auth = { checked: true, loggedIn: true, active: true, plan_key: data.plan.plan_key || 'starter', expires_at: data.plan.expires_at };
+      auth = { checked: true, loggedIn: true, active: true, plan_key: data.plan.plan_key || 'starter', expires_at: data.plan.expires_at, is_admin: !!data.plan.is_admin };
       // Présélectionne l'app correspondant au forfait réel du client, plutôt
       // que de toujours partir sur AlphaTrade et lui montrer "réservé à X".
       if (auth.plan_key === 'basique') currentApp = 'kb1000';
       else if (auth.plan_key === 'global' && globalAvailable) currentApp = 'global';
     } else {
-      auth = { checked: true, loggedIn: true, active: false, plan_key: null, expires_at: null };
+      auth = { checked: true, loggedIn: true, active: false, plan_key: null, expires_at: null, is_admin: false };
     }
   } catch {
-    auth = { checked: true, loggedIn: true, active: false, plan_key: null, expires_at: null };
+    auth = { checked: true, loggedIn: true, active: false, plan_key: null, expires_at: null, is_admin: false };
   }
   renderAll();
 }
