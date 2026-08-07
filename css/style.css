@@ -318,8 +318,15 @@ section[id] { scroll-margin-top: 84px; }
   box-shadow: 0 0 40px rgba(0,200,150,0.1);
 }
 .pricing-card.has-badge {
-  border-color: var(--green); background: linear-gradient(135deg, #111a13, #0d1f10);
-  box-shadow: 0 0 40px rgba(0,200,150,0.1);
+  /* 07/08/2026 (demande de Louis) : la couleur de badge choisie dans
+     l'Admin doit teinter TOUTE la carte (bordure, fond, lueur), pas
+     seulement le badge lui-même. --card-accent défaut = vert (comportement
+     d'origine inchangé) ; surchargé en inline style uniquement quand un
+     badge_color explicite existe (voir applyForfaitsToPage() dans tarifs.html). */
+  --card-accent: var(--green);
+  border-color: var(--card-accent);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--card-accent) 14%, #0b0f0d), color-mix(in srgb, var(--card-accent) 9%, #0a0d0b));
+  box-shadow: 0 0 40px color-mix(in srgb, var(--card-accent) 22%, transparent);
 }
 .pricing-card.unavailable { opacity: .55; filter: grayscale(.5); }
 .pricing-card.unavailable .plan-price { color: var(--muted); font-size: clamp(20px,2.2vw,28px); }
@@ -898,7 +905,7 @@ section[id] { scroll-margin-top: 84px; }
   color: #07100b; padding: 5px 18px; border-radius: 20px;
   font-size: 12px; font-weight: 800; white-space: nowrap; letter-spacing: .5px;
 }
-.plan-name { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 10px; }
+.plan-name { font-size: 22px; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; color: var(--text); margin-bottom: 10px; }
 .plan-price { font-size: clamp(36px, 4vw, 52px); font-weight: 900; line-height: 1; margin-bottom: 4px; color: var(--green); }
 .plan-price span { font-size: 16px; font-weight: 500; color: var(--muted); }
 .plan-period { font-size: 13px; color: var(--muted); margin-bottom: 20px; }

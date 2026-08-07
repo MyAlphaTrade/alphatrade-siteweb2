@@ -406,12 +406,17 @@ function renderZone() {
   }
 
   const exp = auth.expires_at ? new Date(auth.expires_at).toLocaleDateString('fr-FR') : '—';
+  // 07/08/2026 (demande de Louis) : la version reelle (tag GitHub de la
+  // derniere release, deja recuperee par loadReleaseInfo() mais jamais
+  // affichee) doit apparaitre a l'ecran -- normalise un "v" prefixe unique
+  // quel que soit le format du tag ("1.1.5" ou "v1.1.5").
+  const versionLabel = app.tag ? `v${String(app.tag).replace(/^v/i, '')}` : null;
   zone.innerHTML = `<div class="download-card">
     <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:20px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
     <h2 id="downloadTitle">Votre téléchargement est prêt</h2>
     <p>Forfait <strong>${(auth.plan_key||'—').toUpperCase()}</strong> actif · Valable jusqu'au ${exp}</p>
     <a id="downloadBtnMain" href="#" class="btn btn-primary btn-lg" onclick="startDownload();return false">Télécharger ${app.name}</a>
-    <div class="system-req" id="mainSystemReq">${osLabel} · ${app.size} · Valable jusqu'au ${exp}</div>
+    <div class="system-req" id="mainSystemReq">${osLabel}${versionLabel ? ' · ' + versionLabel : ''} · ${app.size} · Valable jusqu'au ${exp}</div>
   </div>`;
 }
 

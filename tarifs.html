@@ -247,6 +247,11 @@ function applyForfaitsToPage() {
     const badgeHtml = !available
       ? `<div class="pricing-badge unavailable-badge">BIENTÔT DISPONIBLE</div>`
       : (f.badge ? `<div class="pricing-badge"${badgeColorStyle}>${escapeHtml(f.badge)}</div>` : '');
+    // 07/08/2026 (demande de Louis) : la couleur choisie ne doit plus
+    // teinter QUE le badge -- toute la carte (bordure, fond, lueur derrière)
+    // doit suivre, via la variable CSS --card-accent (voir .pricing-card.has-badge
+    // dans style.css). Sans badge_color, comportement d'origine inchangé (vert).
+    const cardAccentStyle = f.badge_color ? ` style="--card-accent:${escapeHtml(f.badge_color)}"` : '';
     const featuresHtml = features.map(feat =>
       `<li class="${feat.active ? 'active' : ''}"><span class="${feat.active ? 'check' : 'cross'}">${feat.active ? '✓' : '✗'}</span> ${escapeHtml(feat.text)}</li>`
     ).join('');
@@ -254,7 +259,7 @@ function applyForfaitsToPage() {
       ? `<a href="#" class="btn btn-outline btn-full" onclick="choosePlan('${key}')">Choisir ${escapeHtml(f.name)}</a>`
       : `<span class="btn-disabled">Bientôt disponible</span>`;
     return `
-      <div class="pricing-card ${available ? '' : 'unavailable'} ${available && f.badge ? 'has-badge' : ''}" data-plan="${key}">
+      <div class="pricing-card ${available ? '' : 'unavailable'} ${available && f.badge ? 'has-badge' : ''}" data-plan="${key}"${available && f.badge ? cardAccentStyle : ''}>
         ${badgeHtml}
         <div class="plan-name">${escapeHtml(f.name)}</div>
         <div class="plan-price">${available ? formatPrice(price, billing) : 'Indisponible'}</div>
